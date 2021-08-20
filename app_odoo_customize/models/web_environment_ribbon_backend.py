@@ -2,10 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
-
+from distutils.util import strtobool
 
 class WebEnvironmentRibbonBackend(models.AbstractModel):
-
     _name = "web.environment.ribbon.backend"
     _description = "Web Environment Ribbon Backend"
 
@@ -26,6 +25,9 @@ class WebEnvironmentRibbonBackend(models.AbstractModel):
         :return: dictionary
         """
         ir_config_model = self.env["ir.config_parameter"]
+        app_ribbon_show = strtobool(ir_config_model.sudo().get_param("app_ribbon_show", "False")) or False
+        if not app_ribbon_show:
+            return {"name": False}  # 不显示ribbon
         name = self._prepare_ribbon_name()
         return {
             "name": name,

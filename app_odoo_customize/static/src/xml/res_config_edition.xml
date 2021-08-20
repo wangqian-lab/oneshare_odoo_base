@@ -3,8 +3,13 @@
     <t t-extend="res_config_edition">
         <t t-jquery=".user-heading h3" t-operation="replace">
             <h3>
-                odooApp <t t-esc="widget.server_version"/> (Sunpop.cn Professional Edition)
+                Oneshare MOM <t t-esc="widget.server_version"/> (OneShare)
             </h3>
+        </t>
+        <t t-jquery=".o_web_settings_compact_subtitle div" t-operation="replace">
+            <div role="tabpanel" id="settings" class="tab-pane active text-muted o_web_settings_compact_subtitle">
+                <small>Copyright © 2021 <a target="_blank" href="https://www.oneshare.com.cn" style="text-decoration: underline;">Oneshare Co. Ltd.</a></small>
+            </div>
         </t>
     </t>
 </templates>

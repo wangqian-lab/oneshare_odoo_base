@@ -24,9 +24,10 @@
 
 <odoo noupdate="1">
 
-	<record id="base.main_company" model="res.company">
-		<field name="background_image" type="base64" file="muk_web_theme/static/src/img/background.png" />
+    <record id="base.main_company" model="res.company">
+        <field name="background_image" type="base64" file="muk_web_theme/static/src/img/background.png"/>
+        <field name="favicon" type="base64" file="muk_web_theme/static/src/img/favicon.ico"/>
     </record>
-	
+
 </odoo>
 

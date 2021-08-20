@@ -11,11 +11,11 @@ odoo.define('app_odoo_customize.UserMenu', function (require) {
 
     var UserMenu = require('web.UserMenu');
     //避免错误，要再定义
-    var documentation_url = 'https://www.sunpop.cn';
-    var documentation_dev_url = 'https://www.sunpop.cn';
-    var support_url = 'https://www.sunpop.cn';
+    var documentation_url = 'https://www.oneshare.com.cn';
+    var documentation_dev_url = 'https://www.oneshare.com.cn';
+    var support_url = 'https://www.oneshare.com.cn';
     var account_title = 'My Account';
-    var account_url = 'https://www.sunpop.cn';
+    var account_url = 'https://www.oneshare.com.cn';
 
     UserMenu.include({
         init: function () {
@@ -72,27 +72,27 @@ odoo.define('app_odoo_customize.UserMenu', function (require) {
                     }
                     //注意， odoo12，主用户id=2, 加了个 __system__
                     if (session.user_context.uid > 2 || (val.key == 'app_show_debug' && val.value == "False")) {
-                        $('[data-menu="debug"]').hide();
-                        $('[data-menu="debugassets"]').hide();
-                        $('[data-menu="quitdebug"]').hide();
+                        self.$('[data-menu="debug"]').hide();
+                        self.$('[data-menu="debugassets"]').hide();
+                        self.$('[data-menu="quitdebug"]').hide();
                     }
-                    if (val.key == 'app_show_documentation' && val.value == "False") {
-                        $('[data-menu="documentation"]').hide();
+                    if (val.key == 'app_show_documentation' && val.value == 'False') {
+                        self.$('[data-menu="documentation"]').hide();
                     }
-                    if (val.key == 'app_show_documentation_dev' && val.value == "False") {
-                        $('[data-menu="documentation_dev"]').hide();
+                    if (val.key == 'app_show_documentation_dev' && val.value == 'False') {
+                        self.$('[data-menu="documentation_dev"]').hide();
                     }
-                    if (val.key == 'app_show_support' && val.value == "False") {
-                        $('[data-menu="support"]').hide();
+                    if (val.key == 'app_show_support' && val.value == 'False') {
+                        self.$('[data-menu="support"]').hide();
                     }
-                    if (val.key == 'app_show_account' && val.value == "False") {
-                        $('[data-menu="account"]').hide();
+                    if (val.key == 'app_show_account' && val.value == 'False') {
+                        self.$('[data-menu="account"]').hide();
                     }
-                    if (val.key == 'app_account_title' && val.value) {
-                        $('[data-menu="account"]').html(account_title);
+                    if (val.key == 'app_account_title' && !!val.value) {
+                        self.$('[data-menu="account"]').html(account_title);
                     }
-                    if (val.key == 'app_show_poweredby' && val.value == "False") {
-                        $('.o_sub_menu_footer').hide();
+                    if (val.key == 'app_show_poweredby' && val.value == 'False') {
+                        self.$('.o_sub_menu_footer').hide();
                     }
                 });
             })
