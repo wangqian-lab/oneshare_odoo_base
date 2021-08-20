@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-
+from distutils.util import strtobool
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 
@@ -33,33 +33,35 @@ class ResConfigSettings(models.TransientModel):
     app_account_title = fields.Char('My Odoo.com Account Title')
     app_account_url = fields.Char('My Odoo.com Account Url')
     app_enterprise_url = fields.Char('Customize Module Url(eg. Enterprise)')
+    app_ribbon_show = fields.Boolean('Enable Show Ribbon')
     app_ribbon_name = fields.Char('Show Demo Ribbon')
 
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
         ir_config = self.env['ir.config_parameter'].sudo()
-        app_system_name = ir_config.get_param('app_system_name', default='odooApp')
+        app_system_name = ir_config.get_param('app_system_name', default='Onesphere - Open Source MOM')
 
-        app_show_lang = True if ir_config.get_param('app_show_lang') == "True" else False
-        app_show_debug = True if ir_config.get_param('app_show_debug') == "True" else False
-        app_show_documentation = True if ir_config.get_param('app_show_documentation') == "True" else False
-        app_show_documentation_dev = True if ir_config.get_param('app_show_documentation_dev') == "True" else False
-        app_show_support = True if ir_config.get_param('app_show_support') == "True" else False
-        app_show_account = True if ir_config.get_param('app_show_account') == "True" else False
-        app_show_enterprise = True if ir_config.get_param('app_show_enterprise') == "True" else False
-        app_show_share = True if ir_config.get_param('app_show_share') == "True" else False
-        app_show_poweredby = True if ir_config.get_param('app_show_poweredby') == "True" else False
+        app_show_lang = strtobool(ir_config.get_param('app_show_lang', default="True"))
+        app_show_debug = strtobool(ir_config.get_param('app_show_debug', default="False"))
+        app_show_documentation = strtobool(ir_config.get_param('app_show_documentation', default="False"))
+        app_show_documentation_dev = strtobool(ir_config.get_param('app_show_documentation_dev', default="False"))
+        app_show_support = strtobool(ir_config.get_param('app_show_support', default="False"))
+        app_show_account = strtobool(ir_config.get_param('app_show_account', default="False"))
+        app_show_enterprise = strtobool(ir_config.get_param('app_show_enterprise', default="False"))
+        app_show_share = strtobool(ir_config.get_param('app_show_share', default="False"))
+        app_show_poweredby = strtobool(ir_config.get_param('app_show_poweredby', default="False"))
 
         app_documentation_url = ir_config.get_param('app_documentation_url',
-                                                    default='https://www.sunpop.cn/documentation/user/12.0/en/index.html')
+                                                    default='https://www.oneshare.com.cn/documentation/user/14.0/en/index.html')
         app_documentation_dev_url = ir_config.get_param('app_documentation_dev_url',
-                                                        default='https://www.sunpop.cn/documentation/12.0/index.html')
-        app_support_url = ir_config.get_param('app_support_url', default='https://www.sunpop.cn/trial/')
+                                                        default='https://www.oneshare.com.cn/documentation/14.0/index.html')
+        app_support_url = ir_config.get_param('app_support_url', default='https://www.oneshare.com.cn/trial/')
         app_account_title = ir_config.get_param('app_account_title', default='My Online Account')
-        app_account_url = ir_config.get_param('app_account_url', default='https://www.sunpop.cn/my-account/')
-        app_enterprise_url = ir_config.get_param('app_enterprise_url', default='https://www.sunpop.cn')
-        app_ribbon_name = ir_config.get_param('app_ribbon_name', default='*Sunpop.cn')
+        app_account_url = ir_config.get_param('app_account_url', default='https://www.oneshare.com.cn/my-account/')
+        app_enterprise_url = ir_config.get_param('app_enterprise_url', default='https://www.oneshare.com.cn')
+        app_ribbon_show = strtobool(ir_config.get_param('app_ribbon_show', default="False"))
+        app_ribbon_name = ir_config.get_param('app_ribbon_name', default='*Oneshare.com.cn')
         res.update(
             app_system_name=app_system_name,
             app_show_lang=app_show_lang,
@@ -78,6 +80,7 @@ class ResConfigSettings(models.TransientModel):
             app_account_title=app_account_title,
             app_account_url=app_account_url,
             app_enterprise_url=app_enterprise_url,
+            app_ribbon_show=app_ribbon_show,
             app_ribbon_name=app_ribbon_name
         )
         return res
@@ -86,25 +89,26 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         ir_config = self.env['ir.config_parameter'].sudo()
         ir_config.set_param("app_system_name", self.app_system_name or "")
-        ir_config.set_param("app_show_lang", self.app_show_lang or "False")
-        ir_config.set_param("app_show_debug", self.app_show_debug or "False")
-        ir_config.set_param("app_show_documentation", self.app_show_documentation or "False")
+        ir_config.set_param("app_show_lang", str(self.app_show_lang) or "False")
+        ir_config.set_param("app_show_debug", str(self.app_show_debug) or "False")
+        ir_config.set_param("app_show_documentation", str(self.app_show_documentation) or "False")
         ir_config.set_param("app_show_documentation_dev", self.app_show_documentation_dev or "False")
-        ir_config.set_param("app_show_support", self.app_show_support or "False")
-        ir_config.set_param("app_show_account", self.app_show_account or "False")
-        ir_config.set_param("app_show_enterprise", self.app_show_enterprise or "False")
-        ir_config.set_param("app_show_share", self.app_show_share or "False")
-        ir_config.set_param("app_show_poweredby", self.app_show_poweredby or "False")
+        ir_config.set_param("app_show_support", str(self.app_show_support) or "False")
+        ir_config.set_param("app_show_account", str(self.app_show_account) or "False")
+        ir_config.set_param("app_show_enterprise", str(self.app_show_enterprise) or "False")
+        ir_config.set_param("app_show_share", str(self.app_show_share) or "False")
+        ir_config.set_param("app_show_poweredby", str(self.app_show_poweredby) or "False")
 
         ir_config.set_param("app_documentation_url",
-                            self.app_documentation_url or "https://www.sunpop.cn/documentation/user/12.0/en/index.html")
+                            self.app_documentation_url or "https://www.oneshare.com.cn/documentation/user/14.0/en/index.html")
         ir_config.set_param("app_documentation_dev_url",
-                            self.app_documentation_dev_url or "https://www.sunpop.cn/documentation/12.0/index.html")
-        ir_config.set_param("app_support_url", self.app_support_url or "https://www.sunpop.cn/trial/")
+                            self.app_documentation_dev_url or "https://www.oneshare.com.cn/documentation/14.0/index.html")
+        ir_config.set_param("app_support_url", self.app_support_url or "https://www.oneshare.com.cn/trial/")
         ir_config.set_param("app_account_title", self.app_account_title or "My Online Account")
-        ir_config.set_param("app_account_url", self.app_account_url or "https://www.sunpop.cn/my-account/")
-        ir_config.set_param("app_enterprise_url", self.app_enterprise_url or "https://www.sunpop.cn")
-        ir_config.set_param("app_ribbon_name", self.app_ribbon_name or "*Sunpop.cn")
+        ir_config.set_param("app_account_url", self.app_account_url or "https://www.oneshare.com.cn/my-account/")
+        ir_config.set_param("app_enterprise_url", self.app_enterprise_url or "https://www.oneshare.com.cn")
+        ir_config.set_param("app_ribbon_show", str(self.app_ribbon_show) or "False")
+        ir_config.set_param("app_ribbon_name", self.app_ribbon_name or "*oneshare.com.cn")
 
     def set_module_url(self):
         sql = "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''" % (self.app_enterprise_url, 'OEEL%')
