@@ -35,7 +35,6 @@
     'license': 'LGPL-3',
     'category': 'Tools',
     'version': '14.0.1.0.3',
-    'images': ['static/description/main.jpg'],
     'depends': ['base'],
 
     'data': [
