@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from . import http
 from . import db
 from . import model
 from . import models
+from . import controller
 from odoo import tools
 from odoo.models import SUPERUSER_ID, api
 import os
