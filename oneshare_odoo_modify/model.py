@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, api
+import odoo
 from odoo.tools.sql import _schema, table_exists
+from distutils.util import strtobool
+import os
 import logging
 
 _logger = logging.getLogger(__name__)
 
+ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
+
 
 class OneshareHyperModel(models.AbstractModel):
-    _is_hypered = False
     _hyper = True
     _log_access = False
     _hyper_field = 'time'
@@ -37,7 +41,8 @@ class OneshareHyperModel(models.AbstractModel):
 
     def _execute_sql(self):
         super(OneshareHyperModel, self)._execute_sql()
-        self._execute_hyper_sql()
+        if ENV_TIMESCALE_ENABLE:
+            self._execute_hyper_sql()
 
     def _execute_hyper_sql(self):
         self._cr.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE")
@@ -48,7 +53,6 @@ class OneshareHyperModel(models.AbstractModel):
             self._table, self._hyper_field, self._hyper_interval,)
         self._cr.execute(cmd)
         _logger.info("HypterTable '%s': created", self._table)
-        self._is_hypered = True
 
     def _add_dimensions(self):
         """
@@ -81,5 +85,9 @@ class OneshareHyperModel(models.AbstractModel):
         # must_create_table = not table_exists(self._cr, self._table)
         super(OneshareHyperModel, self)._add_sql_constraints()
         self._cr.commit()
-        self._execute_hyper_sql()  # 先执行sql保证其变为hyper table
-        self._add_dimensions()
+        if ENV_TIMESCALE_ENABLE:
+            self._execute_hyper_sql()  # 先执行sql保证其变为hyper table
+            self._add_dimensions()
+
+
+odoo.models.OneshareHyperModel = OneshareHyperModel
