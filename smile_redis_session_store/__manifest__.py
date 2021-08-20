@@ -15,7 +15,7 @@
     "summary": "",
     "website": "",
     "category": 'Tools',
-    "auto_install": False,
+    "auto_install": True,
     "installable": True,
     "application": False,
     "external_dependencies": {
