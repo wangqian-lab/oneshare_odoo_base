@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from . import db
+from . import model
 from . import models
 from odoo import tools
 from odoo.models import SUPERUSER_ID, api
