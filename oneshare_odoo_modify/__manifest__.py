@@ -3,21 +3,20 @@
     'name': "oneshare_odoo_modify",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        上海文享信息科技有限公司odoo官方基础扩展模块""",
 
     'description': """
-        Long description of module's purpose
+        1. 增加TIMESCALEDB数据库支持
+        2. 增加了新的模型hyperModel,支持时序数据
+        3. 增加了新的http route type: apijson, 并提供bearer token的认证支持
     """,
 
     'author': "Oneshare",
-    'website': "http://www.yourcompany.com",
+    'website': "http://www.oneshare.com.cn",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
+
     'category': 'Base',
-    'version': '0.1',
+    'version': '14.0.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base'],
