@@ -74,7 +74,10 @@ class ApiJsonRequest(WebRequest):
 
         # Read POST content or POST Form Data named "request"
         try:
-            self.ApiJsonRequest = json.loads(request)
+            if request:
+                self.ApiJsonRequest = json.loads(request)
+            else:
+                self.ApiJsonRequest = None
         except ValueError:
             msg = "Invalid JSON data: {!r}".format(request)
             _logger.info("%s: %s", self.httprequest.path, msg)
