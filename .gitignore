@@ -130,4 +130,6 @@ dmypy.json
 
 .idea/
 .vscode/
+# 暂时不提交此模块
+auth_oauth_dingtalk/
 *.cfg
