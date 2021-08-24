@@ -240,7 +240,7 @@ get_request_original = Root.get_request
 def api_get_request(self, httprequest):
     # deduce type of request
 
-    if httprequest.method != 'GET' and httprequest.headers.get("content-type", "") == "application/json":
+    if httprequest.headers.get("x-org-name", "") =='oneshare' and httprequest.headers.get("content-type", "") == "application/json":
         return ApiJsonRequest(httprequest)
 
     return get_request_original(self, httprequest)
