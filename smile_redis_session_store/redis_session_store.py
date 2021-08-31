@@ -4,6 +4,7 @@ import sys
 import os
 from odoo import http, tools
 from odoo.tools.func import lazy_property
+from distutils.util import strtobool
 from odoo.tools._vendor.sessions import SessionStore
 
 if sys.version_info > (3,):
@@ -24,7 +25,7 @@ password = tools.config.get('redis_pass') or os.getenv('ENV_REDIS_PASSWORD', Non
 
 
 def is_redis_session_store_activated():
-    return tools.config.get('enable_redis') or os.getenv('ENV_REDIS_ENABLE', False)
+    return tools.config.get('enable_redis') or strtobool(os.getenv('ENV_REDIS_ENABLE', 'False'))
 
 
 try:
