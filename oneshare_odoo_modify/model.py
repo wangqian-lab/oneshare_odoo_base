@@ -2,7 +2,6 @@
 
 from odoo import models, api
 import odoo
-from odoo.tools.sql import _schema, table_exists
 from distutils.util import strtobool
 import os
 import logging
@@ -13,7 +12,6 @@ ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
 
 
 class OneshareHyperModel(models.AbstractModel):
-    _hyper = True
     _log_access = False
     _hyper_field = 'time'
     _dimensions = []
