@@ -191,7 +191,6 @@ class ApiJsonRequest(WebRequest):
 
 # Copy of http.route adding routing 'type':'api'
 def api_route(route=None, **kw):
-
     routing = kw.copy()
     assert "type" not in routing or routing["type"] in ("http", "json", "apijson")
 
@@ -236,14 +235,28 @@ odoo.http.api_route = api_route
 
 get_request_original = Root.get_request
 
+setup_lang_original = Root.setup_lang
+
 
 def api_get_request(self, httprequest):
     # deduce type of request
 
-    if httprequest.headers.get("x-org-name", "") =='oneshare' and httprequest.headers.get("content-type", "") == "application/json":
+    if httprequest.headers.get("x-org-name", "") == 'oneshare' and httprequest.headers.get("content-type",
+                                                                                           "") == "application/json":
         return ApiJsonRequest(httprequest)
 
     return get_request_original(self, httprequest)
 
 
+ENV_DEFAULT_LANGUAGE = os.getenv('ENV_DEFAULT_LANGUAGE', 'zh_CN')
+
+
+def api_setup_lang(self, httprequest):
+    if ENV_DEFAULT_LANGUAGE:
+        httprequest.session.context["lang"] = ENV_DEFAULT_LANGUAGE
+    else:
+        setup_lang_original(self, httprequest)
+
+
+Root.setup_lang = api_setup_lang
 Root.get_request = api_get_request

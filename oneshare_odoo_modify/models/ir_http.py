@@ -56,8 +56,8 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _authenticate(cls, endpoint):
-        if endpoint.routing["type"] == 'apijson' and endpoint.routing["auth"] == 'user':
-            endpoint.routing.update({
-                'auth': 'bear_token'
-            })
+        # if endpoint.routing["type"] == 'apijson' and endpoint.routing["auth"] == 'user':
+        #     endpoint.routing.update({
+        #         'auth': 'bear_token'
+        #     })
         return super(IrHttp, cls)._authenticate(endpoint)
