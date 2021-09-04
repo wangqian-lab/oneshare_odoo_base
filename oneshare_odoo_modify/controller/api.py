@@ -25,3 +25,8 @@ class BaseApi(http.Controller):
     @http.route('/api/v1/healthz', type='http', auth='none', cors='*', csrf=False)
     def _healthz(self, *args, **kwargs):
         return Response(status=httplib.HTTPStatus.NO_CONTENT)
+
+    @http.api_route('/api/v1/test', type='apijson', auth='user', cors='*', csrf=False)
+    def data(self, **kwargs):
+        return Response(json.dumps({'msg': 'test ok'}), headers={'content-type': 'application/json'},
+                        status=httplib.HTTPStatus.OK)
