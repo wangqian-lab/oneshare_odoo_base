@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import http, SUPERUSER_ID, api
 from odoo.http import request, Response
-from http import HTTPStatus
-import odoo
-import json
+from odoo.addons.oneshare_utils.http import oneshare_json_success_resp, oneshare_json_fail_response
 from odoo.addons.web.controllers.main import ensure_db
 
 
@@ -14,24 +12,19 @@ class WebLogin(http.Controller):
         login = params.get('login')
         password = params.get('password')
         if not login or not password:
-            return Response(json.dumps({'msg': 'Login Parameter Is Missing'}),
-                            headers={'content-type': 'application/json'},
-                            status=HTTPStatus.BAD_REQUEST)
+            return oneshare_json_fail_response(message='Login Parameter Is Missing')
         ensure_db()
         if not request.session.db:
-            return Response(json.dumps({'msg': 'Database not found'}), headers={'content-type': 'application/json'},
-                            status=HTTPStatus.BAD_REQUEST)
+            return oneshare_json_fail_response(message='Database not found')
         db = request.session.db
         # res_users = odoo.registry(db)['res.users']
         uid = request.session.authenticate(db, login, password)
         if not uid:
-            return Response(json.dumps({'msg': 'User Auth Fail'}), headers={'content-type': 'application/json'},
-                            status=HTTPStatus.BAD_REQUEST)
+            return oneshare_json_fail_response(msg='User Auth Fail')
 
         user_id = request.env['res.users'].sudo().browse(uid)
         if not user_id:
-            return Response(json.dumps({'msg': 'User Access Deny'}), headers={'content-type': 'application/json'},
-                            status=HTTPStatus.BAD_REQUEST)
+            return oneshare_json_fail_response(msg='User Access Deny')
         ret = {
             'id': user_id.id,
             'database': db,
@@ -44,5 +37,4 @@ class WebLogin(http.Controller):
                                                          user_id.image_128) if user_id.image_128 else ""
         }
         request.session.modified = False
-        return Response(json.dumps(ret), headers={'content-type': 'application/json'},
-                        status=HTTPStatus.OK)
+        return oneshare_json_success_resp(message=ret)
