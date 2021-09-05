@@ -31,10 +31,11 @@ class WebLogin(http.Controller):
             'name': user_id.name,
             'login': user_id.login,
             'status': 'active' if user_id.active else 'inactive',
-            'token': user_id._compute_session_token(request.session.sid),
+            'token': request.session.session_token,
             'session_id': request.session.sid,
             'image_small': u'data:{0};base64,{1}'.format('image/png',
                                                          user_id.image_128) if user_id.image_128 else ""
         }
-        request.session.modified = False
+        request.session.modified = True
+        request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
         return oneshare_json_success_resp(message=ret)
