@@ -2,6 +2,7 @@
 
 import functools
 import json
+import collections
 import logging
 import os
 import pprint
@@ -41,7 +42,7 @@ class ApiJsonRequest(WebRequest):
         super(ApiJsonRequest, self).__init__(*args)
 
         self.jsonp_handler = None
-        self.params = {}
+        self.params = collections.OrderedDict(self.httprequest.values or self.httprequest.args)
 
         args = self.httprequest.args
         jsonp = args.get("jsonp")
@@ -81,9 +82,8 @@ class ApiJsonRequest(WebRequest):
         except ValueError:
             msg = "Invalid JSON data: {!r}".format(request)
             _logger.info("%s: %s", self.httprequest.path, msg)
-            raise werkzeug.exceptions.BadRequest(msg)
+            self.ApiJsonRequest = None
 
-        self.params = dict(self.ApiJsonRequest or {})
         self.context = self.params.pop("context", dict(self.session.context))
 
     def _json_response(self, result=None, error=None):
