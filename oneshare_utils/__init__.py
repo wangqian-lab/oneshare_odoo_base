@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from . import baidu
+from . import http
 
 
 class CloudProvider(object):
