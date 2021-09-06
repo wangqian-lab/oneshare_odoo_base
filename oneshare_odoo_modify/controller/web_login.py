@@ -8,7 +8,7 @@ from odoo.addons.web.controllers.main import ensure_db
 class WebLogin(http.Controller):
     @http.api_route('/api/v1/login', type='apijson', auth='none', cors='*', csrf=False)
     def _login(self, **kwargs):
-        params = kwargs
+        params = request.ApiJsonRequest
         login = params.get('login')
         password = params.get('password')
         if not login or not password:
