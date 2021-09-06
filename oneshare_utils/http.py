@@ -4,6 +4,8 @@ from http import HTTPStatus
 from odoo.http import Response
 import logging
 import json
+from json import JSONEncoder
+import datetime
 
 _logger = logging.getLogger(__name__)
 
@@ -12,6 +14,14 @@ MAGIC_ERROR_CODE = 59999  # 永远不会定义
 ONESHARE_HTTP_ERROR_CODE = {
     40001: "Tightening Tool Is Not Success Configuration"
 }
+
+
+# subclass JSONEncoder
+class DateTimeEncoder(JSONEncoder):
+    # Override the default method
+    def default(self, obj):
+        if isinstance(obj, (datetime.date, datetime.datetime)):
+            return obj.isoformat()
 
 
 def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
@@ -31,7 +41,7 @@ def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
         data.update({
             "extra": extra
         })
-    body = json.dumps(data)
+    body = json.dumps(data, cls=DateTimeEncoder)
     headers.append(('Content-Length', len(body)))
     resp = Response(body, status=status_code, headers=headers)
     return resp
@@ -47,6 +57,6 @@ def oneshare_json_fail_response(error_code=MAGIC_ERROR_CODE, status_code=HTTPSta
         "msg": msg,
         "extra": kwargs.get("extra", "") or kwargs.get("extra_info", "")
     }
-    body = json.dumps(data)
+    body = json.dumps(data, cls=DateTimeEncoder)
     headers = [('Content-Type', 'application/json'), ('Content-Length', len(body))]
     return Response(body, status=status_code, headers=headers)
