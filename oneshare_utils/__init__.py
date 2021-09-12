@@ -3,6 +3,7 @@
 from . import baidu
 from . import http
 from . import constants
+from . import datetime
 
 
 class CloudProvider(object):
