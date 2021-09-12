@@ -2,6 +2,7 @@
 
 from . import baidu
 from . import http
+from . import constants
 
 
 class CloudProvider(object):
