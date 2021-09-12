@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 import pytz
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATE_LENGTH
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATE_LENGTH, \
+    DEFAULT_SERVER_TIME_FORMAT
 from typing import Union
 from datetime import datetime, date, timedelta
 import os
 
+RFC3339_SERVER_DATETIME_FORMAT = "%sT%s" % (
+    DEFAULT_SERVER_DATE_FORMAT,
+    DEFAULT_SERVER_TIME_FORMAT)
+DEFAULT_SERVER_DATETIME_FORMAT_TZ = f'{DEFAULT_SERVER_DATETIME_FORMAT}%z'
+RFC3339_SERVER_DATETIME_FORMAT_TZ = f'{RFC3339_SERVER_DATETIME_FORMAT}%z'
 ENV_DEFAULT_TIMEZONE = os.getenv('ENV_DEFAULT_TIMEZONE', 'Asia/Shanghai')
 
 DEFAULT_TZ = pytz.timezone(ENV_DEFAULT_TIMEZONE)
+
+DATETIME_LENGTH = len(datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
 
 
 def local_datetime_from_str(ss='', tz_local=DEFAULT_TZ) -> datetime:
@@ -16,8 +24,15 @@ def local_datetime_from_str(ss='', tz_local=DEFAULT_TZ) -> datetime:
         d = datetime.now()
     elif len(ss) == DATE_LENGTH:
         d = datetime.strptime(ss, DEFAULT_SERVER_DATE_FORMAT)
-    else:
+    elif len(ss) == DATETIME_LENGTH:
         d = datetime.strptime(ss, DEFAULT_SERVER_DATETIME_FORMAT)
+    else:
+        try:
+            # 尝试rfc3339格式
+            d = datetime.strptime(ss, RFC3339_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
+        except Exception as e:
+            d = datetime.strptime(ss, DEFAULT_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
+        return d
     return tz_local.localize(d)
 
 
