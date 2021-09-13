@@ -2,6 +2,7 @@
 
 from odoo import models, api
 import odoo
+from psycopg2.extras import execute_values
 from distutils.util import strtobool
 import os
 import logging
@@ -20,6 +21,22 @@ class OneshareHyperModel(models.AbstractModel):
     _abstract = False  # not abstract
     _transient = False  # not transient
     _description = 'Hyper Model'
+
+    @api.model
+    def raw_bulk_create(self, val_list, fetch=True):
+        if not isinstance(val_list, list) or not val_list:
+            return
+        cr = self.env.cr
+        fields = val_list[0].keys()
+        fields_str = ','.join(fields)
+        query = f'''
+                INSERT INTO public.oneshare_edu_appraisal_item ({fields_str}) VALUES %s {'RETURNING id' if fetch else ''};
+                '''
+        tmpls = [f'%({f})s' for f in fields]
+        tmpls_str = '({})'.format(','.join(tmpls))
+        result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
+                                template=tmpls_str)
+        return result
 
     @classmethod
     def _build_model_attributes(cls, pool):

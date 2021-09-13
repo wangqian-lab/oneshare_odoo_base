@@ -76,7 +76,7 @@ class ApiJsonRequest(WebRequest):
         # Read POST content or POST Form Data named "request"
         try:
             if request:
-                self.ApiJsonRequest = json.loads(request)
+                self.ApiJsonRequest = json.loads(request, object_pairs_hook=collections.OrderedDict)
             else:
                 self.ApiJsonRequest = None
         except ValueError:
