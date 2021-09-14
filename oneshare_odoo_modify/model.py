@@ -30,8 +30,29 @@ class OneshareHyperModel(models.AbstractModel):
         fields = val_list[0].keys()
         fields_str = ','.join(fields)
         query = f'''
-                INSERT INTO public.oneshare_edu_appraisal_item ({fields_str}) VALUES %s {'RETURNING id' if fetch else ''};
+                INSERT INTO public.{self._table} ({fields_str}) VALUES %s {'RETURNING id' if fetch else ''};
                 '''
+        tmpls = [f'%({f})s' for f in fields]
+        tmpls_str = '({})'.format(','.join(tmpls))
+        result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
+                                template=tmpls_str)
+        return result
+
+    @api.model
+    def raw_bulk_write(self, val_list, fetch=True):
+        if not isinstance(val_list, list) or not val_list:
+            return
+        cr = self.env.cr
+        fields = val_list[0].keys()
+        fields_str = ','.join(fields)
+        sets = [f'{f} = e.{f}' for f in fields]
+        sets_str = '{}'.format(','.join(sets))
+        query = f'''
+                    UPDATE public.{self._table} AS t
+                    SET {sets_str}
+                    FROM (VALUES %s) AS e({fields_str})
+                    WHERE e.id = t.id;
+                    '''
         tmpls = [f'%({f})s' for f in fields]
         tmpls_str = '({})'.format(','.join(tmpls))
         result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
