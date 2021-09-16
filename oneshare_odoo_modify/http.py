@@ -10,6 +10,9 @@ import time
 
 import psycopg2
 import werkzeug.wrappers
+from odoo.tools import ustr
+from jsonschema import validate, ValidationError
+from odoo.addons.oneshare_utils.http import oneshare_json_success_resp, oneshare_json_fail_response
 
 import odoo
 from odoo.http import (
@@ -204,6 +207,12 @@ def api_route(route=None, **kw):
 
         @functools.wraps(f)
         def response_wrap(*args, **kw):
+            if routing.get('schema') and request.ApiJsonRequest:
+                try:
+                    validate(request.ApiJsonRequest, routing.get('schema'))
+                except ValidationError as e:
+                    msg = ustr(e)
+                    return oneshare_json_fail_response(msg=msg)
             response = f(*args, **kw)
             if isinstance(response, Response) or f.routing_type in ("apijson", "json"):
                 return response
