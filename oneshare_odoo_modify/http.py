@@ -207,7 +207,7 @@ def api_route(route=None, **kw):
 
         @functools.wraps(f)
         def response_wrap(*args, **kw):
-            if routing.get('schema') and request.ApiJsonRequest:
+            if routing.get('schema') and getattr(request, 'ApiJsonRequest', None):
                 try:
                     validate(request.ApiJsonRequest, routing.get('schema'))
                 except ValidationError as e:
