@@ -28,6 +28,8 @@ def local_datetime_from_str(ss='', tz_local=DEFAULT_TZ) -> datetime:
         d = datetime.strptime(ss, DEFAULT_SERVER_DATETIME_FORMAT)
     else:
         try:
+            d = datetime.fromisoformat(ss)
+        except Exception as e:
             # 尝试rfc3339格式
             d = datetime.strptime(ss, RFC3339_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
         except Exception as e:
