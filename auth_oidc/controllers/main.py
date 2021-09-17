@@ -36,7 +36,5 @@ class OpenIDLogin(OAuthLogin):
                         raise Exception("openid connect scope must contain 'openid'")
                     params["scope"] = provider["scope"]
                 # auth link that the user will click
-                provider["auth_link"] = "{}?{}".format(
-                    provider["auth_endpoint"], url_encode(params)
-                )
+                provider["auth_link"] = f"{provider.get('auth_endpoint')}?{url_encode(params)}"
         return providers
