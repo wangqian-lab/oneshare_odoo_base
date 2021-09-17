@@ -22,20 +22,18 @@ class AuthOauthProvider(models.Model):
     _inherit = "auth.oauth.provider"
 
     flow = fields.Selection(
-        [
-            (AuthOauthFlow.OAuth2.value, "OAuth2"),
-            (AuthOauthFlow.OpenIdConnectCode.value, "OpenID Connect (authorization code flow)"),
-            (AuthOauthFlow.OpenIdConnectImplicit.value, "OpenID Connect (implicit flow, not recommended)"),
-        ],
+        [(AuthOauthFlow.OAuth2.value, "OAuth2"),
+         (AuthOauthFlow.OpenIdConnectCode.value, "OpenID Connect (authorization code flow)"),
+         (AuthOauthFlow.OpenIdConnectImplicit.value, "OpenID Connect (implicit flow, not recommended)")],
         string="Auth Flow",
         required=True,
-        default="access_token",
+        default=AuthOauthFlow.OAuth2.value,
     )
     token_map = fields.Char(
         help="Some Oauth providers don't map keys in their responses "
-        "exactly as required.  It is important to ensure user_id and "
-        "email at least are mapped. For OpenID Connect user_id is "
-        "the sub key in the standard."
+             "exactly as required.  It is important to ensure user_id and "
+             "email at least are mapped. For OpenID Connect user_id is "
+             "the sub key in the standard."
     )
     client_secret = fields.Char(
         help="Used in OpenID Connect authorization code flow for confidential clients.",
@@ -54,6 +52,8 @@ class AuthOauthProvider(models.Model):
         r = requests.get(self.jwks_uri)
         r.raise_for_status()
         response = r.json()
+        if "keys" not in response:
+            return {}
         for key in response["keys"]:
             if key["kid"] == kid:
                 return key
@@ -61,7 +61,7 @@ class AuthOauthProvider(models.Model):
 
     def _map_token_values(self, res):
         if self.token_map:
-            for pair in self.token_map.split(" "):
+            for pair in self.token_map.split(","):  # 通过逗号分割
                 from_key, to_key = [k.strip() for k in pair.split(":", 1)]
                 if to_key not in res:
                     res[to_key] = res.get(from_key, "")
