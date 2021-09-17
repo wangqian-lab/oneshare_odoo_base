@@ -22,7 +22,8 @@ class ResUsers(models.Model):
         return super(ResUsers, self)._signup_create_user(values)
 
     def _create_user_from_public_user(self, values):
-        template_user_id = literal_eval(self.env['ir.config_parameter'].sudo().get_param('base.public_user', 'False'))
+        template_user_id = literal_eval(
+            self.env['ir.config_parameter'].sudo().get_param('base.template_public_user_id', 'False'))
         template_user = self.browse(template_user_id)
         if not template_user.exists():
             raise ValueError(_('Signup: invalid public user'))
