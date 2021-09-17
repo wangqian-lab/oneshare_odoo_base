@@ -12,6 +12,7 @@
     "external_dependencies": {"python": ["python-jose"]},
     "depends": ["auth_oauth"],
     "data": [
+        "data/base_groups.xml",
         "views/auth_oauth_provider.xml"
     ],
     "demo": [

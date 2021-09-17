@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="default_template_user_config" model="ir.config_parameter">
+            <field name="key">base.template_public_user_id</field>
+            <field name="value" ref="base.public_user"/>
+        </record>
+    </data>
+</odoo>
