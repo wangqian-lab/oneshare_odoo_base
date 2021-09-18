@@ -43,7 +43,7 @@ class RedisSessionStore(SessionStore):
         super(RedisSessionStore, self).__init__(*args, **kwargs)
         self.expire = kwargs.get('expire', SESSION_TIMEOUT)
         self.key_prefix = kwargs.get('key_prefix', '')
-        if len(startup_nodes == 1):
+        if len(startup_nodes) == 1:
             host = startup_nodes[0]
             self.redis = redis.Redis(
                 health_check_interval=30,
