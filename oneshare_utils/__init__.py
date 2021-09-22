@@ -4,6 +4,7 @@ from . import baidu
 from . import http
 from . import constants
 from . import datetime
+from . import wechat
 
 
 class CloudProvider(object):
@@ -22,5 +23,8 @@ class CloudProvider(object):
             return False
         return method()
 
-    def recognition(self, type, *args, **kargs):
-        return self._app.recognition(type, *args, **kargs)
+    def recognition(self, type, *args, **kwargs):
+        return self._app.recognition(type, *args, **kwargs)
+
+    def auth(self, *args, **kwargs):
+        return self._app.auth(*args, **kwargs)

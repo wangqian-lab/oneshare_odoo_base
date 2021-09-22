@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from baidu_aip_sdk.nlp import AipNlp
 from distutils.util import strtobool
 import os
