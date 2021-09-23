@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oneshare_cryptography_key_user,access_oneshare_cryptography_key_user,model_oneshare_cryptography_key,base.group_user,1,1,1,1
+access_oneshare_cryptography_cert_user,access_oneshare_cryptography_cert_user,model_oneshare_certification,base.group_user,1,1,1,1
+access_onesahre_issue_cert_wizard,access_onesahre_issue_cert_wizard,model_onesahre_issue_cert_wizard,base.group_user,1,1,1,1

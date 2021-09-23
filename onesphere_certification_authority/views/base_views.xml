@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+                id="menu_certification_authority"
+                name="Certification Authority"
+                parent="base.menu_administration"
+                sequence="100"
+                groups="base.group_system"/>
+
+        <menuitem
+                id="menu_cryptography_key"
+                name="Cryptography Key"
+                parent="menu_certification_authority"
+                sequence="10"
+                action="oneshare_action_open_crypt_key"
+                groups="base.group_system"/>
+        <menuitem
+                id="menu_certification_issued"
+                name="Issued Certification"
+                parent="menu_certification_authority"
+                sequence="20"
+                action="oneshare_action_open_issued_certification"
+                groups="base.group_system"/>
+    </data>
+</odoo>

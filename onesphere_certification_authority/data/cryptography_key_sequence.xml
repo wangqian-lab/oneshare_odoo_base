@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+    <record id="cryptography_key_revision" model="ir.sequence">
+        <field name="name">Cryptography Key Revision</field>
+        <field name="code">cryptography_key_revision</field>
+        <field name="prefix">V</field>
+        <field name="padding">2</field>
+        <field name="company_id" eval="False" />
+    </record>
+</data>
+</odoo>
