@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="oneshare_ca_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">oneshare_ca_res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="onesphere_certification_authority" string="认证中心" data-key="onesphere_certification_authority"
+                     groups="base.group_erp_manager">
+                    <h2>认证中心</h2>
+                    <div class="row mt16 o_settings_container" name="wxapp_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wxapp_setting" title="wxapp Settings">
+
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">认证中心</span>
+                                <button name="generate_certification_bundle" icon="fa-arrow-right" type="object" string="Generate Cert Bundle" class="btn btn-primary"/>
+                                <div class="content-group" name="wxapp_settings">
+                                    <div class="content-group mt16">
+                                        <label for="ca_algorithm" class="o_light_label"/>
+                                        <field name="ca_algorithm"/>
+                                    </div>
+                                    <div class="content-group mt16">
+                                        <label for="ca_private_key" class="o_light_label"/>
+                                        <field name="ca_private_key"/>
+                                    </div>
+                                    <div class="content-group mt16">
+                                        <label for="ca_public_key" class="o_light_label"/>
+                                        <field name="ca_public_key"/>
+                                    </div>
+                                    <div class="content-group mt16">
+                                        <label for="ca_secret_key" class="o_light_label"/>
+                                        <field name="ca_secret_key"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    <record id="hr_config_settings_action" model="ir.actions.act_window">-->
+    <!--        <field name="name">Settings</field>-->
+    <!--        <field name="type">ir.actions.act_window</field>-->
+    <!--        <field name="res_model">res.config.settings</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="target">inline</field>-->
+    <!--        <field name="context">{'module' : 'auth_wx', 'bin_size': False}</field>-->
+    <!--    </record>-->
+
+    <!--    <menuitem id="hr_menu_configuration"-->
+    <!--              name="Settings"-->
+    <!--              parent="menu_human_resources_configuration"-->
+    <!--              sequence="0"-->
+    <!--              action="hr_config_settings_action"-->
+    <!--              groups="base.group_system"/>-->
+</odoo>

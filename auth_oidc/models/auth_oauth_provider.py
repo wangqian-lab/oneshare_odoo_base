@@ -4,7 +4,7 @@ import secrets
 import requests
 from enum import Enum
 
-from odoo import fields, models, tools
+from odoo import fields, models, tools, api
 
 try:
     from jose import jwt
@@ -44,6 +44,9 @@ class AuthOauthProvider(models.Model):
     validation_endpoint = fields.Char(required=False)
     token_endpoint = fields.Char(
         string="Token URL", help="Required for OpenID Connect authorization code flow."
+    )
+    logout_endpoint = fields.Char(
+        help="Logout Url for SSO.",
     )
     jwks_uri = fields.Char(string="JWKS URL", help="Required for OpenID Connect.")
 

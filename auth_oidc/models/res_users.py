@@ -4,7 +4,7 @@ from odoo import api, models, _
 from odoo.tools import ustr
 from odoo.exceptions import AccessDenied
 from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.http import request
+from odoo.http import request, Root
 from ast import literal_eval
 from distutils.util import strtobool
 import os
@@ -66,6 +66,9 @@ class ResUsers(models.Model):
         )
         response.raise_for_status()
         response_json = response.json()
+        # 将refresh_token存在odoo session
+        if response_json.get("refresh_token"):
+            request.httprequest.session["refresh_token"] = response_json.get("refresh_token")
         return response_json.get("access_token"), response_json.get("id_token")
 
     @api.model
@@ -96,3 +99,20 @@ class ResUsers(models.Model):
             raise AccessDenied()
         # return user credentials
         return self.env.cr.dbname, login, access_token
+
+    @api.model
+    def logout(self, oauth_provider):
+        auth = None
+        client_secret = oauth_provider.get("client_secret")
+        client_id = oauth_provider.get("client_id")
+        if client_secret and client_id:
+            auth = (oauth_provider.get("client_id"), client_secret)
+        session = request.httprequest.session
+        if session.get("refresh_token"):
+            requests.post(
+                oauth_provider.get("logout_endpoint"),
+                data=dict(
+                    refresh_token=session.get("refresh_token"),
+                ),
+                auth=auth,
+            )
