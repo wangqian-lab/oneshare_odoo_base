@@ -2,27 +2,17 @@ import base64
 import hashlib
 import secrets
 
-import requests
+from http import HTTPStatus
 import werkzeug
 from odoo import http, tools
 from odoo.exceptions import AccessError
 from werkzeug.urls import url_decode, url_encode
-
+from odoo.addons.web.controllers.main import Session
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin, ensure_db, request
 from odoo.addons.auth_oidc.models.auth_oauth_provider import AuthOauthFlow
 
 
-DefaultProviderName = "KeyCloak"
-
-
-class OpenIDLogin(OAuthLogin):
-
-    def __init__(self, *args, **kwargs):
-        icp = request.env['ir.config_parameter'].sudo()
-        oidc_provider_default = icp.get_param('oidc_provider_default')
-        if not oidc_provider_default:
-            icp.set_param('oidc_provider_default', DefaultProviderName)
-        super(OpenIDLogin, self).__init__(*args, **kwargs)
+class OpenIDLogin(OAuthLogin, Session):
 
     def list_providers(self):
         providers = super(OpenIDLogin, self).list_providers()
@@ -54,34 +44,34 @@ class OpenIDLogin(OAuthLogin):
                 provider["auth_link"] = f"{provider.get('auth_endpoint')}?{url_encode(params)}"
         return providers
 
-    def get_default_provider(self):
+    def get_sso_provider(self):
         providers = self.list_providers()
         icp = request.env['ir.config_parameter'].sudo()
-        oidc_provider_default = icp.get_param("oidc_provider_default")
+        sso_provider = icp.get_param("sso.provider")
+        sso_enabled = icp.get_param('sso.enabled')
+        if not sso_enabled:
+            return False, None
         for provider in providers:
-            if provider.get("name") == oidc_provider_default and provider.get("auth_link"):
-                return provider
-        return None
+            if provider.get("name") == sso_provider and provider.get("auth_link"):
+                return True, provider
+        return False, None
 
     @http.route()
     def web_client(self, s_action=None, **kw):
-        ensure_db()
-        provider = self.get_default_provider()
-
+        ret = super(OpenIDLogin, self).web_client(s_action, **kw)
+        sso_enable, provider = self.get_sso_provider()
+        if not sso_enable or not provider:
+            return ret
         auth_link = provider.get("auth_link") if provider.get("auth_link") else "/web/login"
         if not request.session.uid:
-            return werkzeug.utils.redirect(auth_link, 303)
-        if kw.get('redirect'):
-            return werkzeug.utils.redirect(kw.get('redirect'), 303)
+            return werkzeug.utils.redirect(auth_link, HTTPStatus.SEE_OTHER)
+        return ret
 
-        return super(OpenIDLogin, self).web_client(s_action, **kw)
-
-    @http.route('/web/session/logout', type='http', auth="none")
+    @http.route()
     def logout(self, redirect='/web'):
         # 先退出oauth登录
-        provider = self.get_default_provider()
-        request.env['res.users'].sudo().logout(provider)
-
-        # 再删除cookie
-        request.session.logout(keep_db=True)
-        return werkzeug.utils.redirect(redirect, 303)
+        ret = super(OpenIDLogin, self).logout(redirect)
+        sso_enabled, provider = self.get_sso_provider()
+        if sso_enabled and provider:
+            request.env['res.users'].sudo().logout(provider)
+        return ret
