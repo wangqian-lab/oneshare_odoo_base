@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 from http import HTTPStatus
-from odoo.http import Response
+from odoo.http import Response as odooResponse
+from requests import Response as httpResponse
 from odoo.tools import ustr
 from odoo.exceptions import UserError
 import logging
@@ -58,7 +59,7 @@ def _send_request(full_url, method: HTTP_METHOD_MODE, headers, data, auth=None, 
 
 
 def _do_http_request(url, method: HTTP_METHOD_MODE = DEFAULT_METHOD, data=None, headers=DEFAULT_HEADERS, auth=None,
-                     verify=False):
+                     verify=False) -> httpResponse:
     try:
         _logger.debug('Do Request: {}, Data: {}'.format(url, pprint.pformat(data, indent=4)))
         resp = _send_request(full_url=url, method=method, data=data, headers=headers, auth=auth)
@@ -66,27 +67,29 @@ def _do_http_request(url, method: HTTP_METHOD_MODE = DEFAULT_METHOD, data=None, 
             raise UserError(
                 'Do Request: {} Fail, Status Code: {}, resp: {}'.format(url, resp.status_code, resp.text))
         else:
-            return resp.json()
+            return resp
     except Exception as e:
         _logger.exception('HTTP Request URL:{} Except: {}'.format(url, ustr(e)))
         raise e
 
 
-def http_request(method, url, auth=None):
+def http_request(method: HTTP_METHOD_MODE = "post", url: str = '', auth=None):
     def decorator(f):
         @functools.wraps(f)
         def request_wrap(*args, **kw):
             rAuth = auth
+            full_url = url
             if kw.get('auth') and not rAuth:
                 rAuth = kw.get('auth')
+            if kw.get('url') and not full_url:
+                full_url = kw.get('url')
             data = f(*args, **kw)
             if data and not isinstance(data, dict):
                 _logger.error('Function: {0}.{1}, HTTP Request Data Is Invalid'.format(f.__module__, f.__name__))
                 return None
-            headers = _default_headers()
-            if not method or not url:
+            headers = kw.get('headers') or _default_headers()
+            if not method or not full_url:
                 raise ValueError('Http Request, Params method & url Is Required')
-            full_url = url
             return _do_http_request(full_url, method, data, headers, rAuth, verify=False)
 
         return request_wrap
@@ -105,11 +108,11 @@ class DateTimeEncoder(JSONEncoder):
 def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
     headers = [('Content-Type', 'application/json')]
     if status_code == HTTPStatus.NO_CONTENT:
-        resp = Response(status=status_code, headers=headers)
+        resp = odooResponse(status=status_code, headers=headers)
         return resp
     if status_code > HTTPStatus.BAD_REQUEST:
         _logger.error("Success Response The Status Code Must Be Less Than 400, But Now Is {0}".format(status_code))
-        return Response(HTTPStatus.OK, headers=headers)
+        return odooResponse(HTTPStatus.OK, headers=headers)
     data = {
         "status_code": status_code,
         "msg": kwargs.get("msg") or kwargs.get("message"),
@@ -121,7 +124,7 @@ def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
         })
     body = json.dumps(data, cls=DateTimeEncoder)
     headers.append(('Content-Length', len(body)))
-    resp = Response(body, status=status_code, headers=headers)
+    resp = odooResponse(body, status=status_code, headers=headers)
     return resp
 
 
@@ -137,4 +140,4 @@ def oneshare_json_fail_response(error_code=MAGIC_ERROR_CODE, status_code=HTTPSta
     }
     body = json.dumps(data, cls=DateTimeEncoder)
     headers = [('Content-Type', 'application/json'), ('Content-Length', len(body))]
-    return Response(body, status=status_code, headers=headers)
+    return odooResponse(body, status=status_code, headers=headers)

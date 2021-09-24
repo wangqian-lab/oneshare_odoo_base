@@ -5,6 +5,7 @@ from . import http
 from . import constants
 from . import datetime
 from . import wechat
+from . import github
 
 
 class CloudProvider(object):
@@ -28,3 +29,6 @@ class CloudProvider(object):
 
     def auth(self, *args, **kwargs):
         return self._app.auth(*args, **kwargs)
+
+    def invoke_api(self, evt: str = '', *args, **kwargs):
+        return self._app.invoke_api(evt, *args, **kwargs)
