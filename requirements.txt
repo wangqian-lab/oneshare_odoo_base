@@ -5,3 +5,4 @@ baidu-aip-sdk==4.15.3
 phonenumbers==8.12.32
 jsonschema==3.2.0
 wechatpy[cryptography]==1.8.15
+tenacity==8.0.1
