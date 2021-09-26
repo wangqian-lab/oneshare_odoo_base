@@ -14,10 +14,9 @@ ENV_GITHUB_OWNER = os.getenv('ENV_GITHUB_OWNER', '')
 
 
 class GithubProvider(object):
-    def __init__(self, token=ENV_GITHUB_ACCESS_TOKEN, owner=ENV_GITHUB_OWNER):
+    def __init__(self, token=ENV_GITHUB_ACCESS_TOKEN):
         self._access_token = token
-        self._owner = owner
-        self._repo_event_url_tmpl = f'https://api.github.com/repos/{self._owner}/%s/dispatches'
+        self._repo_event_url_tmpl = f'https://api.github.com/repos/%s/%s/dispatches'
 
     def open(self):
         return True
@@ -25,17 +24,20 @@ class GithubProvider(object):
     def invoke_api(self, evt: str = '', *args, **kwargs):
         if evt == 'repo_dispatch':
             repo = kwargs.get('repo', '')
-            return self.trigger_repo_dispatch_evt(repo)
+            owner = kwargs.get('owner', '')
+            client_payload = kwargs.get('client_payload', '')
+            return self.trigger_repo_dispatch_evt(owner, repo, client_payload)
 
-    def trigger_repo_dispatch_evt(self, repo=''):
-        if not repo:
+    def trigger_repo_dispatch_evt(self, owner='', repo='', client_payload: dict = {}):
+        if not repo or not owner:
             return
-        url = self._repo_event_url_tmpl % (repo,)
+        url = self._repo_event_url_tmpl % (owner, repo,)
         headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization': f'token {self._access_token}'}
-        resp = self._do_trigger_repo_dispatch_evt(url=url, headers=headers)
+        resp = self._do_trigger_repo_dispatch_evt(url=url, headers=headers, client_payload=client_payload)
         return resp
 
     @http_request()
     def _do_trigger_repo_dispatch_evt(self, *args, **kwargs):
-        data = {"event_type": kwargs.get("event_type", "event_type")}
+        data = {"event_type": kwargs.get("event_type", "event_type"),
+                "client_payload": kwargs.get('client_payload', {})}
         return data

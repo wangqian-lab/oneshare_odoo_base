@@ -24,9 +24,11 @@ class TestOneshareResConfig(TestOneshareCACommon):
         key = self._obj.generate_secret_key()
         key = base64.b64decode(key.encode('utf-8'))
         f = ChaCha20Poly1305(key)
+        f.generate_key()
         d = {'test': 111}
         data = json.dumps(d)
         token = f.encrypt(ONESHARE_CRYPT_NONCE, data.encode('utf-8'), ONESHARE_CRYPT_ASSOCIATED_DATA)
+        f = ChaCha20Poly1305(key)
         s = f.decrypt(ONESHARE_CRYPT_NONCE, token, ONESHARE_CRYPT_ASSOCIATED_DATA)
         ss = json.loads(s.decode('utf-8'))
         self.assertEqual(ss.get('test'), d.get('test'))

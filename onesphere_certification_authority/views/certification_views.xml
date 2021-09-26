@@ -69,21 +69,31 @@
             <field name="model">oneshare.certification</field>
             <field name="arch" type="xml">
                 <form string="Issued Certification" create="false" write="false">
-                    <group>
-                        <field name="crypt_key_id"/>
-                        <field name="revision" readonly="1"/>
-                    </group>
-                    <group>
-                        <field name="content" readonly="1"/>
-                        <field name="crypt_content" readonly="1"/>
-                    </group>
-                    <group>
-                        <field name="secret_key" readonly="1"/>
-                        <field name="digest" readonly="1"/>
-                        <field name="signature" readonly="1"/>
-                    </group>
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="crypt_key_id"/>
+                                <field name="revision" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="content" readonly="1"/>
+                                <field name="crypt_content" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="secret_key" readonly="1"/>
+                                <field name="digest" readonly="1"/>
+                                <field name="signature" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
 
-                    <field name="company_id" groups="base.group_multi_company"/>
+                    </sheet>
                 </form>
             </field>
         </record>
