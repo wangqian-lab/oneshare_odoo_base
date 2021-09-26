@@ -12,6 +12,6 @@ class TestGithubProvider(TestCase):
         self._app.open()
 
     def test_trigger_repo_dispatch_evt(self):
-        ret = self._app.invoke_api('repo_dispatch', repo='onesphere')
+        ret = self._app.invoke_api('repo_dispatch', owner='masami10', repo='onesphere')
         print(ret)
         self.assertTrue(ret)

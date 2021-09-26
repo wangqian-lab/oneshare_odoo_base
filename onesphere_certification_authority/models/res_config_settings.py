@@ -3,9 +3,7 @@
 from odoo import api, fields, models, _
 import os
 import base64
-from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec, dsa, rsa
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 
