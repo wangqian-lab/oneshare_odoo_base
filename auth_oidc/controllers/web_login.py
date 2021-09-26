@@ -5,7 +5,6 @@ import secrets
 from http import HTTPStatus
 import werkzeug
 from odoo import http, tools
-from odoo.exceptions import AccessError
 from werkzeug.urls import url_decode, url_encode
 from odoo.addons.web.controllers.main import Session
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin, ensure_db, request
@@ -69,9 +68,8 @@ class OpenIDLogin(OAuthLogin, Session):
 
     @http.route()
     def logout(self, redirect='/web'):
-        # 先退出oauth登录
-        ret = super(OpenIDLogin, self).logout(redirect)
+        # 先退出oauth登录 否则导致session删除拿不到token无法退出三方登录系统
         sso_enabled, provider = self.get_sso_provider()
         if sso_enabled and provider:
             request.env['res.users'].sudo().logout(provider)
-        return ret
+        return super(OpenIDLogin, self).logout(redirect)
