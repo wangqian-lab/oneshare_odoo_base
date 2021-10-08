@@ -8,7 +8,10 @@ from odoo.exceptions import UserError
 import logging
 import pprint
 import functools
-from typing import Literal
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 import json
 import requests
 import copy
