@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="auth_signup_hcaptcha.hcaptcha_legal_terms" name="hCAPTCHA Legal Terms">
+        <small class="o_recaptcha_legal_terms">
+            Protected by hCAPTCHA,
+            <a href="https://hcaptcha.com/privacy" target="_blank">Privacy Policy</a>
+            &amp;
+            <a href="https://hcaptcha.com/terms" target="_blank">Terms of Service</a>
+            apply.
+        </small>
+    </template>
+
+    <template id="signup_hcaptcha" inherit_id="auth_signup.signup">
+        <xpath expr="//div[@class='text-center oe_login_buttons pt-3'] " position="replace">
+            <t t-set="hcaptcha_public_key"
+               t-value="request.env['ir.config_parameter'].sudo().get_param('hcaptcha_public_key')"/>
+            <t t-if="hcaptcha_public_key">
+                <script type="text/javascript" src="https://js.hcaptcha.com/1/api.js"></script>
+                <script>
+                    function recaptchaCallback(token) {
+                        console.log("Checkbox checked..!");
+                        var element = document.getElementById('hcaptcha_resp_token');
+                        element.value = token;
+                        document.getElementsByClassName('oe_signup_form')[0].submit();
+                    };
+                </script>
+                <br/>
+                <input id="hcaptcha_resp_token" type="hidden" name="hcaptcha_resp_token"/>
+                <button type="submit" class="btn btn-primary btn-block h-captcha"
+                        t-att-data-sitekey="hcaptcha_public_key" data-callback="recaptchaCallback" data-size="compact">
+                    Sign up
+                </button>
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button">Already have an
+                    account?
+                </a>
+                <div class="o_login_auth"/>
+                <div class="col-sm">
+                    <t t-call="auth_signup_hcaptcha.hcaptcha_legal_terms"/>
+                </div>
+            </t>
+
+            <t t-else="">
+                <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button">Already have an
+                    account?
+                </a>
+                <div class="o_login_auth"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>
