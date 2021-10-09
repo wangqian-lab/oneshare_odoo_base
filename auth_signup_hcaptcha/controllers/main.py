@@ -60,24 +60,40 @@ class AuthSignup(AuthSignupHome):
                 return 'bad_request'
         return 'is_bot'
 
+    @api.model
+    def _do_verify_hcaptcha_token(self, qcontext):
+        ip_addr = request.httprequest.remote_addr
+        resp_token = qcontext.get('hcaptcha_resp_token')
+        recaptcha_result = self._verify_hcaptcha_token(ip_addr, resp_token)
+        if recaptcha_result in ['is_human', 'no_secret']:
+            return
+        if recaptcha_result == 'wrong_secret':
+            raise ValidationError(_("The hCaptcha private key is invalid."))
+        elif recaptcha_result == 'wrong_token':
+            raise ValidationError(_("The hCaptcha token is invalid."))
+        elif recaptcha_result == 'timeout':
+            raise UserError(_("Your request has timed out, please retry."))
+        elif recaptcha_result == 'bad_request':
+            raise UserError(_("The request is invalid or malformed."))
+
+    @http.route()
+    def web_auth_reset_password(self, *args, **kw):
+        qcontext = self.get_auth_signup_qcontext()
+        if 'error' not in qcontext and request.httprequest.method == 'POST':
+            try:
+                self._do_verify_hcaptcha_token(qcontext)
+            except Exception as e:
+                request.params.update({
+                    'error': e.args[0]
+                })  # 更新qcontext
+        return super(AuthSignup, self).web_auth_reset_password(*args, **kw)
+
     @http.route()
     def web_auth_signup(self, *args, **kw):
         qcontext = self.get_auth_signup_qcontext()
         if 'error' not in qcontext and request.httprequest.method == 'POST':
-            resp_token = qcontext.get('hcaptcha_resp_token')
-            ip_addr = request.httprequest.remote_addr
-            recaptcha_result = self._verify_hcaptcha_token(ip_addr, resp_token)
             try:
-                if recaptcha_result in ['is_human', 'no_secret']:
-                    pass
-                if recaptcha_result == 'wrong_secret':
-                    raise ValidationError(_("The hCaptcha private key is invalid."))
-                elif recaptcha_result == 'wrong_token':
-                    raise ValidationError(_("The hCaptcha token is invalid."))
-                elif recaptcha_result == 'timeout':
-                    raise UserError(_("Your request has timed out, please retry."))
-                elif recaptcha_result == 'bad_request':
-                    raise UserError(_("The request is invalid or malformed."))
+                self._do_verify_hcaptcha_token(qcontext)
             except Exception as e:
                 request.params.update({
                     'error': e.args[0]
