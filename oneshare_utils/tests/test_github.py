@@ -15,3 +15,13 @@ class TestGithubProvider(TestCase):
         ret = self._app.invoke_api('repo_dispatch', owner='masami10', repo='onesphere')
         print(ret)
         self.assertTrue(ret)
+
+    def test_get_all_repos(self):
+        ret = self._app.invoke_api('list_repos')
+        print(ret)
+        self.assertTrue(ret)
+
+    def test_get_all_repo_tags(self):
+        ret = self._app.invoke_api('list_tags', owner='masami10', repo='rush')
+        print(ret)
+        self.assertTrue(ret)
