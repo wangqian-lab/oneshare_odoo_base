@@ -19,6 +19,7 @@ class WechatProvider(object):
         self._client = WeChatClient(appid=self._app_id, secret=self._secret_key, timeout=60)
         self._session = None
 
+    # success_resp = {'session_key': 'rCkMgTL/daaJ5vQTpfjMBQ==', 'openid': 'oEyZC5JY04tEfsc7mqGObfA7hZCw'}
     def auth(self, code: str = ''):
         if not self._client:
             return
