@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="auth_wx_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">auth_wx_res_config_settings_view_form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="wxapp" string="微信小程序" data-key="auth_wx"
+                     groups="base.group_erp_manager">
+                    <h2>微信小程序</h2>
+                    <div class="row mt16 o_settings_container" name="wxapp_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wxapp_setting" title="wxapp Settings">
+
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">微信小程序</span>
+                                <div class="content-group" name="wxapp_settings">
+                                    <div class="content-group mt16">
+                                        <label for="wxapp_app_id" class="o_light_label"/>
+                                        <field name="wxapp_app_id"/>
+                                    </div>
+                                    <div class="content-group mt16">
+                                        <label for="wxapp_app_secret" class="o_light_label"/>
+                                        <field name="wxapp_app_secret"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
