@@ -15,13 +15,14 @@ class NotAllCredentialsGiven(Exception):
 class S3Settings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    s3_bucket = fields.Char(string="S3 bucket name", help="i.e. 'attachmentbucket'")
-    s3_access_key_id = fields.Char(string="S3 access key id")
-    s3_secret_key = fields.Char(string="S3 secret key")
-    s3_endpoint_url = fields.Char(string="S3 Endpoint")
-    s3_obj_url = fields.Char(string="S3 URL")
+    s3_bucket = fields.Char(string="S3 bucket name", help="i.e. 'attachmentbucket'", config_parameter="s3.bucket")
+    s3_access_key_id = fields.Char(string="S3 access key id", config_parameter='s3.access_key_id')
+    s3_secret_key = fields.Char(string="S3 secret key", config_paramter='s3.secret_key')
+    s3_endpoint_url = fields.Char(string="S3 Endpoint", config_paramter='s3.endpoint_url')
+    s3_obj_url = fields.Char(string="S3 URL", config_paramter='s3.obj_url')
     s3_condition = fields.Char(
         string="S3 condition",
+        config_paramter="s3.condition",
         help="""Specify valid odoo search domain here,
                                e.g. [('res_model', 'in', ['product.image'])] -- store data of product.image only.
                                Empty condition means all models""",
@@ -62,37 +63,6 @@ class S3Settings(models.TransientModel):
             s3.create_bucket(Bucket=bucket_name)
             bucket = s3.Bucket(bucket_name)
         return bucket
-
-    @api.model
-    def get_values(self):
-        res = super(S3Settings, self).get_values()
-        ICPSudo = self.env["ir.config_parameter"].sudo()
-        s3_bucket = ICPSudo.get_param("s3.bucket", default="")
-        s3_access_key_id = ICPSudo.get_param("s3.access_key_id", default="")
-        s3_secret_key = ICPSudo.get_param("s3.secret_key", default="")
-        s3_endpoint_url = ICPSudo.get_param("s3.endpoint_url", default="")
-        s3_obj_url = ICPSudo.get_param("s3.obj_url", default="")
-        s3_condition = ICPSudo.get_param("s3.condition", default="")
-
-        res.update(
-            s3_bucket=s3_bucket,
-            s3_access_key_id=s3_access_key_id,
-            s3_secret_key=s3_secret_key,
-            s3_condition=s3_condition,
-            s3_endpoint_url=s3_endpoint_url,
-            s3_obj_url=s3_obj_url,
-        )
-        return res
-
-    def set_values(self):
-        super(S3Settings, self).set_values()
-        ICPSudo = self.env["ir.config_parameter"].sudo()
-        ICPSudo.set_param("s3.bucket", self.s3_bucket or "")
-        ICPSudo.set_param("s3.access_key_id", self.s3_access_key_id or "")
-        ICPSudo.set_param("s3.secret_key", self.s3_secret_key or "")
-        ICPSudo.set_param("s3.endpoint_url", self.s3_endpoint_url or "")
-        ICPSudo.set_param("s3.obj_url", self.s3_obj_url or "")
-        ICPSudo.set_param("s3.condition", self.s3_condition or "")
 
     def s3_upload_existing(self):
         self.env["ir.attachment"].force_storage_s3()
