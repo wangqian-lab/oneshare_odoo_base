@@ -464,12 +464,12 @@ class ResConfigSettings(models.TransientModel):
     def remove_quality_setting(self):
         to_removes = [
             # 清除质检设置
-            'quality.point',
-            'quality.alert.stage',
-            'quality.alert.team',
-            'quality.point.test_type',
-            'quality.reason',
-            'quality.tag',
+            'oneshare.quality.point',
+            # 'quality.alert.stage',
+            # 'quality.alert.team',
+            'oneshare.quality.point.test_type',
+            # 'quality.reason',
+            # 'quality.tag',
         ]
         return self.remove_app_data(to_removes)
 
