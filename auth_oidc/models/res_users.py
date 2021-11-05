@@ -10,6 +10,7 @@ from distutils.util import strtobool
 import os
 
 ENV_ONESHARE_SIGNUP_PUBLIC_USER = strtobool(os.getenv('ENV_ONESHARE_SIGNUP_PUBLIC_USER', 'False'))
+REALM_ROLE_KEY = "role"
 
 
 class ResUsers(models.Model):
@@ -97,6 +98,8 @@ class ResUsers(models.Model):
         login = self._auth_oauth_signin(provider, validation, params)
         if not login:
             raise AccessDenied()
+        # ensure and solve role
+        self._ensure_and_solve_role(validation, login, provider)
         # return user credentials
         return self.env.cr.dbname, login, access_token
 
@@ -116,3 +119,41 @@ class ResUsers(models.Model):
                 ),
                 auth=auth,
             )
+
+    def _ensure_and_solve_role(self, validation, login, provider):
+        """
+        这个方法调用在登录或者注册时，如果id_token包含了用户的角色，且角色可以在odoo角色mapping里找到，则重新赋予用户角色。
+
+        :param validation: id_token包含的信息
+        :param login: 用户email
+        :param provider: oauth provider
+        :return:
+        """
+        roles = validation.get(REALM_ROLE_KEY)
+        if roles and login and isinstance(roles, list):
+            try:
+                oauth_uid = validation['user_id']
+                oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
+                if not oauth_user:
+                    raise AccessDenied()
+                assert len(oauth_user) == 1
+                role_lines = []
+                # roles: ["admin", "demo", ...]
+                for role in roles:
+                    res_role = self.env['res.users.role'].sudo().search([("name", "=", role)])
+                    if not res_role:
+                        continue
+                    role_line_args = [
+                        ("role_id", "=", res_role.id), ("user_id", "=", oauth_user.id), ("is_enabled", "=", True)]
+                    role_line = self.env['res.users.role.line'].sudo().search(role_line_args)
+                    if not role_line:
+                        role_line = self.env['res.users.role.line'].sudo().create({
+                            "role_id": res_role.id,
+                            "user_id": oauth_user.id,
+                            "is_enabled": True,
+                        })
+                    role_lines.append(role_line.id)
+                if role_lines:
+                    oauth_user.write({"role_line_ids": role_lines})
+            except Exception as e:
+                pass

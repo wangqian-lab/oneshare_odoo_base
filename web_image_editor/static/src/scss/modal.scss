@@ -1,0 +1,21 @@
+.img-container {
+  position: relative;
+  max-height: 100%;
+  max-width: 100%;
+  touch-action: none;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.img-block {
+  //height: 500px;
+  margin-top: 20px;
+  //background-size: contain;
+  //background-repeat: no-repeat;
+  //background-position: center;
+}

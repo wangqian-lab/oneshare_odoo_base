@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OneshareImageEditor">
+        <div id="tui-image-editor-container">
+            <div id="img_block" class="img-block"/>
+        </div>
+    </t>
+
+    <t t-name="FieldBinaryImageEditor" t-extend="FieldBinaryImage">
+        <t t-jquery=".o_select_file_button" t-operation="after">
+            <button class="fa fa-picture-o fa-lg o_form_binary_image_darkroom_modal" title="Image Editor"
+                    aria-label="Image Editor"/>
+        </t>
+    </t>
+
+</templates>

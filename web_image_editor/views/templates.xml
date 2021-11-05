@@ -1,0 +1,9 @@
+<odoo>
+    <template id="assets" name="Backend Assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <link href="/web_image_editor/static/src/scss/modal.scss" rel="stylesheet" type="text/scss"/>
+            <script src="/web_image_editor/static/src/js/field_image_editor.js"/>
+            <script src="/web_image_editor/static/src/js/modal_field_oneshare_image_editor.js"/>
+        </xpath>
+    </template>
+</odoo>
