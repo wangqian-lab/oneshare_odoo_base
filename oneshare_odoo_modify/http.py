@@ -249,9 +249,11 @@ setup_lang_original = Root.setup_lang
 
 def api_get_request(self, httprequest):
     # deduce type of request
+    org_name = httprequest.headers.get("x-org-name", "")
+    if not isinstance(org_name, str):
+        return get_request_original(self, httprequest)
 
-    if httprequest.headers.get("x-org-name", "") == 'oneshare' and httprequest.headers.get("content-type",
-                                                                                           "") == "application/json":
+    if org_name.upper() == 'ONESHARE' and httprequest.headers.get("content-type", "") == "application/json":
         return ApiJsonRequest(httprequest)
 
     return get_request_original(self, httprequest)
