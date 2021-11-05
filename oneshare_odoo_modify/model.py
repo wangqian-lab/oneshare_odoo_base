@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from odoo import models, api
 import odoo
 from psycopg2.extras import execute_values
@@ -34,8 +35,14 @@ class OneshareHyperModel(models.AbstractModel):
                 '''
         tmpls = [f'%({f})s' for f in fields]
         tmpls_str = '({})'.format(','.join(tmpls))
-        result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
-                                template=tmpls_str)
+        if sys.version_info < (3, 8):  # psycopg2 版本小于2.8
+            result = execute_values(cr, query, argslist=val_list, page_size=100,
+                                    template=tmpls_str)
+            if fetch:
+                result = cr.fetchall()
+        else:
+            result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
+                                    template=tmpls_str)
         return result
 
     @api.model
