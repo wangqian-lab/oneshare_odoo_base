@@ -30,14 +30,17 @@ class AuthWx(http.Controller):
 
     def wechat_login(self, open_id, session_key):
         try:
+            need_user_additional_info = False
             res_user_obj = request.env['res.users'].sudo()
             wx_user = res_user_obj.search([("oauth_uid", "=", open_id)])
             if not wx_user:
                 raise AccessDenied()
             assert len(wx_user) == 1
             wx_user.write({'oauth_access_token': session_key})
-            return wx_user.login
+            return wx_user.login, need_user_additional_info
         except AccessDenied as access_denied_exception:
+            # 没有相关用户，需要重新创建
+            need_user_additional_info = True
             validation = {
                 'user_id': open_id,
             }
@@ -47,7 +50,7 @@ class AuthWx(http.Controller):
             values = self._generate_signup_values('wxapp', validation, params)
             try:
                 _, login, _ = res_user_obj.signup(values, None)  # session_key 作为signup token
-                return login
+                return login, need_user_additional_info
             except (SignupError, UserError) as e:
                 raise access_denied_exception
 
@@ -70,7 +73,7 @@ class AuthWx(http.Controller):
         db = request.session.db
         open_id = resp.get('openid')
         session_key = resp.get('session_key')
-        login = self.wechat_login(open_id, session_key)
+        login, need_user_additional_info = self.wechat_login(open_id, session_key)
         cr.commit()
         uid = request.session.authenticate(db, login, session_key)
         if not uid:
@@ -87,7 +90,8 @@ class AuthWx(http.Controller):
             'token': request.session.session_token,
             'session_id': request.session.sid,
             'image_small': u'data:{0};base64,{1}'.format('image/png',
-                                                         user_id.image_128) if user_id.image_128 else ""
+                                                         user_id.image_128) if user_id.image_128 else "",
+            'need_user_additional_info': need_user_additional_info,
         }
         request.session.modified = True
         request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
