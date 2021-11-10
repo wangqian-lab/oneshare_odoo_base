@@ -8,9 +8,12 @@ from odoo.http import request, Root
 from ast import literal_eval
 from distutils.util import strtobool
 import os
+import logging
+
+_logger = logging.getLogger(__name__)
 
 ENV_ONESHARE_SIGNUP_PUBLIC_USER = strtobool(os.getenv('ENV_ONESHARE_SIGNUP_PUBLIC_USER', 'False'))
-REALM_ROLE_KEY = "role"
+ENV_ONESHARE_REALM_ROLE_KEY = os.getenv('ENV_ONESHARE_REALM_ROLE_KEY', "role")
 
 
 class ResUsers(models.Model):
@@ -131,31 +134,34 @@ class ResUsers(models.Model):
         :param provider: oauth provider
         :return:
         """
-        roles = validation.get(REALM_ROLE_KEY)
-        if roles and login and isinstance(roles, list):
+        roles = validation.get(ENV_ONESHARE_REALM_ROLE_KEY)
+        if not login:
+            return
+        if roles and isinstance(roles, list):
             try:
                 oauth_uid = validation['user_id']
                 oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
                 if not oauth_user:
                     raise AccessDenied()
                 assert len(oauth_user) == 1
-                role_lines = []
+                role_line_ids = self.env['res.users.role']
+                role_line_obj = self.env['res.users.role.line']
                 # roles: ["admin", "demo", ...]
                 for role in roles:
                     res_role = self.env['res.users.role'].sudo().search([("name", "=", role)])
                     if not res_role:
                         continue
-                    role_line_args = [
+                    domain = [
                         ("role_id", "=", res_role.id), ("user_id", "=", oauth_user.id), ("is_enabled", "=", True)]
-                    role_line = self.env['res.users.role.line'].sudo().search(role_line_args)
+                    role_line = role_line_obj.sudo().search(domain)
                     if not role_line:
-                        role_line = self.env['res.users.role.line'].sudo().create({
+                        role_line = role_line_obj.sudo().create({
                             "role_id": res_role.id,
                             "user_id": oauth_user.id,
                             "is_enabled": True,
                         })
-                    role_lines.append(role_line.id)
-                if role_lines:
-                    oauth_user.write({"role_line_ids": role_lines})
+                    role_line_ids += role_line
+                oauth_user.write({"role_line_ids": [(6, 0, role_line_ids.ids)]})  # 强制替换角色组
             except Exception as e:
+                _logger.error(f'_ensure_and_solve_role error: {ustr(e)}')
                 pass
