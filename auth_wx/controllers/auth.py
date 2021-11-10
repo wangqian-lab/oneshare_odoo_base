@@ -49,7 +49,8 @@ class AuthWx(http.Controller):
             }
             values = self._generate_signup_values('wxapp', validation, params)
             try:
-                _, login, _ = res_user_obj.signup(values, None)  # session_key 作为signup token
+                # session_key 作为signup token, 微信强制创建的是portal用户
+                _, login, _ = res_user_obj.with_context({'force_portal_user': True}).signup(values, None)
                 return login, need_user_additional_info
             except (SignupError, UserError) as e:
                 raise access_denied_exception
@@ -92,6 +93,7 @@ class AuthWx(http.Controller):
             'image_small': u'data:{0};base64,{1}'.format('image/png',
                                                          user_id.image_128) if user_id.image_128 else "",
             'need_user_additional_info': need_user_additional_info,
+            'groups': user_id.groups_id.mapped('name'),  # fixme:可能存在性能风险
         }
         request.session.modified = True
         request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
