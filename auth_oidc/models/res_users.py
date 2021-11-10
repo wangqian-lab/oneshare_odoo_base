@@ -18,7 +18,9 @@ class ResUsers(models.Model):
 
     @api.model
     def _signup_create_user(self, values):
-        if ENV_ONESHARE_SIGNUP_PUBLIC_USER:
+        context = self.context
+        force_portal_user = context.get('force_portal_user', False)
+        if ENV_ONESHARE_SIGNUP_PUBLIC_USER and not force_portal_user:
             return self._create_user_from_public_user(values)
         return super(ResUsers, self)._signup_create_user(values)
 
