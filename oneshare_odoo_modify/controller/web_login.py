@@ -12,10 +12,10 @@ class WebLogin(http.Controller):
         login = params.get('login')
         password = params.get('password')
         if not login or not password:
-            return oneshare_json_fail_response(message='Login Parameter Is Missing')
+            return oneshare_json_fail_response(msg='Login Parameter Is Missing')
         ensure_db()
         if not request.session.db:
-            return oneshare_json_fail_response(message='Database not found')
+            return oneshare_json_fail_response(msg='Database not found')
         db = request.session.db
         # res_users = odoo.registry(db)['res.users']
         uid = request.session.authenticate(db, login, password)
@@ -38,4 +38,4 @@ class WebLogin(http.Controller):
         }
         request.session.modified = True
         request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
-        return oneshare_json_success_resp(message=ret)
+        return oneshare_json_success_resp(msg=ret)
