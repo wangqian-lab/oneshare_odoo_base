@@ -4,13 +4,15 @@ import hashlib
 import logging
 import time
 import hmac
-
+import os
 import requests
 
 from odoo import api, models
 from odoo.exceptions import AccessDenied
 
 _logger = logging.getLogger(__name__)
+
+ENV_DINGTLAK_PROVIDER_NAME = os.getenv('ENV_DINGTLAK_PROVIDER_NAME', 'dingtalk')
 
 
 def sign(secret, timestamp):
@@ -31,6 +33,8 @@ class ResUsers(models.Model):
 
     @api.model
     def _generate_signup_values(self, provider, validation, params):
+        if provider != ENV_DINGTLAK_PROVIDER_NAME:
+            return super(ResUsers, self)._generate_signup_values(provider, validation, params)
         oauth_uid = validation['user_id']
         email = validation.get('email', validation.get('unionid'))
         name = validation.get('nick', email)
@@ -45,13 +49,15 @@ class ResUsers(models.Model):
 
     @api.model
     def auth_oauth(self, provider, params):
+        if provider != ENV_DINGTLAK_PROVIDER_NAME:
+            return super(ResUsers, self).auth_oauth(provider, params)
         # use code flow default
         code = params.get("code")
         if not code:
             raise AccessDenied()
         oauth_provider = self.env["auth.oauth.provider"].browse(provider)
 
-        validation = self.get_userinfo_by_code(oauth_provider, code)
+        validation = self._dingtalk_get_userinfo_by_code(oauth_provider, code)
         # required check
         if not validation or not validation.get("user_info"):
             raise AccessDenied()
@@ -68,7 +74,7 @@ class ResUsers(models.Model):
         return self.env.cr.dbname, login, code
 
     @staticmethod
-    def get_userinfo_by_code(provider, code):
+    def _dingtalk_get_userinfo_by_code(provider, code):
         # https://developers.dingtalk.com/document/app/queries-basic-user-information
         timestamp = str(int(time.time() * 1e3))
         try:
