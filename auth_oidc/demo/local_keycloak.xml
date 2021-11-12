@@ -7,15 +7,15 @@
         <field name="enabled" eval="True" />
         <field name="scope">openid email</field>
         <field name="token_map">sub:user_id</field>
-        <field name="logout_endpoint">http://127.0.0.1:8080/auth/realms/demo/protocol/openid-connect/logout</field>
+        <field name="logout_endpoint">http://10.1.1.60:8080/auth/realms/demo/protocol/openid-connect/logout</field>
         <field
             name="auth_endpoint"
-        >http://localhost:8080/auth/realms/demo/protocol/openid-connect/auth</field>
+        >http://10.1.1.60:8080/auth/realms/demo/protocol/openid-connect/auth</field>
         <field
             name="token_endpoint"
-        >http://localhost:8080/auth/realms/demo/protocol/openid-connect/token</field>
+        >http://10.1.1.60:8080/auth/realms/demo/protocol/openid-connect/token</field>
         <field
             name="jwks_uri"
-        >http://localhost:8080/auth/realms/demo/protocol/openid-connect/certs</field>
+        >http://10.1.1.60:8080/auth/realms/demo/protocol/openid-connect/certs</field>
     </record>
 </odoo>

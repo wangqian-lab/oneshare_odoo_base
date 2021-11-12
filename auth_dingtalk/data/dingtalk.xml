@@ -1,0 +1,12 @@
+<odoo>
+    <record id="auth_ding_talk_provider" model="auth.oauth.provider">
+        <field name="name">dingtalk</field>
+        <field name="client_id">dingnsspqlf56qqe9uvq</field>
+        <field name="body">Login with DingDing</field>
+        <field name="enabled" eval="True" />
+        <field name="scope">snsapi_login</field>
+        <field name="client_secret">Bh5O1vRlmN2rhIWOZZttYg1TxRd846Dq9zJrF5xBshtNTQPutbn4gxxw3EuyJ1tG</field>
+        <field name="auth_endpoint">https://oapi.dingtalk.com/connect/oauth2/sns_authorize</field>
+        <field name="validation_endpoint">https://oapi.dingtalk.com/sns/getuserinfo_bycode</field>
+    </record>
+</odoo>

@@ -26,7 +26,6 @@ class AuthOauthProvider(models.Model):
          (AuthOauthFlow.OpenIdConnectCode.value, "OpenID Connect (authorization code flow)"),
          (AuthOauthFlow.OpenIdConnectImplicit.value, "OpenID Connect (implicit flow, not recommended)")],
         string="Auth Flow",
-        required=True,
         default=AuthOauthFlow.OAuth2.value,
     )
     token_map = fields.Char(

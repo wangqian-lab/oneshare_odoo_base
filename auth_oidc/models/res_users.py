@@ -4,7 +4,7 @@ from odoo import api, models, _
 from odoo.tools import ustr
 from odoo.exceptions import AccessDenied
 from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.http import request, Root
+from odoo.http import request
 from ast import literal_eval
 from distutils.util import strtobool
 import os
@@ -21,10 +21,11 @@ class ResUsers(models.Model):
 
     @api.model
     def _signup_create_user(self, values):
-        context = self.context
-        force_portal_user = context.get('force_portal_user', False)
-        if ENV_ONESHARE_SIGNUP_PUBLIC_USER and not force_portal_user:
-            return self._create_user_from_public_user(values)
+        if hasattr(self, 'context'):
+            context = self.context
+            force_portal_user = context.get('force_portal_user', False)
+            if ENV_ONESHARE_SIGNUP_PUBLIC_USER and not force_portal_user:
+                return self._create_user_from_public_user(values)
         return super(ResUsers, self)._signup_create_user(values)
 
     def _create_user_from_public_user(self, values):
