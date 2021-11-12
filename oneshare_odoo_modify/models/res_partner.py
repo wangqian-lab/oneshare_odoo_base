@@ -13,4 +13,6 @@ class Partner(models.Model):
     tz = fields.Selection(default=ENV_DEFAULT_TIMEZONE)
     lang = fields.Selection(default=ENV_DEFAULT_LANGUAGE)
 
+    country_id = fields.Many2one(default=lambda self: self.env.ref('base.cn'))
+
     api_token = fields.Char('Bear Token For API w/o Bearer Part', default='')

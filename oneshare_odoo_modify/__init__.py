@@ -19,7 +19,8 @@ def _default_timezone_lang_cn(cr):
     all_users = res_partner_model.search([(1, '=', 1)])
     val = {
         'tz': ENV_DEFAULT_TIMEZONE,
-        'lang': ENV_DEFAULT_LANGUAGE
+        'lang': ENV_DEFAULT_LANGUAGE,
+        'country_id': env.ref('base.cn').id,
     }
     all_users.write(val)
     cr.commit()

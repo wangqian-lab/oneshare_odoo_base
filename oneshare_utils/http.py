@@ -114,7 +114,7 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
+def oneshare_json_success_resp(status_code=HTTPStatus.OK, msg=None, extra=None, **kwargs):
     headers = [('Content-Type', 'application/json')]
     if status_code == HTTPStatus.NO_CONTENT:
         resp = odooResponse(status=status_code, headers=headers)
@@ -124,9 +124,9 @@ def oneshare_json_success_resp(status_code=HTTPStatus.OK, **kwargs):
         return odooResponse(HTTPStatus.OK, headers=headers)
     data = {
         "status_code": status_code,
-        "msg": kwargs.get("msg") or kwargs.get("message"),
+        "msg": msg or '',
+        **kwargs
     }
-    extra = kwargs.get("extra", "") or kwargs.get("extra_info", "")
     if extra:
         data.update({
             "extra": extra
@@ -141,11 +141,11 @@ def oneshare_json_fail_response(error_code=MAGIC_ERROR_CODE, status_code=HTTPSta
     msg = ONESHARE_HTTP_ERROR_CODE.get(error_code)
     if not msg:
         _logger.error("Error Code: {0} Is Not Defined".format(error_code))
-        msg = kwargs.get("msg") or kwargs.get("message"),
+        msg = kwargs.pop("msg", '') or kwargs.pop("message", ''),
     data = {
         "status_code": status_code,
         "msg": msg,
-        "extra": kwargs.get("extra", "") or kwargs.get("extra_info", "")
+        **kwargs
     }
     body = json.dumps(data, cls=DateTimeEncoder)
     headers = [('Content-Type', 'application/json'), ('Content-Length', len(body))]
