@@ -97,4 +97,4 @@ class AuthWx(http.Controller):
         }
         request.session.modified = True
         request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
-        return oneshare_json_success_resp(message=ret)
+        return oneshare_json_success_resp(msg=ret)
