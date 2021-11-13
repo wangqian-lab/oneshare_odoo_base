@@ -1,31 +1,18 @@
-import json
-import base64
-import hashlib
 import logging
-import time
-import hmac
 import os
-import requests
-
+from requests import Response as httpResponse
+from typing import Optional
 from odoo import api, models
 from odoo.exceptions import AccessDenied
+
+from odoo.addons.oneshare_utils import CloudProvider
+from odoo.addons.oneshare_utils.dingtalk import DingTalkProvider
 
 _logger = logging.getLogger(__name__)
 
 ENV_DINGTLAK_PROVIDER_NAME = os.getenv('ENV_DINGTLAK_PROVIDER_NAME', 'dingtalk')
 
-
-def sign(secret, timestamp):
-    """
-    钉钉api签名函数
-    :param secret: 钉钉app的secret
-    :param timestamp: 目前时间戳
-    :return: app的secret对时间戳进行sha256加密并base64的结果
-    """
-    msg = timestamp
-    signature = hmac.new(secret.encode('utf-8'), msg.encode('utf-8'), digestmod=hashlib.sha256).digest()
-
-    return base64.b64encode(signature)
+dingTalkProvider = None
 
 
 class ResUsers(models.Model):
@@ -75,18 +62,16 @@ class ResUsers(models.Model):
 
     @staticmethod
     def _dingtalk_get_userinfo_by_code(provider, code):
-        # https://developers.dingtalk.com/document/app/queries-basic-user-information
-        timestamp = str(int(time.time() * 1e3))
+        global dingTalkProvider
+        if not dingTalkProvider:
+            dingTalkProvider = CloudProvider(DingTalkProvider, client_id=provider["client_id"],
+                                             client_secret=provider["client_secret"])
+            dingTalkProvider.open()
         try:
-            query = {
-                "accessKey": provider["client_id"],  # appId
-                "timestamp": timestamp,
-                "signature": sign(provider["client_secret"], timestamp)
-            }
-            resp = requests.post(provider['validation_endpoint'], params=query, json={
-                "tmp_auth_code": code,
-            })
-            return json.loads(resp.text)
+            resp: Optional[httpResponse] = dingTalkProvider.validate_by_code(code=code)
+            if resp:
+                return resp.json()
+            return None
         except Exception as e:
-            _logger.error("get_userinfo_by_code got error: {}".format(e))
+            _logger.error("_dingtalk_get_userinfo_by_code error: {}".format(e))
             return None

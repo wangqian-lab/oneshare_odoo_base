@@ -6,6 +6,7 @@ from . import constants
 from . import datetime
 from . import wechat
 from . import github
+from . import dingtalk
 
 
 class CloudProvider(object):
@@ -32,3 +33,9 @@ class CloudProvider(object):
 
     def invoke_api(self, evt: str = '', *args, **kwargs):
         return self._app.invoke_api(evt, *args, **kwargs)
+
+    def __getattribute__(self, item):
+        try:
+            return getattr(self, item, getattr(self._subclass, item))
+        except AttributeError:
+            return getattr(self._subclass, item)
