@@ -44,6 +44,12 @@ def local_datetime_to_utc(dd: Union[datetime, str], tz_local=DEFAULT_TZ) -> date
     return tz_local.normalize(dd).astimezone(pytz.utc)
 
 
+def utc_to_local_datetime(dd: Union[datetime, str], tz_local=DEFAULT_TZ) -> datetime:
+    if isinstance(dd, str):
+        return local_datetime_from_str(dd, tz_local=tz_local)
+    return dd.astimezone(tz_local)
+
+
 def local_date_from_str(ss: str = '', tz_local=DEFAULT_TZ) -> datetime:
     if len(ss) < DATE_LENGTH:
         d = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
