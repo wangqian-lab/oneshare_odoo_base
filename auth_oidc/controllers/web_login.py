@@ -16,7 +16,10 @@ class OpenIDLogin(OAuthLogin, Session):
     def list_providers(self):
         providers = super(OpenIDLogin, self).list_providers()
         for provider in providers:
-            flow = AuthOauthFlow(provider.get("flow"))
+            _flow = provider.get("flow")
+            if not _flow:
+                continue
+            flow = AuthOauthFlow(_flow)
             if flow in (AuthOauthFlow.OpenIdConnectCode, AuthOauthFlow.OpenIdConnectImplicit):
                 params = url_decode(provider["auth_link"].split("?")[-1])
                 # nonce
@@ -49,6 +52,8 @@ class OpenIDLogin(OAuthLogin, Session):
         sso_provider = icp.get_param("sso.provider")
         sso_enabled = icp.get_param('sso.enabled')
         if not sso_enabled:
+            return False, None
+        elif isinstance(sso_enabled, str) and sso_enabled.lower() in ("false", "f", "no", "0"):
             return False, None
         for provider in providers:
             if provider.get("name") == sso_provider and provider.get("auth_link"):

@@ -60,9 +60,9 @@ def _send_request(full_url, method: HTTP_METHOD_MODE, headers, data, params=None
     else:
         payload = None
     if payload:
-        return m(url=full_url, data=payload, headers=headers, timeout=timeout, auth=auth)
+        return m(url=full_url, data=payload, params=params, headers=headers, timeout=timeout, auth=auth)
     else:
-        return m(url=full_url, headers=headers, timeout=timeout, auth=auth)
+        return m(url=full_url, headers=headers, params=params, timeout=timeout, auth=auth)
 
 
 def _do_http_request(url, method: HTTP_METHOD_MODE = DEFAULT_METHOD, data=None, headers=DEFAULT_HEADERS, params=None,
@@ -71,9 +71,9 @@ def _do_http_request(url, method: HTTP_METHOD_MODE = DEFAULT_METHOD, data=None, 
         _logger.debug('Do Request: {}, Data: {}'.format(url, pprint.pformat(data, indent=4)))
         resp = _send_request(full_url=url, method=method, data=data, params=params, headers=headers, auth=auth)
         if resp.status_code >= HTTPStatus.BAD_REQUEST:
-            _logger.error(
-                'Do Request: {} Fail, Status Code: {}, resp: {}'.format(url, resp.status_code, resp.text))
-            return None
+            msg = f'Do Request: {url} Fail, Status Code: {resp.status_code}, resp: {resp.text}'
+            _logger.error(msg)
+            raise ValueError(msg)
         else:
             return resp
     except Exception as e:
@@ -93,8 +93,7 @@ def http_request(method: HTTP_METHOD_MODE = "post", url: str = '', auth=None):
                 full_url = kw.get('url')
             data = f(*args, **kw) or {}
             if data and not isinstance(data, dict):
-                _logger.error('Function: {0}.{1}, HTTP Request Data Is Invalid'.format(f.__module__, f.__name__))
-                return None
+                raise ValueError('Function: {0}.{1}, HTTP Request Data Is Invalid'.format(f.__module__, f.__name__))
             headers = kw.get('headers') or _default_headers()
             if not method or not full_url:
                 raise ValueError('Http Request, Params method & url Is Required')
