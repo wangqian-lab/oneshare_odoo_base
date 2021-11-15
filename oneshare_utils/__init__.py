@@ -36,6 +36,6 @@ class CloudProvider(object):
 
     def __getattribute__(self, item):
         try:
-            return getattr(self, item, getattr(self._subclass, item))
+            return super().__getattribute__(item)
         except AttributeError:
-            return getattr(self._subclass, item)
+            return getattr(self._app, item)

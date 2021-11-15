@@ -20,7 +20,8 @@ class ResUsers(models.Model):
 
     @api.model
     def _generate_signup_values(self, provider, validation, params):
-        if provider != ENV_DINGTLAK_PROVIDER_NAME:
+        oauth_provider = self.env["auth.oauth.provider"].browse(provider)
+        if not oauth_provider or oauth_provider['name'] != ENV_DINGTLAK_PROVIDER_NAME:
             return super(ResUsers, self)._generate_signup_values(provider, validation, params)
         oauth_uid = validation['user_id']
         email = validation.get('email', validation.get('unionid'))
@@ -36,13 +37,13 @@ class ResUsers(models.Model):
 
     @api.model
     def auth_oauth(self, provider, params):
-        if provider != ENV_DINGTLAK_PROVIDER_NAME:
+        oauth_provider = self.env["auth.oauth.provider"].browse(provider)
+        if not oauth_provider or oauth_provider['name'] != ENV_DINGTLAK_PROVIDER_NAME:
             return super(ResUsers, self).auth_oauth(provider, params)
         # use code flow default
         code = params.get("code")
         if not code:
             raise AccessDenied()
-        oauth_provider = self.env["auth.oauth.provider"].browse(provider)
 
         validation = self._dingtalk_get_userinfo_by_code(oauth_provider, code)
         # required check
