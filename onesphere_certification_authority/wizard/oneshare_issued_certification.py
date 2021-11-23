@@ -30,10 +30,10 @@ class OneshareIssuedCertWizard(models.TransientModel):
         base64_token = base64.b64encode(token)
         hasher = hashes.Hash(hashes.SHA256())
         hasher.update(base64_token)
-        digest = hasher.finalize()
+        digest = hasher.finalize()  # 摘要
         private_key_content = self.crypt_key_id.private_key.encode('utf-8')
         private_key = load_pem_private_key(private_key_content, password=None)
-        signature_content = private_key.sign(digest, ec.ECDSA(hashes.SHA256()))
+        signature_content = private_key.sign(digest, ec.ECDSA(hashes.SHA256()))  # 签名
         val = {
             'crypt_key_id': self.crypt_key_id.id,
             'content': self.content,
@@ -45,7 +45,6 @@ class OneshareIssuedCertWizard(models.TransientModel):
         ret = certification_obj.create(val)
         if not ret:
             raise UserError('Create Issued Cert Fail')
-            return None
         form = self.env.ref('onesphere_certification_authority.oneshare_issued_cert_view_form',
                             raise_if_not_found=False)
         return {
