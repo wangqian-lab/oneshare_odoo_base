@@ -27,9 +27,10 @@ class OneshareIssuedCertWizard(models.TransientModel):
         f = ChaCha20Poly1305(key)
         data = self.content
         token = f.encrypt(ONESHARE_CRYPT_NONCE, data.encode('utf-8'), ONESHARE_CRYPT_ASSOCIATED_DATA)
+        b_encrypted_license = token[:-16]
         base64_token = base64.b64encode(token)
         hasher = hashes.Hash(hashes.SHA256())
-        hasher.update(base64_token)
+        hasher.update(b_encrypted_license)
         digest = hasher.finalize()
         private_key_content = self.crypt_key_id.private_key.encode('utf-8')
         private_key = load_pem_private_key(private_key_content, password=None)
