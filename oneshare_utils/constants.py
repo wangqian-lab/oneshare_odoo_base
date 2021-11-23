@@ -4,12 +4,12 @@ import os
 import base64
 
 ONESHARE_DEFAULT_LIMIT = int(os.getenv('ENV_ONESHARE_SQL_REC_LIMT', '15'))
-ENV_ONESHARE_CRYPT_NONCE = os.getenv('ENV_ONESHARE_CRYPT_NONCE', 'oneshare')
+ENV_ONESHARE_CRYPT_NONCE = os.getenv('ENV_ONESHARE_CRYPT_NONCE', 'MTIzNDU2Nzg5MDEy')
 ENV_ONESHARE_CRYPT_ASSOCIATED_DATA = os.getenv('ENV_ONESHARE_CRYPT_ASSOCIATED_DATA',
-                                               'Authenticated By Oneshare Co. Ltd.')
+                                               'QXV0aGVudGljYXRlZCBCeSBPbmVzaGFyZSBDby4gTHRkLg==')
 
-ONESHARE_CRYPT_NONCE = base64.b64encode(ENV_ONESHARE_CRYPT_NONCE.encode('utf-8'))
-ONESHARE_CRYPT_ASSOCIATED_DATA = base64.b64encode(ENV_ONESHARE_CRYPT_ASSOCIATED_DATA.encode('utf-8'))
+ONESHARE_CRYPT_NONCE = base64.b64decode(ENV_ONESHARE_CRYPT_NONCE.encode('utf-8'))
+ONESHARE_CRYPT_ASSOCIATED_DATA = base64.b64decode(ENV_ONESHARE_CRYPT_ASSOCIATED_DATA.encode('utf-8'))
 
 
 ENV_OSS_BUCKET = os.getenv('ENV_OSS_BUCKET', 'oneshare')
