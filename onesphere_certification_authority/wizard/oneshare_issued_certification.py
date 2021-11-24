@@ -34,7 +34,7 @@ class OneshareIssuedCertWizard(models.TransientModel):
         digest = hasher.finalize()  # 摘要
         private_key_content = self.crypt_key_id.private_key.encode('utf-8')
         private_key = load_pem_private_key(private_key_content, password=None)
-        signature_content = private_key.sign(digest, ec.ECDSA(hashes.SHA256()))  # 签名
+        signature_content = private_key.sign(b_encrypted_license, ec.ECDSA(hashes.SHA256()))  # 签名
         val = {
             'crypt_key_id': self.crypt_key_id.id,
             'content': self.content,
