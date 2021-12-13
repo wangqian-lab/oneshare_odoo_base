@@ -24,6 +24,7 @@ class BaseCancelConfirm(models.AbstractModel):
         help="An optional cancel reason",
     )
 
+    @staticmethod
     def get_cancel_method():
         return ''
 
