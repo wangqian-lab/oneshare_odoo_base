@@ -16,16 +16,16 @@ else:
 
 SESSION_TIMEOUT = 60 * 60 * 24 * 7  # 1 weeks in seconds
 
-hosts: str = tools.config.get('redis_host', None) or os.getenv('ENV_REDIS_HOST', 'localhost')
+hosts: str = tools.config.get('redis_host', None) or os.getenv('ENV_SESSION_REDIS_HOST', 'localhost')
 startup_nodes = hosts.split(',')
 
-ports = int(tools.config.get('redis_port') or os.getenv('ENV_REDIS_PORT', '6379'))
-db = int(tools.config.get('redis_dbindex') or os.getenv('ENV_REDIS_DB', '1'))
-password = tools.config.get('redis_pass') or os.getenv('ENV_REDIS_PASSWORD', None)
+ports = int(tools.config.get('redis_port') or os.getenv('ENV_SESSION_REDIS_PORT', '6379'))
+db = int(tools.config.get('redis_dbindex') or os.getenv('ENV_SESSION_REDIS_DB', '1'))
+password = tools.config.get('redis_pass') or os.getenv('ENV_SESSION_REDIS_PASSWORD', None)
 
 
 def is_redis_session_store_activated():
-    return tools.config.get('enable_redis') or strtobool(os.getenv('ENV_REDIS_ENABLE', 'False'))
+    return tools.config.get('enable_redis') or strtobool(os.getenv('ENV_SESSION_REDIS_ENABLE', 'False'))
 
 
 try:
