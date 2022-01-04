@@ -1,9 +1,10 @@
 odoo.define('oneshare.modal_image_editor', function (require) {
     'use strict';
 
-    var AbstractField = require('web.AbstractField');
-    var fieldRegistry = require('web.field_registry');
-    var FieldBinaryImage = fieldRegistry.get('image');
+    const AbstractField = require('web.AbstractField');
+    const fieldRegistry = require('web.field_registry');
+    const basic_fields = require('web.basic_fields');
+    const FieldBinaryImage = basic_fields.FieldBinaryImage;
     var utils = require('web.utils');
 
     var core = require('web.core');
