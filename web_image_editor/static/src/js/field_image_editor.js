@@ -1,7 +1,8 @@
 odoo.define('oneshare.field_image_editor', function (require) {
     "use strict";
-    var fieldRegistry = require('web.field_registry');
-    var FieldBinaryImage = fieldRegistry.get('image');
+    const fieldRegistry = require('web.field_registry');
+    const basic_fields = require('web.basic_fields');
+    const FieldBinaryImage = basic_fields.FieldBinaryImage;
     var core = require('web.core');
 
     var qweb = core.qweb;
@@ -48,6 +49,8 @@ odoo.define('oneshare.field_image_editor', function (require) {
 
     });
     fieldRegistry.add('imageEditor', FieldBinaryImageEditor);
+
+    return FieldBinaryImageEditor;
 
 })
 ;
