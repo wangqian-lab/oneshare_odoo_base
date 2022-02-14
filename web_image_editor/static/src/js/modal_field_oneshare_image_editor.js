@@ -44,5 +44,6 @@ odoo.define('oneshare.modal_image_editor', function (require) {
 
     });
     fieldRegistry.add('oneshare_image_editor', ImageEditor);
+    return ImageEditor;
 });
 
