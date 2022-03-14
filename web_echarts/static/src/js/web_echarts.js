@@ -10,7 +10,8 @@ odoo.define('onesphere.web_echarts', function (require) {
 
     var EChartWidget = AbstractField.extend({
         _render: function () {
-            var value = this.get('value');
+//            var value = this.get('value');
+            var value = this.value;
             var isJson = false;
             try {
                 var val = JSON.parse(value);
