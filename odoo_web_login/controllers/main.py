@@ -23,6 +23,7 @@
 
 import ast
 from odoo.addons.web.controllers.main import Home
+from odoo.addons.web.controllers.main import SIGN_UP_REQUEST_PARAMS as Prev_SIGN_UP_REQUEST_PARAMS
 import pytz
 import datetime
 import logging
@@ -32,12 +33,18 @@ import odoo
 import odoo.modules.registry
 from odoo import http
 from odoo.http import request
+
 _logger = logging.getLogger(__name__)
 
+New_SIGN_UP_REQUEST_PARAMS = {'disable_footer', 'disable_database_manager', 'background_src'}
+New_SIGN_UP_REQUEST_PARAMS.update(Prev_SIGN_UP_REQUEST_PARAMS)
 
-#----------------------------------------------------------
+odoo.addons.web.controllers.main.SIGN_UP_REQUEST_PARAMS = New_SIGN_UP_REQUEST_PARAMS
+
+
+# ----------------------------------------------------------
 # Odoo Web web Controllers
-#----------------------------------------------------------
+# ----------------------------------------------------------
 class LoginHome(Home):
 
     @http.route('/web/login', type='http', auth="none")
