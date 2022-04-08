@@ -92,12 +92,15 @@ class ResUsers(models.Model):
         else:
             return super(ResUsers, self).auth_oauth(provider, params)
         if not access_token:
+            _logger.error("No access_token in response.")
             raise AccessDenied()
         if not id_token:
+            _logger.error("No id_token in response.")
             raise AccessDenied()
-        validation = oauth_provider.parse_id_token(id_token, access_token)
+        validation = oauth_provider._parse_id_token(id_token, access_token)
         # required check
         if not validation.get("user_id"):
+            _logger.error("user_id claim not found in id_token (after mapping).")
             raise AccessDenied()
         # retrieve and sign in user
         params["access_token"] = access_token

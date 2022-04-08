@@ -1,5 +1,10 @@
+# Copyright 2016 ICTSTUDIO <http://www.ictstudio.eu>
+# Copyright 2021 ACSONE SA/NV <https://acsone.eu>
+# License: AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+
 import base64
 import hashlib
+import logging
 import secrets
 
 from http import HTTPStatus
@@ -9,6 +14,10 @@ from werkzeug.urls import url_decode, url_encode
 from odoo.addons.web.controllers.main import Session
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin, ensure_db, request
 from odoo.addons.auth_oidc.models.auth_oauth_provider import AuthOauthFlow
+
+from odoo.addons.auth_oauth.controllers.main import OAuthLogin
+
+_logger = logging.getLogger(__name__)
 
 
 class OpenIDLogin(OAuthLogin, Session):
@@ -30,7 +39,7 @@ class OpenIDLogin(OAuthLogin, Session):
                     params["response_type"] = "id_token token"
                 elif flow == AuthOauthFlow.OpenIdConnectCode:
                     params["response_type"] = "code"
-
+                # PKCE (https://tools.ietf.org/html/rfc7636)
                 code_verifier = provider["code_verifier"]
                 code_challenge = base64.urlsafe_b64encode(
                     hashlib.sha256(code_verifier.encode("ascii")).digest()
@@ -40,7 +49,7 @@ class OpenIDLogin(OAuthLogin, Session):
                 # scope
                 if provider.get("scope"):
                     if "openid" not in provider["scope"].split():
-                        raise Exception("openid connect scope must contain 'openid'")
+                        _logger.error("openid connect scope must contain 'openid'")
                     params["scope"] = provider["scope"]
                 # auth link that the user will click
                 provider["auth_link"] = f"{provider.get('auth_endpoint')}?{url_encode(params)}"

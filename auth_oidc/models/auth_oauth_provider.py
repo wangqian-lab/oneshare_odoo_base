@@ -69,7 +69,7 @@ class AuthOauthProvider(models.Model):
                     res[to_key] = res.get(from_key, "")
         return res
 
-    def parse_id_token(self, id_token, access_token):
+    def _parse_id_token(self, id_token, access_token):
         self.ensure_one()
         res = {}
         header = jwt.get_unverified_header(id_token)
