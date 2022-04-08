@@ -21,7 +21,6 @@ class CancelConfirm(models.TransientModel):
     )
 
     def confirm_cancel(self):
-        res = True
         self.ensure_one()
         res_model = self._context.get("cancel_res_model")
         res_ids = self._context.get("cancel_res_ids")
@@ -31,10 +30,5 @@ class CancelConfirm(models.TransientModel):
         # Cancel Reason
         if self.has_cancel_reason in ["optional", "required"]:
             docs.write({"cancel_reason": self.cancel_reason})
-        if not cancel_method or not isinstance(cancel_method, str):
-            return res
-        m = getattr(docs, cancel_method)
-        if not m:
-            return res
         res = getattr(docs, cancel_method)()
         return res

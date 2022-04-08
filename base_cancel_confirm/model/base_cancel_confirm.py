@@ -1,5 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import inspect
 
 from lxml import etree
 
@@ -24,22 +25,13 @@ class BaseCancelConfirm(models.AbstractModel):
         help="An optional cancel reason",
     )
 
-    @staticmethod
-    def get_cancel_method():
-        return ''
-
     def open_cancel_confirm_wizard(self):
-        action = (
-            self.env.ref("base_cancel_confirm.action_cancel_confirm_wizard")
-                .sudo()
-                .read()[0]
-        )
-        if not action:
-            return action
+        xmlid = "base_cancel_confirm.action_cancel_confirm_wizard"
+        action = self.env["ir.actions.act_window"]._for_xml_id(xmlid)
         action["context"] = {
             "cancel_res_model": self._name,
             "cancel_res_ids": self.ids,
-            "cancel_method": self.get_cancel_method(),
+            "cancel_method": inspect.stack()[1][3],
             "default_has_cancel_reason": self._has_cancel_reason,
         }
         return action
@@ -48,7 +40,7 @@ class BaseCancelConfirm(models.AbstractModel):
         self.write({"cancel_confirm": False, "cancel_reason": False})
 
     def fields_view_get(
-            self, view_id=None, view_type="form", toolbar=False, submenu=False
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
         res = super().fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
