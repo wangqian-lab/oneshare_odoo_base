@@ -33,10 +33,11 @@ The new configurable Odoo Web Login Screen
     'website': "https://www.xaoxao.vn",
     'license': 'AGPL-3',
     'depends': [
+        "web"
     ],
     'data': [
         'data/ir_config_parameter.xml',
-        'templates/website_templates.xml',
+        # 'templates/website_templates.xml',
         'templates/webclient_templates.xml',
     ],
     'qweb': [
