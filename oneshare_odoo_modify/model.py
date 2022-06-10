@@ -16,6 +16,7 @@ ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
 class OneshareHyperModel(models.AbstractModel):
     _log_access = False
     _hyper_field = 'time'
+    _retention_policy = False
     _dimensions = []
     _auto = True  # automatically create database backend
     _register = False  # not visible in ORM registry, meant to be python-inherited only
@@ -95,7 +96,7 @@ class OneshareHyperModel(models.AbstractModel):
         cmd = '''SELECT create_hypertable('%s', '%s',if_not_exists => TRUE,chunk_time_interval => interval '%s')''' % (
             self._table, self._hyper_field, self._hyper_interval,)
         self._cr.execute(cmd)
-        _logger.info("HypterTable '%s': created", self._table)
+        _logger.info("HyperTable '%s': created", self._table)
 
     def _add_dimensions(self):
         """
@@ -112,7 +113,7 @@ class OneshareHyperModel(models.AbstractModel):
             try:
                 cr.execute(query)
                 cr.commit()
-                _logger.info("Table '%s': added dimesion '%s' ",
+                _logger.info("Table '%s': added dimension '%s' ",
                              self._table, definition)
             except Exception as e:
                 _logger.warning("Table '%s': unable to add constraint '%s'!\n"
@@ -124,6 +125,14 @@ class OneshareHyperModel(models.AbstractModel):
         for definition in self._dimensions:
             add(par_num, definition)
 
+    def _add_retention_policy(self):
+        if not ENV_TIMESCALE_ENABLE or not self._retention_policy:
+            return
+        cmd = '''SELECT add_retention_policy('%s', INTERVAL '%s');''' % (
+            self._table, self._retention_policy,)
+        self._cr.execute(cmd)
+        _logger.info("Add Retention Policy For Table '%s':, Interval: %s created", self._table, self._retention_policy)
+
     def _add_sql_constraints(self):
         # must_create_table = not table_exists(self._cr, self._table)
         super(OneshareHyperModel, self)._add_sql_constraints()
@@ -131,6 +140,7 @@ class OneshareHyperModel(models.AbstractModel):
         if ENV_TIMESCALE_ENABLE:
             self._execute_hyper_sql()  # 先执行sql保证其变为hyper table
             self._add_dimensions()
+            self._add_retention_policy()
 
 
 odoo.models.OneshareHyperModel = OneshareHyperModel
