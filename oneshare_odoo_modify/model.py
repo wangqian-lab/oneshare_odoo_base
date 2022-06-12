@@ -17,6 +17,7 @@ class OneshareHyperModel(models.AbstractModel):
     _log_access = False
     _hyper_field = 'time'
     _retention_policy = False
+    _compression_policy = False
     _dimensions = []
     _auto = True  # automatically create database backend
     _register = False  # not visible in ORM registry, meant to be python-inherited only
@@ -128,10 +129,29 @@ class OneshareHyperModel(models.AbstractModel):
     def _add_retention_policy(self):
         if not ENV_TIMESCALE_ENABLE or not self._retention_policy:
             return
-        cmd = '''SELECT add_retention_policy('%s', INTERVAL '%s');''' % (
+        remove_cmd = '''SELECT remove_retention_policy('%s', if_exists => true);''' % (
+            self._table,)
+        self._cr.execute(remove_cmd)
+        cmd = '''SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
             self._table, self._retention_policy,)
         self._cr.execute(cmd)
         _logger.info("Add Retention Policy For Table '%s':, Interval: %s created", self._table, self._retention_policy)
+
+    def _add_compression_policy(self):
+        # FIXME: 一旦设定可压缩后，就不能解除
+        if not ENV_TIMESCALE_ENABLE or not self._compression_policy:
+            return
+        cmd = '''ALTER TABLE %s SET (timescaledb.compress);''' % (self._table,)
+        self._cr.execute(cmd)
+        # 移除已有的策略
+        # remove_cmd = '''SELECT remove_compression_policy('%s', if_exists => true);''' % (
+        #     self._table,)
+        # self._cr.execute(remove_cmd)
+        cmd = '''SELECT add_compression_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
+            self._table, self._compression_policy,)
+        self._cr.execute(cmd)
+        _logger.info("Add Compression Policy For Table '%s':, Interval: %s created", self._table,
+                     self._compression_policy)
 
     def _add_sql_constraints(self):
         # must_create_table = not table_exists(self._cr, self._table)
@@ -141,6 +161,7 @@ class OneshareHyperModel(models.AbstractModel):
             self._execute_hyper_sql()  # 先执行sql保证其变为hyper table
             self._add_dimensions()
             self._add_retention_policy()
+            self._add_compression_policy()  # 增加温数据
 
 
 odoo.models.OneshareHyperModel = OneshareHyperModel
