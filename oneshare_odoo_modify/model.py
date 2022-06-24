@@ -97,6 +97,7 @@ class OneshareHyperModel(models.AbstractModel):
         cmd = '''SELECT create_hypertable('%s', '%s',if_not_exists => TRUE,chunk_time_interval => interval '%s')''' % (
             self._table, self._hyper_field, self._hyper_interval,)
         self._cr.execute(cmd)
+        self._cr.commit()
         _logger.info("HyperTable '%s': created", self._table)
 
     def _add_dimensions(self):
@@ -132,9 +133,11 @@ class OneshareHyperModel(models.AbstractModel):
         remove_cmd = '''SELECT remove_retention_policy('%s', if_exists => true);''' % (
             self._table,)
         self._cr.execute(remove_cmd)
+        self._cr.commit()
         cmd = '''SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
             self._table, self._retention_policy,)
         self._cr.execute(cmd)
+        self._cr.commit()
         _logger.info("Add Retention Policy For Table '%s':, Interval: %s created", self._table, self._retention_policy)
 
     def _add_compression_policy(self):
@@ -143,6 +146,7 @@ class OneshareHyperModel(models.AbstractModel):
             return
         cmd = '''ALTER TABLE %s SET (timescaledb.compress);''' % (self._table,)
         self._cr.execute(cmd)
+        self._cr.commit()
         # 移除已有的策略
         # remove_cmd = '''SELECT remove_compression_policy('%s', if_exists => true);''' % (
         #     self._table,)
@@ -150,6 +154,7 @@ class OneshareHyperModel(models.AbstractModel):
         cmd = '''SELECT add_compression_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
             self._table, self._compression_policy,)
         self._cr.execute(cmd)
+        self._cr.commit()
         _logger.info("Add Compression Policy For Table '%s':, Interval: %s created", self._table,
                      self._compression_policy)
 
