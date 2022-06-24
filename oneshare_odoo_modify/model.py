@@ -91,6 +91,7 @@ class OneshareHyperModel(models.AbstractModel):
 
     def _execute_hyper_sql(self):
         self._cr.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE")
+        self._cr.execute('''CREATE EXTENSION IF NOT EXISTS "uuid-ossp" CASCADE''')
         cmd = '''ALTER TABLE %s DROP CONSTRAINT IF EXISTS %s_pkey''' % (self._table, self._table)
         self._cr.execute(cmd)
         self._cr.commit()
