@@ -1,0 +1,919 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bureaucrat_knowledge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-10 09:42+0000\n"
+"PO-Revision-Date: 2022-06-10 09:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,comment:bureaucrat_knowledge.group_bureaucratic_knowledge_manager
+msgid ""
+"\n"
+"            Manager of knowledge base. Users in this group have full access to knowledgebase.\n"
+"        "
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,comment:bureaucrat_knowledge.group_bureaucratic_knowledge_user_implicit
+msgid ""
+"\n"
+"            User (implicit) has readonly access to knowledge base, has no access to Knowledge menu.\n"
+"            This access right have to be used for cases, when user have to be able to read knowledgebase documents\n"
+"            from related objects, but does not have to have access to Knowledgebase.\n"
+"        "
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,comment:bureaucrat_knowledge.group_bureaucratic_knowledge_user
+msgid ""
+"\n"
+"            Users un this group have regular access to knowledge base.\n"
+"            If they are mentioned in editors or owners of document or categ,\n"
+"            then they can edit that document or category, and if such user\n"
+"            is owner of document or category, he can delete that document or category.\n"
+"        "
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_kanban
+msgid "#{record.category_full_name.value}"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_kanban
+msgid "#{record.name.value}"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_kanban
+msgid "<span class=\"fa fa-bars fa-lg\" title=\"Settings\"/>"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_needaction
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_needaction
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__active
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__active
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_search
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Active"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_exception_decoration
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_state
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_type_icon
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Actual Group"
+msgstr "实际权限组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Actual Users"
+msgstr "实际用户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__actual_visibility_category_id
+msgid "Actual Visibility Category"
+msgstr "实际可视类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__actual_visibility_parent_id
+msgid "Actual Visibility Parent"
+msgstr "实际可视父类"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__actual_editor_user_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__actual_editor_user_ids
+msgid "Actual editors"
+msgstr "实际可编辑者"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__actual_editor_group_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__actual_editor_group_ids
+msgid "Actual editors groups"
+msgstr "实际可编辑组"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__actual_owner_user_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__actual_owner_user_ids
+msgid "Actual owners"
+msgstr "实际所属者"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__actual_owner_group_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__actual_owner_group_ids
+msgid "Actual owners groups"
+msgstr "实际所属组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_search
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Archived"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_attachment_count
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_attachment_count
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model,name:bureaucrat_knowledge.model_bureaucrat_knowledge_category
+msgid "Bureaucrat Knowledge: Category"
+msgstr "知识库：类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model,name:bureaucrat_knowledge.model_bureaucrat_knowledge_document
+msgid "Bureaucrat Knowledge: Document"
+msgstr "知识库：文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model,name:bureaucrat_knowledge.model_bureaucrat_knowledge_document_history
+msgid "Bureaucrat Knowledge: Document History"
+msgstr "知识库：文档历史"
+
+#. module: bureaucrat_knowledge
+#: model:ir.module.category,name:bureaucrat_knowledge.module_category_bureaucratic_knowledge
+msgid "Bureaucratic Knowledge"
+msgstr "知识库"
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,name:bureaucrat_knowledge.group_bureaucratic_knowledge_manager
+msgid "Bureaucratic Knowledge / Manager"
+msgstr "知识库/管理者"
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,name:bureaucrat_knowledge.group_bureaucratic_knowledge_user
+msgid "Bureaucratic Knowledge / User"
+msgstr "知识库/用户"
+
+#. module: bureaucrat_knowledge
+#: model:res.groups,name:bureaucrat_knowledge.group_bureaucratic_knowledge_user_implicit
+msgid "Bureaucratic Knowledge / User (implicit)"
+msgstr "知识库/用户(隐式)"
+
+#. module: bureaucrat_knowledge
+#: model:ir.actions.act_window,name:bureaucrat_knowledge.action_bureaucrat_knowledge_category
+#: model:ir.ui.menu,name:bureaucrat_knowledge.bureaucrat_knowledge_category_menu
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Categories"
+msgstr "类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__category_id
+msgid "Category"
+msgstr "类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__category_contents
+msgid "Category Contents"
+msgstr "类别内容"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.constraint,message:bureaucrat_knowledge.constraint_bureaucrat_knowledge_category_check_visibility_type_parent_not_in_the_top_categories
+msgid "Category must have a parent category to set Visibility Type 'Parent'"
+msgstr "设置可视类型为Parent,必须有一个父类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__child_ids
+msgid "Child"
+msgstr "子类"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__child_category_count
+msgid "Child Category Count"
+msgstr "子类别数量"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__color
+msgid "Color Index"
+msgstr "颜色索引"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__commit_summary
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__commit_summary
+msgid "Commit Summary"
+msgstr "提交信息摘要"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Commit summary ..."
+msgstr "提交总结..."
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+msgid "Contents"
+msgstr "内容"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__created_by_id
+msgid "Created User"
+msgstr "创建人"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_history_view_form
+msgid "Created at"
+msgstr "创建于"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__create_uid
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__create_uid
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__create_uid
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_history_view_form
+msgid "Created by"
+msgstr "创建人"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__create_date
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__create_date
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__create_date
+msgid "Created on"
+msgstr "创建日期"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_id
+msgid "Data record"
+msgstr "数据记录"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_ids
+msgid "Data records"
+msgstr "数据记录"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__date_create
+msgid "Date Create"
+msgstr "创建日期"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__description
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+msgid "Description"
+msgstr "描述"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__display_name
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__display_name
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__display_name
+msgid "Display Name"
+msgstr "名称"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__document_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__document_id
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_kanban
+msgid "Document"
+msgstr "文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__document_body_html
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__document_body_html
+msgid "Document Body Html"
+msgstr "Html文档内容"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__document_body_pdf
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__document_body_pdf
+msgid "Document Body Pdf"
+msgstr "Pdf文档内容"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Document Content"
+msgstr "文档内容"
+
+#. module: bureaucrat_knowledge
+#: model:ir.actions.act_window,name:bureaucrat_knowledge.action_bureaucrat_knowledge_document_history
+msgid "Document History"
+msgstr "文档历史"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__document_name
+msgid "Document Name"
+msgstr "文档名称"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__document_preview_text
+msgid "Document Preview Text"
+msgstr "文档文本预览"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__document_type
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__document_type
+msgid "Document Type"
+msgstr "文档类型"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.constraint,message:bureaucrat_knowledge.constraint_bureaucrat_knowledge_document_check_visibility_type_parent_not_in_the_top_categories
+msgid "Document must have a parent category to set Visibility Type 'Parent'"
+msgstr "文档必须有一个父类别来设置可视类型为Parent"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__created_by_id
+msgid "Document was created by this user"
+msgstr "文档由该用户创建"
+
+#. module: bureaucrat_knowledge
+#: model:ir.actions.act_window,name:bureaucrat_knowledge.action_bureaucrat_knowledge_document
+#: model:ir.ui.menu,name:bureaucrat_knowledge.bureaucrat_knowledge_document_document_menu
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_tree
+msgid "Documents"
+msgstr "文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__documents_count
+msgid "Documents Count"
+msgstr "文档数量"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_kanban
+msgid "Edit Document"
+msgstr "编辑文档"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Editor groups"
+msgstr "编辑权限组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Editor users"
+msgstr "编辑权限用户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__editor_user_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__editor_user_ids
+msgid "Editors"
+msgstr "编辑权限人员"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__editor_group_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__editor_group_ids
+msgid "Editors groups"
+msgstr "编辑权限组"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__search_tag_id
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__search_tag_id
+msgid "Find all records that contain this tag"
+msgstr "搜索所有包含该tag的文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__search_no_tag_id
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__search_no_tag_id
+msgid "Find all records that have no this tag"
+msgstr "搜索所有不包含该tag的文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_follower_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_follower_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_channel_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_channel_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "关注者(频道)"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_partner_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_partner_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "关注者(伙伴)"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_type_icon
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__full_name
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__category_full_name
+msgid "Full Name"
+msgstr "全名"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Group"
+msgstr "组"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__history_ids
+msgid "History"
+msgstr "历史"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__history_count
+msgid "History Count"
+msgstr "历史数目"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__id
+msgid "ID"
+msgstr "ID"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_exception_icon
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_exception_icon
+msgid "Icon"
+msgstr "图标"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_exception_icon
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "表示意外活动的图标"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_needaction
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_unread
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_needaction
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_unread
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_needaction
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "如果勾选，新消息需要您的关注"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_error
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_sms_error
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_error
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_sms_error
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_error
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "如果勾选，部分信息传递错误"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__index_document_body
+msgid "Index Document Body"
+msgstr "文档索引"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_no_update
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_no_update
+msgid ""
+"Indicates whether this record will be updated with module update or not. If "
+"set to True, the record will not be overriden on module update, if set to "
+"False, thenrecord will be overridden by module update"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+msgid "Info"
+msgstr "信息"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_category__visibility_type__internal
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__visibility_type__internal
+msgid "Internal"
+msgstr "内部"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_is_follower
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_is_follower
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_is_follower
+msgid "Is Follower"
+msgstr "是关注者"
+
+#. module: bureaucrat_knowledge
+#: model:ir.ui.menu,name:bureaucrat_knowledge.bureaucrat_knowledge_menu
+msgid "Knowledge"
+msgstr "知识"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category____last_update
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document____last_update
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history____last_update
+msgid "Last Modified on"
+msgstr "最后更新于"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__write_uid
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__write_uid
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__write_date
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__write_date
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__write_date
+msgid "Last Updated on"
+msgstr "最后更新日期"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__latest_history_id
+msgid "Latest History"
+msgstr "最新历史记录"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_main_attachment_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_main_attachment_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "主要附件"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_error
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_error
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_error
+msgid "Message Delivery error"
+msgstr "消息传递错误"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_ids
+msgid "Messages"
+msgstr "消息"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__my_activity_date_deadline
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活动期限"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__name
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__name
+msgid "Name"
+msgstr "名称"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Name..."
+msgstr "名称..."
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_date_deadline
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一次活动期限"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_summary
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一次活动摘要"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_type_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一次活动类型"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__search_no_tag_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__search_no_tag_id
+msgid "No tag"
+msgstr "无标签"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_no_update
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_no_update
+msgid "Non Updatable"
+msgstr "不可更新"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_needaction_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_needaction_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_needaction_counter
+msgid "Number of Actions"
+msgstr "活动数量"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_error_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_error_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_error_counter
+msgid "Number of errors"
+msgstr "错误数量"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_needaction_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_needaction_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "需要安排活动的消息数量"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_error_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_error_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "消息传递错误的数量"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_unread_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_unread_counter
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_unread_counter
+msgid "Number of unread messages"
+msgstr "未读消息数目"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Other"
+msgstr "其他"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Owner groups"
+msgstr "所属组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Owner users"
+msgstr "所属用户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__owner_user_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__owner_user_ids
+msgid "Owners"
+msgstr "所属权"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__owner_group_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__owner_group_ids
+msgid "Owners groups"
+msgstr "所属权限组"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__parent_id
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_category__visibility_type__parent
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__visibility_type__parent
+msgid "Parent"
+msgstr "父类"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__parent_path
+msgid "Parent Path"
+msgstr "父类路径"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__parent_ids
+msgid "Parents Categories"
+msgstr "父类文档"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_category__visibility_type__portal
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__visibility_type__portal
+msgid "Portal"
+msgstr "门户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__document_preview_image
+msgid "Preview"
+msgstr "预览"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_category__visibility_type__public
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__visibility_type__public
+msgid "Public"
+msgstr "公共"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Reader Group"
+msgstr "可读组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Reader User"
+msgstr "可读用户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__visibility_user_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__visibility_user_ids
+msgid "Readers"
+msgstr "可读用户"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__visibility_group_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__visibility_group_ids
+msgid "Readers groups"
+msgstr "可读组"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_history_view_form
+msgid "References"
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_user_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_user_id
+msgid "Responsible User"
+msgstr "责任人"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_category__visibility_type__restricted
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__visibility_type__restricted
+msgid "Restricted"
+msgstr "受限的"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_has_sms_error
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_has_sms_error
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS传递错误"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Settings"
+msgstr "设置"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_state
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_tree
+msgid "Subcategories"
+msgstr "子类别"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__search_tag_id
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__search_tag_id
+msgid "Tag"
+msgstr "标签"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__tag_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__tag_ids
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Tags"
+msgstr "标签"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_tree
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_tree
+msgid "Tags..."
+msgstr "标签..."
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_search
+msgid "Top Level"
+msgstr "顶层"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__activity_exception_decoration
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "记录的异常活动类型"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_search
+msgid "Types"
+msgstr "类型"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_unread
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_unread
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_unread
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__message_unread_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__message_unread_counter
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "未读消息数目"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__user_id
+msgid "User"
+msgstr "用户"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Users"
+msgstr "用户"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Versions"
+msgstr "版本"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__visibility_type
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__visibility_type
+msgid "Visibility Type"
+msgstr "可见类型"
+
+#. module: bureaucrat_knowledge
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_category_view_form
+#: model_terms:ir.ui.view,arch_db:bureaucrat_knowledge.bureaucrat_knowledge_document_view_form
+msgid "Visibility settings"
+msgstr "可见性设置"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__website_message_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__website_message_ids
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__website_message_ids
+msgid "Website Messages"
+msgstr "网站消息"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__website_message_ids
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__website_message_ids
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document_history__website_message_ids
+msgid "Website communication history"
+msgstr "网站交流历史"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_xmlid
+#: model:ir.model.fields,field_description:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_xmlid
+msgid "XML ID"
+msgstr "XML ID"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_category__ir_model_data_xmlid
+#: model:ir.model.fields,help:bureaucrat_knowledge.field_bureaucrat_knowledge_document__ir_model_data_xmlid
+msgid "XML ID for this record."
+msgstr "该记录的XML ID"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__document_type__html
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document_history__document_type__html
+msgid "html"
+msgstr "HTML"
+
+#. module: bureaucrat_knowledge
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document__document_type__pdf
+#: model:ir.model.fields.selection,name:bureaucrat_knowledge.selection__bureaucrat_knowledge_document_history__document_type__pdf
+msgid "pdf"
+msgstr "PDF"

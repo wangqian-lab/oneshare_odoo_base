@@ -1,0 +1,606 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* generic_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-24 07:40+0000\n"
+"PO-Revision-Date: 2022-06-24 07:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: generic_tag
+#: model:res.groups,comment:generic_tag.group_tags_manager
+msgid ""
+"\n"
+"            Users in this group can manage tags (create / update / ...)\n"
+"        "
+msgstr ""
+
+#. module: generic_tag
+#: model:res.groups,comment:generic_tag.group_tags_user
+msgid ""
+"\n"
+"            Users in this group have access to menu Tags. They cannot create or edit tags.\n"
+"        "
+msgstr ""
+
+#. module: generic_tag
+#: model:res.groups,comment:generic_tag.group_tags_user_restricted
+msgid ""
+"\n"
+"            Users in this group have access to tags that have same group that user have\n"
+"        "
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__access_ids
+msgid "Access"
+msgstr "使用权"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__act_manage_tags_id
+msgid "Act Manage Tags"
+msgstr "行为管理标签"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__action
+msgid "Action"
+msgstr "活动"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__active
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__active
+msgid "Active"
+msgstr "有效"
+
+#. module: generic_tag
+#: model:ir.model.fields.selection,name:generic_tag.selection__generic_tag_wizard_manage_tags__action__add
+msgid "Add"
+msgstr "新增"
+
+#. module: generic_tag
+#: model:ir.ui.menu,name:generic_tag.menu_generic_tags_all
+msgid "All Tags"
+msgstr "所有标签"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.generic_tag_wizard_manage_tags_form_view
+msgid "Apply"
+msgstr "应用"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.generic_tag_wizard_manage_tags_form_view
+msgid "Cancel"
+msgstr "取消"
+
+#. module: generic_tag
+#: model:ir.actions.act_window,name:generic_tag.action_generic_tag_caegories_view
+#: model:ir.ui.menu,name:generic_tag.menu_action_generic_tag_categories_view
+msgid "Categories"
+msgstr "类别"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__category_id
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_search
+msgid "Category"
+msgstr "类别"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_form
+msgid "Category code"
+msgstr "类别编号"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag.py:0
+#, python-format
+msgid "Category must be bound to same model as tag"
+msgstr "类别必须绑定到与标签相同的模型"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_form
+msgid "Category name"
+msgstr "类别名称"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__category_sequence
+msgid "Category priority"
+msgstr "类别优先级"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__check_xor
+msgid "Check XOR"
+msgstr "检查XOR"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__code
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__code
+msgid "Code"
+msgstr "编号"
+
+#. module: generic_tag
+#: model:ir.model.constraint,message:generic_tag.constraint_generic_tag_category_code_uniq
+msgid "Code of category must be unique"
+msgstr "类别编号必须唯一"
+
+#. module: generic_tag
+#: model:ir.model.constraint,message:generic_tag.constraint_generic_tag_code_uniq
+msgid "Code of tag must be unique"
+msgstr "标签编号必须唯一"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__color
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__color
+msgid "Color"
+msgstr "颜色"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__comment
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__comment
+msgid "Comment"
+msgstr "评论"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_form
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_form
+msgid "Comment..."
+msgstr "评论..."
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__complete_name
+msgid "Complete Name"
+msgstr "完整名称"
+
+#. module: generic_tag
+#: model:ir.ui.menu,name:generic_tag.menu_generic_tags_configuration_root
+msgid "Configuration"
+msgstr "配置"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__count
+msgid "Count (Incl. Archived)"
+msgstr "总计(包括存档)"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__create_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__create_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__create_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__create_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__create_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__create_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__create_date
+msgid "Created on"
+msgstr "创建日期"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_category__comment
+msgid "Describe what this tag category is for"
+msgstr "描述标签类型"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag__comment
+msgid "Describe what this tag means"
+msgstr "描述标签含义"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__display_name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__display_name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin__display_name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__display_name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model_mixin__display_name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__field_id
+msgid "Fields"
+msgstr "字段"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_mixin__search_tag_id
+msgid "Find all records that contain this tag"
+msgstr "包括该标签的记录"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_mixin__search_no_tag_id
+msgid "Find all records that have no this tag"
+msgstr "不包括该标签的记录"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag_mixin.py:0
+#, python-format
+msgid ""
+"Following (category - tags) pairs, break category XOR restriction:\n"
+"%s"
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.model.constraint,message:generic_tag.constraint_generic_tag_model_res_model_id_uniq
+msgid "For each Odoo model only one Tag Model could be created!"
+msgstr "对于每个odoo模型只能创建一个标签模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag__complete_name
+msgid "Full name of tag (including category name)"
+msgstr "标签全名(包含类型名称)"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag
+msgid "Generic Tag"
+msgstr "通用标签"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag_category
+msgid "Generic Tag Category"
+msgstr "通用标签名称"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag_mixin
+msgid "Generic Tag Mixin"
+msgstr "通用混合标签"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag_model
+msgid "Generic Tag Model"
+msgstr "通用标签模型"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag_model_mixin
+msgid "Generic Tag Model Mixin"
+msgstr "通用混合标签模型"
+
+#. module: generic_tag
+#: model:ir.model,name:generic_tag.model_generic_tag_wizard_manage_tags
+msgid "Generic Tag Wizard: Manage Tags"
+msgstr "通用标签向导：管理标签"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_search
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_search
+msgid "Group By..."
+msgstr "分组"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__group_ids
+msgid "Groups"
+msgstr "组"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag__objects_count
+msgid "How many objects contains this tag"
+msgstr "包含该标签的对象数量"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_category__tags_count
+msgid "How many tags related to this catgory"
+msgstr "关联该类别的标签数量"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__tags_count
+msgid "How many tags related to this model exists"
+msgstr "关联该模型的标签数量"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin__id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model_mixin__id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__id
+msgid "ID"
+msgstr "ID"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__modules
+msgid "In Apps"
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__info
+msgid "Information"
+msgstr "信息"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__inherited_model_ids
+msgid "Inherited models"
+msgstr "继承类模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag____last_update
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category____last_update
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin____last_update
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model____last_update
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model_mixin____last_update
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags____last_update
+msgid "Last Modified on"
+msgstr "最后修改于"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__write_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__write_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__write_uid
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__write_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__write_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__write_date
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__write_date
+msgid "Last Updated on"
+msgstr "最后更新日期"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__modules
+msgid "List of modules in which the object is defined or inherited"
+msgstr "定义或继承对象的模块列表"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__is_mail_activity
+msgid "Mail Activity"
+msgstr "邮件活动"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__is_mail_blacklist
+msgid "Mail Blacklist"
+msgstr "邮件黑名单"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__is_mail_thread
+msgid "Mail Thread"
+msgstr "邮件线程"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__is_mail_thread_sms
+msgid "Mail Thread SMS"
+msgstr "邮件线程SMS"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag__code
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_category__code
+msgid "May be used for special tags which have programmed bechavior"
+msgstr "可用于具有编程行为的特殊标签"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__model_id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__model_id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__model
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model_mixin__model_id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__model_id
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_search
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_search
+msgid "Model"
+msgstr "模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__name
+msgid "Model Description"
+msgstr "模型描述"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag_category.py:0
+#, python-format
+msgid "Model must be same as one used in related tags"
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.actions.act_window,name:generic_tag.action_generic_tag_models_view
+#: model:ir.ui.menu,name:generic_tag.menu_action_generic_tag_modeles_view
+msgid "Models"
+msgstr "模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__name
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__name
+msgid "Name"
+msgstr "名称"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__category_name
+msgid "Name of Category"
+msgstr "类别名称"
+
+#. module: generic_tag
+#: model:ir.model.constraint,message:generic_tag.constraint_generic_tag_category_name_uniq
+msgid "Name of category must be unique"
+msgstr "类别的名称必须唯一"
+
+#. module: generic_tag
+#: model:ir.model.constraint,message:generic_tag.constraint_generic_tag_name_uniq
+msgid "Name of tag must be unique for category"
+msgstr "同一个类别的标签名称必须唯一"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin__search_no_tag_id
+msgid "No tag"
+msgstr "无标签"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__objects_count
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_form
+msgid "Objects"
+msgstr "对象"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag.py:0
+#, python-format
+msgid "Objects related to tag %s"
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__res_model_id
+msgid "Odoo Model"
+msgstr "odoo 模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__order
+msgid "Order"
+msgstr "订单"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__rule_ids
+msgid "Record Rules"
+msgstr "记录规则"
+
+#. module: generic_tag
+#: model:ir.model.fields.selection,name:generic_tag.selection__generic_tag_wizard_manage_tags__action__remove
+msgid "Remove"
+msgstr "删除"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__order
+msgid ""
+"SQL expression for ordering records in the model; e.g. \"x_sequence asc, id "
+"desc\""
+msgstr ""
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag__sequence
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: generic_tag
+#: model:ir.model.fields.selection,name:generic_tag.selection__generic_tag_wizard_manage_tags__action__set
+msgid "Set"
+msgstr "设置"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_tree
+msgid "Show Objects"
+msgstr "显示对象"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_tree
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_model_tree
+msgid "Show Tags"
+msgstr "显示标签"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag__model_id
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_category__model_id
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model_mixin__model_id
+msgid "Specify model for which this tag is available"
+msgstr "指定此标签可用的模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin__search_tag_id
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_wizard_manage_tags__tag_ids
+msgid "Tag"
+msgstr "标签"
+
+#. module: generic_tag
+#: model:res.groups,name:generic_tag.group_tags_manager
+msgid "Tag Manager"
+msgstr "标签管理"
+
+#. module: generic_tag
+#: model:res.groups,name:generic_tag.group_tags_user
+msgid "Tag User"
+msgstr "标签使用者"
+
+#. module: generic_tag
+#: model:res.groups,name:generic_tag.group_tags_user_restricted
+msgid "Tag User (restricted)"
+msgstr "标签使用者(受限)"
+
+#. module: generic_tag
+#: model:ir.actions.act_window,name:generic_tag.action_generic_tags_view
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__tag_ids
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_mixin__tag_ids
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__tags_count
+#: model:ir.ui.menu,name:generic_tag.menu_action_generic_tags_view
+#: model:ir.ui.menu,name:generic_tag.menu_generic_tags_root
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_form
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_category_tree
+#: model_terms:ir.ui.view,arch_db:generic_tag.view_generic_tag_model_form
+msgid "Tags"
+msgstr "标签"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_category__tags_count
+msgid "Tags Count"
+msgstr "标签数量"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag_category.py:0
+#, python-format
+msgid "Tags related to category %s"
+msgstr "关联该类别的标签"
+
+#. module: generic_tag
+#: code:addons/generic_tag/models/generic_tag_model.py:0
+#, python-format
+msgid "Tags related to model %s"
+msgstr "关联该模型的标签"
+
+#. module: generic_tag
+#: model_terms:ir.ui.view,arch_db:generic_tag.generic_tag_wizard_manage_tags_form_view
+msgid "Tags..."
+msgstr "标签..."
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__inherited_model_ids
+msgid "The list of models that extends the current model."
+msgstr "扩展了当前模型的模型列表。"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__count
+msgid "Total number of records in this model"
+msgstr "该模型中的记录总数量"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__transient
+msgid "Transient Model"
+msgstr "瞬态模型"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__state
+msgid "Type"
+msgstr "类别"
+
+#. module: generic_tag
+#: model:ir.model.fields,field_description:generic_tag.field_generic_tag_model__view_ids
+msgid "Views"
+msgstr "视图"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__is_mail_activity
+msgid "Whether this model supports activities."
+msgstr "此模型是否支持活动"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__is_mail_blacklist
+msgid "Whether this model supports blacklist."
+msgstr "此模型是否支持黑名单"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__is_mail_thread_sms
+msgid "Whether this model supports messages and notifications through SMS"
+msgstr "此模型是否支持通过SMS发送消息和通知"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_model__is_mail_thread
+msgid "Whether this model supports messages and notifications."
+msgstr "此模型是否支持消息和通知"
+
+#. module: generic_tag
+#: model:ir.model.fields,help:generic_tag.field_generic_tag_category__check_xor
+msgid ""
+"if set to True then only one tag from this category may be present on a "
+"single object. On attempt to add second tag from this category to object, "
+"error will be raised"
+msgstr "如果设置为True，则该类别中只有一个标签可以出现在单个对象上。尝试将此类别中的第二个标签添加到对象将引发错误"
