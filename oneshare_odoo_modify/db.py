@@ -79,9 +79,10 @@ def _add_timescale_extension(name):
     try:
         with closing(db.cursor()) as cr:
             cr.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE")
+            cr.execute('''CREATE EXTENSION IF NOT EXISTS "uuid-ossp" CASCADE''')
             cr.commit()
     except Exception as e:
-        _logger.error("Create Extension For TimeScale Failed")
+        _logger.error("Extension For TIMESCALEDB Failed")
 
 
 @check_db_management_enabled
