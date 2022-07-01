@@ -14,5 +14,5 @@
     "license": "AGPL-3",
     "depends": ["web_editor"],
     "data": ["templates/assets.xml"],
-    'auto_install': True,
+    # 'auto_install': True,
 }
