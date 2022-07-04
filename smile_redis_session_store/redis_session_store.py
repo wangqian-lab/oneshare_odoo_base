@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import os
 from odoo import http, tools
 from odoo.tools.func import lazy_property
-from distutils.util import strtobool
 from odoo.tools._vendor.sessions import SessionStore
+from odoo.addons.smile_redis_session_store.constants import is_redis_session_store_activated, SESSION_TIMEOUT, \
+    startup_nodes, redis_ports, redis_db, redis_password
 
 if sys.version_info > (3,):
     import _pickle as cPickle
@@ -13,20 +13,6 @@ if sys.version_info > (3,):
     unicode = str
 else:
     import cPickle
-
-SESSION_TIMEOUT = 60 * 60 * 24 * 7  # 1 weeks in seconds
-
-hosts: str = tools.config.get('redis_host', None) or os.getenv('ENV_SESSION_REDIS_HOST', 'localhost')
-startup_nodes = hosts.split(',')
-
-ports = int(tools.config.get('redis_port') or os.getenv('ENV_SESSION_REDIS_PORT', '6379'))
-db = int(tools.config.get('redis_dbindex') or os.getenv('ENV_SESSION_REDIS_DB', '1'))
-password = tools.config.get('redis_pass') or os.getenv('ENV_SESSION_REDIS_PASSWORD', None)
-
-
-def is_redis_session_store_activated():
-    return tools.config.get('enable_redis') or strtobool(os.getenv('ENV_SESSION_REDIS_ENABLE', 'False'))
-
 
 try:
     import redis, rediscluster
@@ -48,14 +34,14 @@ class RedisSessionStore(SessionStore):
             self.redis = redis.Redis(
                 health_check_interval=30,
                 host=host,
-                port=ports,
-                db=db,
-                password=password)
+                port=redis_ports,
+                db=redis_db,
+                password=redis_password)
         else:
             self.redis = rediscluster.RedisCluster(
                 startup_nodes=startup_nodes,
                 health_check_interval=30,
-                password=password)
+                password=redis_password)
         self._is_redis_server_running()
 
     def save(self, session):
