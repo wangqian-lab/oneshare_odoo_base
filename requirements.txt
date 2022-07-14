@@ -8,3 +8,5 @@ wechatpy==1.8.15
 cryptography==3.4.8
 tenacity==8.0.1
 typing_extensions==3.10.0.2; python_version < '3.8'
+html2text==2020.1.16
+pdf2image==1.16.0
