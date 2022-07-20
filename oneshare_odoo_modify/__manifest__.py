@@ -14,12 +14,11 @@
     'author': "Oneshare",
     'website': "http://www.oneshare.com.cn",
 
-
     'category': 'Base',
     'version': '14.0.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['web','base', 'resource'],
+    'depends': ['web', 'base', 'resource'],
     "data": ["templates/assets.xml"],
     'auto_install': True,
     'post_init_hook': '_auto_load_onesphere_default_partner_settings',
