@@ -4,6 +4,8 @@ import os
 import base64
 from distutils.util import strtobool
 
+import psutil
+
 ENV_ONESHARE_EXPERIMENTAL_ENABLE = strtobool(os.getenv('ENV_ONESHARE_EXPERIMENTAL_ENABLE', 'false'))
 
 ONESHARE_DEFAULT_LIMIT = int(os.getenv('ENV_ONESHARE_SQL_REC_LIMT', '15'))
@@ -26,6 +28,6 @@ ONESHARE_DEFAULT_SPC_MAX_LIMIT = int(os.getenv('ONESHARE_DEFAULT_SPC_MAX_LIMIT',
 
 DEFAULT_TIMEOUT = 2  # 默认超时
 
-ENV_MAX_WORKERS = int(os.getenv('ENV_MAX_WORKERS', '8'))
+ENV_MAX_WORKERS = int(os.getenv('ENV_MAX_WORKERS', str(psutil.cpu_count())))
 
 ENV_HTTP_MAX_SIZE = int(os.getenv('ENV_HTTP_MAX_SIZE', '10'))  # 10MB
