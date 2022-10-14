@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2021 Camptocamp SA (https://www.camptocamp.com).
+    @author Iván Todorovich <ivan.todorovich@camptocamp.com>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/one2many_search/static/src/js/one2manySearch.js"/>
+            <link type="text/css" rel="stylesheet" href="/one2many_search/static/src/css/header.css"/>
+        </xpath>
+
+    </template>
+
+</odoo>
