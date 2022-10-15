@@ -2,9 +2,12 @@
 
 import os
 from distutils.util import strtobool
+
+from odoo.addons.oneshare_odoo_modify.http import SESSION_TIMEOUT as ODOO_SESSION_TIMEOUT
+
 from odoo import tools
 
-SESSION_TIMEOUT = 60 * 60 * 24 * 7  # 1 weeks in seconds
+SESSION_TIMEOUT = ODOO_SESSION_TIMEOUT
 
 redis_hosts: str = tools.config.get('redis_host', None) or os.getenv('ENV_REDIS_HOST', 'localhost')
 startup_nodes = redis_hosts.split(',')

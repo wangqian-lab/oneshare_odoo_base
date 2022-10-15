@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import collections
 import functools
 import json
-import collections
 import logging
 import os
 import pprint
+import random
 import time
 
 import psycopg2
 import werkzeug.wrappers
-from odoo.tools import ustr
 from jsonschema import validate, ValidationError
-from odoo.addons.oneshare_utils.http import oneshare_json_success_resp, oneshare_json_fail_response
+from odoo.addons.oneshare_utils.http import oneshare_json_fail_response
+
+from odoo import http
+from odoo.tools import ustr
+
+SESSION_TIMEOUT = int(os.getenv('SESSION_TIMEOUT', '604800'))  # 1 weeks in seconds
 
 import odoo
 from odoo.http import (
@@ -26,7 +31,6 @@ from odoo.http import (
     rpc_response,
     serialize_exception,
 )
-from requests import Response as webResponse
 from odoo.service.server import memory_info
 from odoo.tools import date_utils
 
@@ -268,6 +272,21 @@ def api_setup_lang(self, httprequest):
     else:
         setup_lang_original(self, httprequest)
 
+
+def session_gc(session_store):
+    if random.random() < 0.001:
+        # we keep session one week
+        last_week = time.time() - SESSION_TIMEOUT
+        for fname in os.listdir(session_store.path):
+            path = os.path.join(session_store.path, fname)
+            try:
+                if os.path.getmtime(path) < last_week:
+                    os.unlink(path)
+            except OSError:
+                pass
+
+
+http.session_gc = session_gc
 
 Root.setup_lang = api_setup_lang
 Root.get_request = api_get_request
