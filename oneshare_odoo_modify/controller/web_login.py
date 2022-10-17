@@ -34,7 +34,7 @@ class WebLogin(http.Controller):
             'token': request.session.session_token,
             'session_id': request.session.sid,
             'image_small': u'data:{0};base64,{1}'.format('image/png',
-                                                         user_id.image_128) if user_id.image_128 else ""
+                                                         user_id.image_128.decode()) if user_id.image_128 else ""
         }
         request.session.modified = True
         request.session.rotate = False  # 强制不要删除旧的session文件,只是更新其文件即可
