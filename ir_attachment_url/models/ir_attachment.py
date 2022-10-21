@@ -7,7 +7,7 @@ import base64
 import logging
 
 import requests
-
+from odoo.tools import ustr
 from odoo import api, models
 
 _logger = logging.getLogger(__name__)
@@ -121,8 +121,12 @@ class IrAttachment(models.Model):
                 _logger.info("storing %s", repr(attach))
 
             old_store_fname = attach.store_fname
-            data = self._file_read(old_store_fname)
-            bin_data = base64.b64decode(data) if data else b""
+            data = attach.datas
+            try:
+                bin_data = base64.b64decode(data) if data else b""
+            except Exception as e:
+                _logger.error(ustr(e))
+                bin_data = data
             checksum = (
                 self._compute_checksum(bin_data)
                 if not attach.checksum
