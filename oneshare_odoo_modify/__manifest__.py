@@ -19,7 +19,10 @@
 
     # any module necessary for this one to work correctly
     'depends': ['web', 'base', 'resource'],
-    "data": ["templates/assets.xml"],
+    "data": ["templates/assets.xml",
+             ],
+    "qweb": ["templates/search_panel.xml",
+             ],
     'auto_install': True,
     'post_init_hook': '_auto_load_onesphere_default_partner_settings',
 }

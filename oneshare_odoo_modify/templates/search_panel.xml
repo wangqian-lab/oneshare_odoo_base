@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<!--    <t t-inherit="web.SearchPanel" t-inherit-mode="extension">-->
+<!--        <xpath expr="//label[@class='o_search_panel_label custom-control-label']" position="attributes">-->
+<!--            <attribute name="t-att-title">(group and group.name) or (group and group.tooltip) or false</attribute>-->
+<!--        </xpath>-->
+<!--    </t>-->
+    <t t-inherit="web.SearchPanel.Category" t-inherit-mode="extension">
+        <xpath expr="//label[@class='o_search_panel_label mb0']" position="attributes">
+            <attribute name="t-att-title">(value.display_name) or false</attribute>
+        </xpath>
+    </t>
+</templates>
