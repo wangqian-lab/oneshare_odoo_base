@@ -1,16 +1,37 @@
 # -*- coding: utf-8 -*-
 
-import sys
-from odoo import models, api
-import odoo
-from psycopg2.extras import execute_values
-from distutils.util import strtobool
-import os
 import logging
+import os
+import sys
+from distutils.util import strtobool
+
+from psycopg2.extras import execute_values
+
+import odoo
+from odoo import models, api
+from odoo.tools import index_exists, ustr
+from odoo.tools.sql import _schema
 
 _logger = logging.getLogger(__name__)
 
 ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
+
+
+# def add_constraint(cr, tablename, constraintname, definition):
+#     """ Add a constraint on the given table. """
+#     query1 = 'ALTER TABLE "{}" ADD CONSTRAINT "{}" {}'.format(tablename, constraintname, definition)
+#     query2 = 'COMMENT ON CONSTRAINT "{}" ON "{}" IS %s'.format(constraintname, tablename)
+#     try:
+#         with cr.savepoint(flush=False):
+#             cr.execute(query1, log_exceptions=False)
+#             cr.execute(query2, (definition,), log_exceptions=False)
+#             _schema.debug("Table %r: added constraint %r as %s", tablename, constraintname, definition)
+#     except Exception as e:
+#         _logger.error(ustr(e))
+#         raise Exception("Table %r: unable to add constraint %r as %s", tablename, constraintname, definition)
+#
+#
+# odoo.tools.add_constraint = add_constraint
 
 
 class OneshareHyperModel(models.AbstractModel):
@@ -84,6 +105,17 @@ class OneshareHyperModel(models.AbstractModel):
         if self._hyper_field not in self._fields:
             self._add_field(self._hyper_field, fields.Date(default=fields.Date.today, required=True))
 
+    def create_index(cr, indexname, tablename, expressions):
+        """ Create the given index unless it exists. """
+        if index_exists(cr, indexname):
+            return
+        args = ', '.join(expressions)
+        sql = 'CREATE INDEX "{}" ON "{}" ({})'
+        if ENV_TIMESCALE_ENABLE:
+            sql = 'CREATE INDEX "{}" ON "{}" ({}) WITH (timescaledb.transaction_per_chunk)'
+        cr.execute(sql.format(indexname, tablename, args))
+        _schema.debug("Table %r: created index %r (%s)", tablename, indexname, args)
+
     def _execute_sql(self):
         super(OneshareHyperModel, self)._execute_sql()
         if ENV_TIMESCALE_ENABLE:
@@ -119,6 +151,7 @@ class OneshareHyperModel(models.AbstractModel):
                 _logger.info("Table '%s': added dimension '%s' ",
                              self._table, definition)
             except Exception as e:
+                _logger.error(ustr(e))
                 _logger.warning("Table '%s': unable to add constraint '%s'!\n"
                                 "If you want to have it, you should update the records and execute manually:\n%s",
                                 self._table, definition, query)
