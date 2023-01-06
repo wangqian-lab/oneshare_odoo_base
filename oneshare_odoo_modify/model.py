@@ -34,6 +34,19 @@ ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
 # odoo.tools.add_constraint = add_constraint
 
 
+# def set_not_null(cr, tablename, columnname):
+#     """ Add a NOT NULL constraint on the given column. """
+#     query = 'ALTER TABLE "{}" ALTER COLUMN "{}" SET NOT NULL'.format(tablename, columnname)
+#     try:
+#         with cr.savepoint(flush=False):
+#             cr.execute(query, log_exceptions=False)
+#             _schema.debug("Table %r: column %r: added constraint NOT NULL", tablename, columnname)
+#     except Exception as e:
+#         _logger.error(ustr(e))
+#         raise Exception("Table %r: unable to set NOT NULL on column %r", tablename, columnname)
+# odoo.tools.sql.set_not_null = set_not_null
+
+
 class OneshareHyperModel(models.AbstractModel):
     _log_access = False
     _hyper_field = 'time'
