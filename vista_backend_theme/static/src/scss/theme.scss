@@ -358,6 +358,11 @@ li.o_MessagingMenu.o-is-open {
         font-weight: bold;
     }
 }
+
+i.o_optional_columns_dropdown_toggle {
+    background-color: transparent !important;
+}
+
 .o_ThreadPreview_date, .o_activity_filter_button, .o_mail_activity_action{
     color: $one__primary !important;
 
@@ -486,9 +491,9 @@ table-sm th, .table-sm td {
     padding: 1rem  !important;
     border-top: none !important;
 }
-tr:nth-child(even){
-    background-color: $one__hover-bkg-light;
-}
+//tr:nth-child(even){
+//    background-color: $one__hover-bkg-light;
+//}
 .o_list_view .o_list_table tfoot {
      background-color: $one__light;
      filter: brightness(95.5%) !important;
