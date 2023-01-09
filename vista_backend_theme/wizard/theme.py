@@ -548,4 +548,4 @@ class ThemeStored(models.Model):
         ('default', 'Default'),
         ('two', 'Green'),
         ('three', 'Black'),
-    ], 'Theme', default='default')
+    ], 'Theme', default='three')
