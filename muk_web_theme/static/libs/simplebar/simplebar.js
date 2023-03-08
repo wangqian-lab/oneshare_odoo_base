@@ -1402,7 +1402,7 @@
 
   function _objectSpread(target) {
     for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
+      var source = arguments[i] !== null ? arguments[i] : {};
       var ownKeys = Object.keys(source);
 
       if (typeof Object.getOwnPropertySymbols === "function") {
@@ -2357,7 +2357,7 @@
    * @returns {*} Returns the property value.
    */
   function getValue(object, key) {
-    return object == null ? undefined : object[key];
+    return object === null ? undefined : object[key];
   }
 
   /**
@@ -2371,7 +2371,7 @@
     // Many host objects are `Object` objects that can coerce to strings
     // despite having improperly defined `toString` methods.
     var result = false;
-    if (value != null && typeof value.toString != "function") {
+    if (value !== null && typeof value.toString != "function") {
       try {
         result = !!(value + "");
       } catch (e) {}
@@ -2833,7 +2833,7 @@
    * @returns {string} Returns the source code.
    */
   function toSource(func) {
-    if (func != null) {
+    if (func !== null) {
       try {
         return funcToString.call(func);
       } catch (e) {}
