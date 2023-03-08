@@ -21,7 +21,8 @@ class GithubProvider(object):
         self._repo_get_tags_url_tmpl = f"https://api.github.com/repos/%s/%s/tags"
         self._get_repos = f"https://api.github.com/user/repos"
 
-    def open(self):
+    @staticmethod
+    def open():
         return True
 
     def invoke_api(self, evt: str = "", *args, **kwargs):

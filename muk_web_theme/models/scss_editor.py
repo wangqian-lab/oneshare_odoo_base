@@ -36,7 +36,8 @@ class ScssEditor(models.AbstractModel):
     # Helper
     # ----------------------------------------------------------
 
-    def _build_custom_url(self, url_parts, xmlid):
+    @staticmethod
+    def _build_custom_url(url_parts, xmlid):
         return "%s.custom.%s.%s" % (url_parts[0], xmlid, url_parts[1])
 
     def _get_custom_url(self, url, xmlid):
@@ -52,7 +53,8 @@ class ScssEditor(models.AbstractModel):
     def _get_custom_view(self, url):
         return self.env["ir.ui.view"].search([("name", "=", url)])
 
-    def _get_variable(self, content, variable):
+    @staticmethod
+    def _get_variable(content, variable):
         regex = r"{0}\:?\s(.*?);".format(variable)
         value = re.search(regex, content)
         return value and value.group(1)
@@ -60,7 +62,8 @@ class ScssEditor(models.AbstractModel):
     def _get_variables(self, content, variables):
         return {var: self._get_variable(content, var) for var in variables}
 
-    def _replace_variables(self, content, variables):
+    @staticmethod
+    def _replace_variables(content, variables):
         for variable in variables:
             variable_content = "{0}: {1};".format(variable["name"], variable["value"])
             regex = r"{0}\:?\s(.*?);".format(variable["name"])

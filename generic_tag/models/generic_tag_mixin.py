@@ -46,7 +46,8 @@ class GenericTagMixin(models.AbstractModel):
         with_tags = self.search([("tag_ids", operator, value)])
         return [("id", "not in", with_tags.mapped("id"))]
 
-    def _search_tag_id(self, operator, value):
+    @staticmethod
+    def _search_tag_id(operator, value):
         return [("tag_ids", operator, value)]
 
     def _compute_search_tag(self):

@@ -43,7 +43,8 @@ class DingTalkProvider(object):
         self._client_id = client_id
         self._client_secret = client_secret
 
-    def open(self):
+    @staticmethod
+    def open():
         return True
 
     def validate_by_code(self, validate_endpoint=None, code=None) -> httpResponse:

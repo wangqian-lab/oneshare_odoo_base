@@ -100,7 +100,8 @@ class GenericMixinDataUpdatable(models.AbstractModel):
             if record.ir_model_data_id:
                 record.ir_model_data_id.noupdate = record.ir_model_data_no_update
 
-    def _search_ir_model_data_no_update(self, operator, value):
+    @staticmethod
+    def _search_ir_model_data_no_update(operator, value):
         return [("ir_model_data_ids.noupdate", operator, value)]
 
     def write(self, vals):

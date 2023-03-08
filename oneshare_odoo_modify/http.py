@@ -97,7 +97,8 @@ class ApiJsonRequest(WebRequest):
 
         self.context = self.params.pop("context", dict(self.session.context))
 
-    def _json_response(self, result=None, error=None):
+    @staticmethod
+    def _json_response(result=None, error=None):
         response = {}
         if error:
             response["error"] = error

@@ -8,7 +8,8 @@ class OneshareCategoryMixin(models.AbstractModel):
     _name = "oneshare.category.mixin"
     _description = "Category Mixin"
 
-    def _get_default_color(self):
+    @staticmethod
+    def _get_default_color():
         return randint(1, 11)
 
     name = fields.Char(string="Tag Name", required=True)
