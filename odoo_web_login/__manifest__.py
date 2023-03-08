@@ -23,7 +23,6 @@
 ##############################################################################
 {
     "name": "Odoo Web Login Screen",
-    "summary": "The new configurable Odoo Web Login Screen",
     "version": "13.0.1.0",
     "category": "Website",
     "summary": """
