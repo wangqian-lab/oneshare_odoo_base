@@ -54,8 +54,19 @@ odoo.define("onesphere.web_echarts", function (require) {
         tooltip: {
           trigger: "axis",
         },
-        xAxis: {},
-        yAxis: {},
+        xAxis: {
+          name: _lt("Angle(Deg)"),
+          nameLocation: "center",
+          nameGap: "30",
+        },
+        yAxis: {
+          name: _lt("Toque(NM)"),
+          nameLocation: "center",
+          nameGap: "30",
+        },
+        grid: {
+          bottom: "15%",
+        },
         dataZoom: [
           {
             type: "slider",

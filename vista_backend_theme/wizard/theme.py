@@ -35,13 +35,13 @@ class Theme(models.TransientModel):
 
         if name == "two":
             link = '<link rel="stylesheet" href="/vista_backend_theme/static/src/scss/theme_two.scss"/>'
-            self.icon_change_theme_green()
+            # self.icon_change_theme_green()
         elif name == "three":
             link = '<link rel="stylesheet" href="/vista_backend_theme/static/src/scss/theme_three.scss"/>'
-            self.icon_change_theme_default()
+            # self.icon_change_theme_default()
         else:
             link = '<link rel="stylesheet" href="/vista_backend_theme/static/src/scss/theme_accent.scss"/>'
-            self.icon_change_theme_default()
+            # self.icon_change_theme_default()
         theme = self.sudo().env.ref("vista_backend_theme.vista_backend_theme_assets")
         login = self.sudo().env.ref(
             "vista_backend_theme.vista_backend_theme_assets_frontend"
