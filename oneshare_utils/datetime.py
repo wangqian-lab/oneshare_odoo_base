@@ -41,6 +41,17 @@ def utc_datetime_from_str(ss="") -> datetime:
     return d.astimezone(pytz.utc)
 
 
+def strptime_rfc3339(ss="") -> datetime:
+    d = datetime.now()
+    if not ss:
+        return d
+    try:
+        d = datetime.strptime(ss, RFC3339_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
+    except Exception as e:
+        d = datetime.strptime(ss, DEFAULT_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
+    return d
+
+
 def local_datetime_from_str(ss="", tz_local=DEFAULT_TZ) -> datetime:
     ll = len(ss)
     if ll < DATE_LENGTH:
@@ -54,10 +65,7 @@ def local_datetime_from_str(ss="", tz_local=DEFAULT_TZ) -> datetime:
             d = datetime.fromisoformat(ss)
         except Exception as e:
             # 尝试rfc3339格式
-            d = datetime.strptime(ss, RFC3339_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
-        except Exception as e:
-            d = datetime.strptime(ss, DEFAULT_SERVER_DATETIME_FORMAT_TZ)  # 包含时区信息
-        return d
+            d = strptime_rfc3339(ss)
     return tz_local.localize(d)
 
 
