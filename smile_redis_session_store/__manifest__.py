@@ -7,18 +7,18 @@
     "version": "0.1",
     "depends": ["base"],
     "author": "Smile",
-    "license": 'AGPL-3',
+    "license": "AGPL-3",
     "description": """Use Redis Session instead of File system
 
     Suggestions & Feedback to: Isabelle Richard
     """,
     "summary": "",
     "website": "",
-    "category": 'Tools',
+    "category": "Tools",
     "auto_install": True,
     "installable": True,
     "application": False,
     "external_dependencies": {
-        'python': ['redis', 'redis-py-cluster'],
+        "python": ["redis", "redis-py-cluster"],
     },
 }

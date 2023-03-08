@@ -32,7 +32,7 @@ _logger = logging.getLogger(__name__)
 
 
 class IrHttp(models.AbstractModel):
-    _inherit = 'ir.http'
+    _inherit = "ir.http"
 
     @classmethod
     def _auth_method_bear_token(cls):
@@ -41,17 +41,29 @@ class IrHttp(models.AbstractModel):
             return
         httprequest = request.httprequest
         if "authorization" not in httprequest.headers:  # token 不存在
-            raise AccessDenied(_('API Authorization Error, Authorization Part Not In HTTP Headers'))
-        token_part = httprequest.headers.get("authorization", "").split(' ')
-        if len(token_part) < 2:
-            raise AccessDenied('API Authorization Error, Authorization Part Is Not Right: {}'.format(token_part))
-        if token_part[0] != 'Bearer':
             raise AccessDenied(
-                'API Authorization Error, Authorization Part Bearer Key Is Not Present: {}'.format(token_part))
-        user = request.env['res.users'].sudo().search([('api_token', '=', token_part[1])])
+                _("API Authorization Error, Authorization Part Not In HTTP Headers")
+            )
+        token_part = httprequest.headers.get("authorization", "").split(" ")
+        if len(token_part) < 2:
+            raise AccessDenied(
+                "API Authorization Error, Authorization Part Is Not Right: {}".format(
+                    token_part
+                )
+            )
+        if token_part[0] != "Bearer":
+            raise AccessDenied(
+                "API Authorization Error, Authorization Part Bearer Key Is Not Present: {}".format(
+                    token_part
+                )
+            )
+        user = (
+            request.env["res.users"].sudo().search([("api_token", "=", token_part[1])])
+        )
         if not user:
             raise AccessDenied(
-                'API Authorization Error, API Token Is Not Found: {}'.format(token_part))
+                "API Authorization Error, API Token Is Not Found: {}".format(token_part)
+            )
         request.uid = user.id
 
     @classmethod

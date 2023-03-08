@@ -14,7 +14,6 @@ _logger = logging.getLogger(__name__)
 
 
 class IrAttachment(models.Model):
-
     _inherit = "ir.attachment"
 
     @api.depends("store_fname", "db_datas")

@@ -86,7 +86,6 @@ def my_read(self, records):
 
 
 class Base(models.AbstractModel):
-
     _inherit = "base"
 
     def _get_url_fields(self):

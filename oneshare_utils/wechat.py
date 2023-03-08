@@ -8,19 +8,21 @@ from odoo.tools import ustr
 
 _logger = logging.getLogger(__name__)
 
-ENV_WECHAT_APP_ID = os.getenv('ENV_WECHAT_APP_ID', '')
-ENV_WECHAT_SECRET_KEY = os.getenv('ENV_WECHAT_SECRET_KEY', '')
+ENV_WECHAT_APP_ID = os.getenv("ENV_WECHAT_APP_ID", "")
+ENV_WECHAT_SECRET_KEY = os.getenv("ENV_WECHAT_SECRET_KEY", "")
 
 
 class WechatProvider(object):
     def __init__(self, app_id=ENV_WECHAT_APP_ID, secret_key=ENV_WECHAT_SECRET_KEY):
         self._app_id = app_id
         self._secret_key = secret_key
-        self._client = WeChatClient(appid=self._app_id, secret=self._secret_key, timeout=60)
+        self._client = WeChatClient(
+            appid=self._app_id, secret=self._secret_key, timeout=60
+        )
         self._session = None
 
     # success_resp = {'session_key': 'rCkMgTL/daaJ5vQTpfjMBQ==', 'openid': 'oEyZC5JY04tEfsc7mqGObfA7hZCw'}
-    def auth(self, code: str = ''):
+    def auth(self, code: str = ""):
         if not self._client:
             return
         if not code:

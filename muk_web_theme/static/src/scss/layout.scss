@@ -24,44 +24,49 @@
 // Helper
 //----------------------------------------------------------
 
-$mk-brand-gradient: linear-gradient(to right bottom, $mk-brand-gradient-start, $mk-brand-gradient-end);
+$mk-brand-gradient: linear-gradient(
+  to right bottom,
+  $mk-brand-gradient-start,
+  $mk-brand-gradient-end
+);
 
 //----------------------------------------------------------
 // Web Client
 //----------------------------------------------------------
 
 .o_web_client {
-	.o_main .o_main_content {
-	    @include media-breakpoint-down(sm) {
-	        overflow: auto;
-	        .o_content {
-	            overflow: initial;
-	        }
-	    }
-	}
-	.o_loading {
-	    position: fixed;
-	    right: 0;
-	    bottom: 0;
-	    color: white;
-	    padding: 5px;
-	    opacity: 0.8;
-	    z-index: 1052;
-	    border-radius: 0;
-	    background-color: $o-brand-odoo;
-	}
+  .o_main .o_main_content {
+    @include media-breakpoint-down(sm) {
+      overflow: auto;
+      .o_content {
+        overflow: initial;
+      }
+    }
+  }
+  .o_loading {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    color: white;
+    padding: 5px;
+    opacity: 0.8;
+    z-index: 1052;
+    border-radius: 0;
+    background-color: $o-brand-odoo;
+  }
 }
 
 .oe_wait {
- 	cursor: progress;
+  cursor: progress;
 }
 
 //----------------------------------------------------------
 // Views
 //----------------------------------------------------------
 
-.o_content, .modal-content {
-    max-width: 100%;
+.o_content,
+.modal-content {
+  max-width: 100%;
 }
 
 //----------------------------------------------------------

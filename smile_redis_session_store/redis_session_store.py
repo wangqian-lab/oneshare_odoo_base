@@ -4,8 +4,14 @@ import sys
 from odoo import http, tools
 from odoo.tools.func import lazy_property
 from odoo.tools._vendor.sessions import SessionStore
-from odoo.addons.smile_redis_session_store.constants import is_redis_session_store_activated, SESSION_TIMEOUT, \
-    startup_nodes, redis_ports, redis_db, redis_password
+from odoo.addons.smile_redis_session_store.constants import (
+    is_redis_session_store_activated,
+    SESSION_TIMEOUT,
+    startup_nodes,
+    redis_ports,
+    redis_db,
+    redis_password,
+)
 
 if sys.version_info > (3,):
     import _pickle as cPickle
@@ -19,16 +25,15 @@ try:
 except ImportError:
     if is_redis_session_store_activated():
         raise ImportError(
-            'Please install package python3-redis: '
-            'apt install python3-redis')
+            "Please install package python3-redis: " "apt install python3-redis"
+        )
 
 
 class RedisSessionStore(SessionStore):
-
     def __init__(self, *args, **kwargs):
         super(RedisSessionStore, self).__init__(*args, **kwargs)
-        self.expire = kwargs.get('expire', SESSION_TIMEOUT)
-        self.key_prefix = kwargs.get('key_prefix', '')
+        self.expire = kwargs.get("expire", SESSION_TIMEOUT)
+        self.key_prefix = kwargs.get("key_prefix", "")
         if len(startup_nodes) == 1:
             host = startup_nodes[0]
             self.redis = redis.Redis(
@@ -36,12 +41,14 @@ class RedisSessionStore(SessionStore):
                 host=host,
                 port=redis_ports,
                 db=redis_db,
-                password=redis_password)
+                password=redis_password,
+            )
         else:
             self.redis = rediscluster.RedisCluster(
                 startup_nodes=startup_nodes,
                 health_check_interval=30,
-                password=redis_password)
+                password=redis_password,
+            )
         self._is_redis_server_running()
 
     def save(self, session):
@@ -56,7 +63,7 @@ class RedisSessionStore(SessionStore):
     def _get_session_key(self, sid):
         key = self.key_prefix + sid
         if isinstance(key, unicode):
-            key = key.encode('utf-8')
+            key = key.encode("utf-8")
         return key
 
     def get(self, sid):
@@ -73,7 +80,7 @@ class RedisSessionStore(SessionStore):
         try:
             self.redis.ping()
         except redis.ConnectionError:
-            raise redis.ConnectionError('Redis server is not responding')
+            raise redis.ConnectionError("Redis server is not responding")
 
 
 if is_redis_session_store_activated():
@@ -84,12 +91,10 @@ if is_redis_session_store_activated():
         # because sessions are not stored in files
         pass
 
-
     @lazy_property
     def session_store(self):
         # Override to use Redis instead of filestystem
         return RedisSessionStore(session_class=http.OpenERPSession)
-
 
     http.session_gc = session_gc
     http.Root.session_store = session_store

@@ -1,20 +1,23 @@
-.o_form_statusbar{
-  .o_statusbar_buttons{
-  .btn{
+.o_form_statusbar {
+  .o_statusbar_buttons {
+    .btn {
+      margin-right: 30px !important;
+    }
+  }
+}
+.o_cp_left {
+  .btn {
     margin-right: 30px !important;
   }
-  }
-}
-.o_cp_left{
-.btn{
-margin-right: 30px !important;
-}
 }
 
-.o_calendar_buttons > button > .fa{
-color: #ffffff !important;
+.o_calendar_buttons > button > .fa {
+  color: #ffffff !important;
 }
-.o_main_navbar, .btn-primary, .btn-primary:active, .o_searchview_facet_label {
+.o_main_navbar,
+.btn-primary,
+.btn-primary:active,
+.o_searchview_facet_label {
   background-color: $primary_accent !important;
   color: $inverse_accent !important;
 }
@@ -27,11 +30,12 @@ color: #ffffff !important;
   color: $primary_accent !important;
 }
 .o_list_view .o_list_table thead {
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
 }
 
-.breadcrumb-item > a, .o_menu_item > a {
+.breadcrumb-item > a,
+.o_menu_item > a {
   color: $primary_accent !important;
 }
 
@@ -43,11 +47,15 @@ color: #ffffff !important;
   background-color: lighten($primary_accent, 10%) !important;
 }
 
-.o_main_navbar > .o_menu_sections > li > a:hover, .o_main_navbar > .o_menu_systray > li > a:hover, .o_main_navbar > .o_menu_sections > li.show > a, .o_main_navbar > .o_menu_systray > li.show > a {
+.o_main_navbar > .o_menu_sections > li > a:hover,
+.o_main_navbar > .o_menu_systray > li > a:hover,
+.o_main_navbar > .o_menu_sections > li.show > a,
+.o_main_navbar > .o_menu_systray > li.show > a {
   background-color: lighten($primary_accent, 10%) !important;
 }
 
-.o_main_navbar > .o_menu_apps > li > a:hover, .o_main_navbar > .o_menu_apps > li > a:active {
+.o_main_navbar > .o_menu_apps > li > a:hover,
+.o_main_navbar > .o_menu_apps > li > a:active {
   background-color: lighten($primary_accent, 10%) !important;
 }
 
@@ -99,7 +107,8 @@ color: #ffffff !important;
   color: $primary_accent !important;
 }
 
-.o-no-caret > i, button[aria-pressed=true] {
+.o-no-caret > i,
+button[aria-pressed="true"] {
   color: $inverse_accent !important;
 }
 
@@ -124,16 +133,16 @@ color: #ffffff !important;
   width: 200px;
 }
 
-.o_required_modifier.o_input, .o_required_modifier.o_input {
+.o_required_modifier.o_input,
+.o_required_modifier.o_input {
   background-color: $inverse_accent !important;
   color: $primary_accent !important;
   border-left: solid 3px #f46a6a !important;
 }
-.o_required_modifier .o_input, .o_required_modifier .o_input {
+.o_required_modifier .o_input,
+.o_required_modifier .o_input {
   background-color: $inverse_accent !important;
 }
-
-
 
 .dropdown-toggle:after {
   background-color: #ffffff00 !important;
@@ -167,7 +176,7 @@ color: #ffffff !important;
 }
 
 .o_horizontal_separator {
-  color: $primary_accent !important
+  color: $primary_accent !important;
 }
 
 .o_field_widget.o_field_image .o_form_image_controls {
@@ -178,166 +187,199 @@ color: #ffffff !important;
   color: $inverse_accent !important;
 }
 
-.dropdown-item.o_app.mt0:hover , .dropdown-item.o_app.mt0:hover > .a_app_menu_title{
-background-color: $primary_accent !important;
-color: $inverse_accent !important;
+.dropdown-item.o_app.mt0:hover,
+.dropdown-item.o_app.mt0:hover > .a_app_menu_title {
+  background-color: $primary_accent !important;
+  color: $inverse_accent !important;
 }
 
-.o_address_country{
-display: none !important;
+.o_address_country {
+  display: none !important;
 }
-div.o_boolean_toggle.custom-control.custom-checkbox > input.custom-control-input:checked + label.custom-control-label::before {
-background-color: $primary_accent !important;
+div.o_boolean_toggle.custom-control.custom-checkbox
+  > input.custom-control-input:checked
+  + label.custom-control-label::before {
+  background-color: $primary_accent !important;
 }
-div.o_boolean_toggle.custom-control.custom-checkbox > input.custom-control-input:checked + label.custom-control-label::before {
-background-color: $primary_accent !important;
+div.o_boolean_toggle.custom-control.custom-checkbox
+  > input.custom-control-input:checked
+  + label.custom-control-label::before {
+  background-color: $primary_accent !important;
 }
-.o_mail_systray_item .o_mail_systray_dropdown .o_mail_systray_dropdown_top .o_filter_button.active {
-color: $primary_accent;
-text-decoration: none;
+.o_mail_systray_item
+  .o_mail_systray_dropdown
+  .o_mail_systray_dropdown_top
+  .o_filter_button.active {
+  color: $primary_accent;
+  text-decoration: none;
 }
 .o_mail_user_status.o_user_online {
-color: #fff !important;
+  color: #fff !important;
 }
-.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled::after {
-   border-left-color: $primary_accent;
+.o_form_view
+  .o_form_statusbar
+  > .o_statusbar_status
+  > .o_arrow_button.btn-primary.disabled::after {
+  border-left-color: $primary_accent;
 }
 .btn-link {
-font-weight: 400;
-color: $primary_accent !important;
-text-decoration: none;
+  font-weight: 400;
+  color: $primary_accent !important;
+  text-decoration: none;
 }
 .o_thread_window_header {
-background-color: $primary_accent !important;
+  background-color: $primary_accent !important;
 }
-.o_thread_window_close,.o_thread_window_expand{
-color: $inverse_accent !important;
+.o_thread_window_close,
+.o_thread_window_expand {
+  color: $inverse_accent !important;
 }
-.o_menu_sections, .o_menu_systray, .o_web_client > header{
-background: $primary_accent !important;
+.o_menu_sections,
+.o_menu_systray,
+.o_web_client > header {
+  background: $primary_accent !important;
 }
-.fa-building-o{
-color: white !important;
+.fa-building-o {
+  color: white !important;
 }
-.o_button_import, .oe_import_file{
-background: #5aa29f !important;
-color: white !important;
-border: solid 2px #5aa29f !important;
+.o_button_import,
+.oe_import_file {
+  background: #5aa29f !important;
+  color: white !important;
+  border: solid 2px #5aa29f !important;
 }
-.o_button_import:hover, .oe_import_file:hover,.o_button_import:active, .oe_import_file:active{
-background: white !important;
-color: #5aa29f !important;
-border: solid 2px #5aa29f !important;
+.o_button_import:hover,
+.oe_import_file:hover,
+.o_button_import:active,
+.oe_import_file:active {
+  background: white !important;
+  color: #5aa29f !important;
+  border: solid 2px #5aa29f !important;
 }
-.o_form_button_save,.o_form_button_edit{
-background: #7BA94F !important;
-color: white !important;
-border: solid 2px #7BA94F !important;
+.o_form_button_save,
+.o_form_button_edit {
+  background: #7ba94f !important;
+  color: white !important;
+  border: solid 2px #7ba94f !important;
 }
-.o_form_button_save:hover,.o_form_button_edit:hover,.o_form_button_save:active,.o_form_button_edit:active{
-background: white !important;
-color: #7BA94F !important;
-border: solid 2px #7BA94F !important;
+.o_form_button_save:hover,
+.o_form_button_edit:hover,
+.o_form_button_save:active,
+.o_form_button_edit:active {
+  background: white !important;
+  color: #7ba94f !important;
+  border: solid 2px #7ba94f !important;
 }
-.o-kanban-button-new, .o_list_button_add,.o_form_button_create{
-background: #b9408d !important;
-color: white !important;
-border: solid 2px #b9408d !important;
+.o-kanban-button-new,
+.o_list_button_add,
+.o_form_button_create {
+  background: #b9408d !important;
+  color: white !important;
+  border: solid 2px #b9408d !important;
 }
-.o-kanban-button-new:hover, .o_list_button_add:hover,.o_form_button_create:hover,.o-kanban-button-new:active, .o_list_button_add:active,.o_form_button_create:active{
-background: white !important;
-color: #b9408d !important;
-border: solid 2px #b9408d !important;
+.o-kanban-button-new:hover,
+.o_list_button_add:hover,
+.o_form_button_create:hover,
+.o-kanban-button-new:active,
+.o_list_button_add:active,
+.o_form_button_create:active {
+  background: white !important;
+  color: #b9408d !important;
+  border: solid 2px #b9408d !important;
 }
-.o_form_button_cancel,.o_import_cancel{
-background: #cf4137 !important;
-color: white !important;
-border: solid 2px #cf4137 !important;
-
+.o_form_button_cancel,
+.o_import_cancel {
+  background: #cf4137 !important;
+  color: white !important;
+  border: solid 2px #cf4137 !important;
 }
-.o_form_button_cancel:hover,.o_import_cancel:hover,.o_form_button_cancel:active,.o_import_cancel:active{
-background: white !important;
-color: #cf4137 !important;
-border: solid 2px #cf4137 !important;
+.o_form_button_cancel:hover,
+.o_import_cancel:hover,
+.o_form_button_cancel:active,
+.o_import_cancel:active {
+  background: white !important;
+  color: #cf4137 !important;
+  border: solid 2px #cf4137 !important;
 }
-.report_button{
-border-radius: 0 !important;
-border: solid 2px $primary_accent;
-background: $primary_accent !important;
+.report_button {
+  border-radius: 0 !important;
+  border: solid 2px $primary_accent;
+  background: $primary_accent !important;
 }
-.report_button:hover,.report_button:active{
-border-radius: 0 !important;
-border: solid 2px $primary_accent !important;
-color: $primary_accent !important;
-background: $inverse_accent !important;
+.report_button:hover,
+.report_button:active {
+  border-radius: 0 !important;
+  border: solid 2px $primary_accent !important;
+  color: $primary_accent !important;
+  background: $inverse_accent !important;
 }
-.btn-primary{
-border-radius: 0 !important;
+.btn-primary {
+  border-radius: 0 !important;
 }
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
-border: none;
-border-bottom: solid;
-font-weight: bold;
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  border: none;
+  border-bottom: solid;
+  font-weight: bold;
 }
-.nav-link{
-    @include hover-focus {
-      border: none;
-    }
+.nav-link {
+  @include hover-focus {
+    border: none;
+  }
 }
-.o_data_row:has(.custom-control-input:checked){
-background: blue !important;
+.o_data_row:has(.custom-control-input:checked) {
+  background: blue !important;
 }
-.o_field_one2many{
-    .o_list_view{
-        .table-responsive{
-            max-height:50vh;
-        }
-    }
-}
-thead{
-position: sticky;
-position: -webkit-sticky;
-top: 0;
-}
-.o_list_view .o_list_table tbody{
-    position: sticky;
-    top: 30px;
-}
-.o_list_view{
-    .o_list_table{
-        thead{
-            z-index:999;
-        }
-    }
-}
-.o_list_view .table-responsive .table{
-    width: max-content !important;
-    min-width: 100%;
-
-    thead
-    {
-    z-index:999;
-    tr:nth-child(1) th{
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background-color: #eeeeee !important;
+.o_field_one2many {
+  .o_list_view {
+    .table-responsive {
+      max-height: 50vh;
     }
   }
 }
-.o_list_view .o_list_table tbody{
-position:initial !important;
+thead {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
 }
-.o_list_view .table-responsive .table thead{
-z-index: 1;
+.o_list_view .o_list_table tbody {
+  position: sticky;
+  top: 30px;
 }
-.o_optional_columns_dropdown_toggle{
-z-index: 999;
+.o_list_view {
+  .o_list_table {
+    thead {
+      z-index: 999;
+    }
+  }
+}
+.o_list_view .table-responsive .table {
+  width: max-content !important;
+  min-width: 100%;
+
+  thead {
+    z-index: 999;
+    tr:nth-child(1) th {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background-color: #eeeeee !important;
+    }
+  }
+}
+.o_list_view .o_list_table tbody {
+  position: initial !important;
+}
+.o_list_view .table-responsive .table thead {
+  z-index: 1;
+}
+.o_optional_columns_dropdown_toggle {
+  z-index: 999;
 }
 
 .o_progressbar .o_progress .o_progressbar_complete {
-background-color: #3d9bbb;
+  background-color: #3d9bbb;
 }
 .o_cp_left .btn {
-    margin-right: 10px !important;
+  margin-right: 10px !important;
 }

@@ -21,14 +21,14 @@
 ###################################################################################
 
 {
-    "name": "MuK Backend Theme", 
+    "name": "MuK Backend Theme",
     "summary": "Odoo Community Backend Theme",
-    "version": "14.0.1.0.1", 
-    "category": "Themes/Backend", 
-    "license": "LGPL-3", 
+    "version": "14.0.1.0.1",
+    "category": "Themes/Backend",
+    "license": "LGPL-3",
     "author": "MuK IT",
     "website": "http://www.mukit.at",
-    'live_test_url': 'https://mukit.at/r/SgN',
+    "live_test_url": "https://mukit.at/r/SgN",
     "contributors": [
         "Mathias Markl <mathias.markl@mukit.at>",
     ],
@@ -51,8 +51,8 @@
         "static/src/xml/*.xml",
     ],
     "images": [
-        'static/description/banner.png',
-        'static/description/theme_screenshot.png'
+        "static/description/banner.png",
+        "static/description/theme_screenshot.png",
     ],
     "external_dependencies": {
         "python": [],

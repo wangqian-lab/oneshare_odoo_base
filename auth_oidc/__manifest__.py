@@ -14,10 +14,8 @@
     "data": [
         "data/base_groups.xml",
         "views/auth_oauth_provider.xml",
-        'views/res_config_settings_views.xml'
+        "views/res_config_settings_views.xml",
     ],
-    "demo": [
-        "demo/local_keycloak.xml"
-    ],
-    'post_init_hook': '_auto_load_oneshare_oidc_settings',
+    "demo": ["demo/local_keycloak.xml"],
+    "post_init_hook": "_auto_load_oneshare_oidc_settings",
 }

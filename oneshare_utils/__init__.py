@@ -20,7 +20,7 @@ class CloudProvider(object):
         raise NotImplementedError()
 
     def open(self):
-        method = getattr(self._app, 'open', None)
+        method = getattr(self._app, "open", None)
         if not method:
             return False
         return method()
@@ -31,7 +31,7 @@ class CloudProvider(object):
     def auth(self, *args, **kwargs):
         return self._app.auth(*args, **kwargs)
 
-    def invoke_api(self, evt: str = '', *args, **kwargs):
+    def invoke_api(self, evt: str = "", *args, **kwargs):
         return self._app.invoke_api(evt, *args, **kwargs)
 
     def __getattribute__(self, item):

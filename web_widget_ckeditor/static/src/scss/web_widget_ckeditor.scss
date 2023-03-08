@@ -5,19 +5,19 @@
 */
 
 .o_field_widget {
-    &.oe_form_field_html_ckeditor {
-        .ck-editor__editable {
-            min-height: 330px;
-        }
-
-        .ck-toolbar {
-            .ck-button {
-                font-size: 0.9rem;
-
-                .ck-icon {
-                    will-change: auto;
-                }
-            }
-        }
+  &.oe_form_field_html_ckeditor {
+    .ck-editor__editable {
+      min-height: 330px;
     }
+
+    .ck-toolbar {
+      .ck-button {
+        font-size: 0.9rem;
+
+        .ck-icon {
+          will-change: auto;
+        }
+      }
+    }
+  }
 }

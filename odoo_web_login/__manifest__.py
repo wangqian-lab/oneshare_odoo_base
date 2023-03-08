@@ -17,33 +17,30 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#    
+#
 #    Background Source: http://forum.xda-developers.com/showpost.php?p=37322378
 #
 ##############################################################################
 {
-    'name': 'Odoo Web Login Screen',
-    'summary': 'The new configurable Odoo Web Login Screen',
-    'version': '13.0.1.0',
-    'category': 'Website',
-    'summary': """
+    "name": "Odoo Web Login Screen",
+    "summary": "The new configurable Odoo Web Login Screen",
+    "version": "13.0.1.0",
+    "category": "Website",
+    "summary": """
 The new configurable Odoo Web Login Screen
 """,
-    'author': "Xao Xao Digital CO.,LTD",
-    'website': "https://www.xaoxao.vn",
-    'license': 'AGPL-3',
-    'depends': [
-        "web"
-    ],
-    'data': [
-        'data/ir_config_parameter.xml',
+    "author": "Xao Xao Digital CO.,LTD",
+    "website": "https://www.xaoxao.vn",
+    "license": "AGPL-3",
+    "depends": ["web"],
+    "data": [
+        "data/ir_config_parameter.xml",
         # 'templates/website_templates.xml',
-        'templates/webclient_templates.xml',
+        "templates/webclient_templates.xml",
     ],
-    'qweb': [
-    ],
-    'installable': True,
-    'application': True,
-    'auto_install': True,
-    'images': ['static/description/banner.png'],
+    "qweb": [],
+    "installable": True,
+    "application": True,
+    "auto_install": True,
+    "images": ["static/description/banner.png"],
 }

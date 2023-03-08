@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "List View Sticky Header",
-
-    'summary': """
+    "name": "List View Sticky Header",
+    "summary": """
       List View Sticky Header v14.0""",
-
-    'description': """
+    "description": """
 	- Sticky Header
 	- List Sticky Header
 	- Header Sticky
@@ -29,17 +27,14 @@
 	freeze header,
 	pivot view freeze header,
     """,
-
-    'author': "Ksolves India Ltd.",
-    'website': "https://www.ksolves.com/",
-    'license': 'LGPL-3',
-    'category': 'Tools',
-    'version': '14.0.1.0.5',
-    'depends': ['base'],
-
-    'data': [
-        'views/assets.xml',
+    "author": "Ksolves India Ltd.",
+    "website": "https://www.ksolves.com/",
+    "license": "LGPL-3",
+    "category": "Tools",
+    "version": "14.0.1.0.5",
+    "depends": ["base"],
+    "data": [
+        "views/assets.xml",
     ],
-    'auto_install': True,
-
+    "auto_install": True,
 }

@@ -1,14 +1,14 @@
 //Variables
 
 //Fonts
-$one__font: 'Nunito', Helvetica, Verdana, Arial, sans-serif !important;
+$one__font: "Nunito", Helvetica, Verdana, Arial, sans-serif !important;
 
 //Colors
 $one__light: #fff !default;
-$one__primary: #1F2631 !default;
-$one__sidebar-color: #1F2631 !important;
+$one__primary: #1f2631 !default;
+$one__sidebar-color: #1f2631 !important;
 $one__sidebar-color-hover: #1c222c !default;
-$one__sidebar-border: #1F2631 !important;
+$one__sidebar-border: #1f2631 !important;
 $one__sidebar_text: #fff !default;
 $one__primary-light: #e9e9ea !default;
 $one__primary-dark: #1c222c !important;
@@ -26,17 +26,17 @@ $transition-normal: all 0.4s linear !default;
 $transition-fast: all 0.2s linear !default;
 
 //Paths
-$dots_menu_toggled: url('/vista_backend_theme/static/src/img/icons/dots-menu-navy.png');
+$dots_menu_toggled: url("/vista_backend_theme/static/src/img/icons/dots-menu-navy.png");
 
 //Animations
-@mixin c_fadeBackgroundOut($name, $s_opacity, $e_opacity, $r, $g, $b){
-    @keyframes #{$name}{
-        0%{
-            background-color: rgba($r, $g, $b, $s_opacity);
-        }
-
-        100%{
-            background-color: rgba($r, $g, $b, $e_opacity);
-        }
+@mixin c_fadeBackgroundOut($name, $s_opacity, $e_opacity, $r, $g, $b) {
+  @keyframes #{$name} {
+    0% {
+      background-color: rgba($r, $g, $b, $s_opacity);
     }
+
+    100% {
+      background-color: rgba($r, $g, $b, $e_opacity);
+    }
+  }
 }

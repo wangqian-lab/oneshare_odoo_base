@@ -21,8 +21,10 @@ from odoo import api, SUPERUSER_ID, _
 def pre_init_hook(cr):
     try:
         # 更新企业版指向
-        sql = "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''" % (
-        'https://www.oneshare.com.cn', 'OEEL%')
+        sql = (
+            "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''"
+            % ("https://www.oneshare.com.cn", "OEEL%")
+        )
         cr.execute(sql)
         cr.commit()
     except Exception as e:
@@ -40,8 +42,8 @@ def uninstall_hook(cr, registry):
     数据初始化，卸载时执行
     """
     env = api.Environment(cr, SUPERUSER_ID, {})
-    ir_config = env['ir.config_parameter'].sudo()
-    params = ir_config.search([('key', '=like', "app_%")])
+    ir_config = env["ir.config_parameter"].sudo()
+    params = ir_config.search([("key", "=like", "app_%")])
     params.unlink()
     cr.commit()
 
@@ -50,8 +52,16 @@ def check_module_installed(cr, modules):
     # modules 输入参数是个 list，如 ['base', 'sale']
     env = api.Environment(cr, SUPERUSER_ID, {})
     installed = False
-    m = env['ir.module.module'].sudo().search(
-        [('name', 'in', modules), ('state', 'in', ['installed', 'to install', 'to upgrade'])])
+    m = (
+        env["ir.module.module"]
+        .sudo()
+        .search(
+            [
+                ("name", "in", modules),
+                ("state", "in", ["installed", "to install", "to upgrade"]),
+            ]
+        )
+    )
     if len(m) == len(modules):
         installed = True
     return len(m)

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Odoo 15,14,13 Customize OEM(Boost, Data reset)',
-    'version': '14.22.02.25',
-    'author': 'Sunpop.cn',
-    'category': 'Productivity',
-    'website': 'https://www.oneshare.com.cn',
-    'license': 'LGPL-3',
-    'sequence': 2,
-    'summary': """
+    "name": "Odoo 15,14,13 Customize OEM(Boost, Data reset)",
+    "version": "14.22.02.25",
+    "author": "Sunpop.cn",
+    "category": "Productivity",
+    "website": "https://www.oneshare.com.cn",
+    "license": "LGPL-3",
+    "sequence": 2,
+    "summary": """
     1 click customize odoo, reset data. For quick develop. Set brand, boost, reset data, debug. Language Switcher. 
     Easy Delete data.reset account chart.
     customize my odoo. odoo customize, odoo oem.
     """,
-    'description': """
+    "description": """
 
     App Customize Odoo (Change Title,Language,Documentation,Quick Debug)
     ============
@@ -104,45 +104,45 @@
     37. noupdate字段的快速管理，主要针对 xml_id 
     38. 对话框可拖拽 
     """,
-    'images': ['static/description/banner.gif'],
-    'depends': [
-        'base_setup',
-        'web',
-        'mail',
-        'iap',
+    "images": ["static/description/banner.gif"],
+    "depends": [
+        "base_setup",
+        "web",
+        "mail",
+        "iap",
         # 'digest',
         # when enterprise
         # 'web_mobile'
     ],
-    'data': [
-        'security/res_groups.xml',
-        'security/ir.model.access.csv',
-        'views/app_odoo_customize_views.xml',
-        'views/app_theme_config_settings_views.xml',
-        'views/res_config_settings_views.xml',
-        'views/ir_views.xml',
-        'views/ir_module_module_views.xml',
-        'views/ir_translation_views.xml',
-        'views/ir_ui_menu_views.xml',
-        'views/ir_ui_view_views.xml',
-        'views/ir_model_fields_views.xml',
-        'views/ir_model_data_views.xml',
+    "data": [
+        "security/res_groups.xml",
+        "security/ir.model.access.csv",
+        "views/app_odoo_customize_views.xml",
+        "views/app_theme_config_settings_views.xml",
+        "views/res_config_settings_views.xml",
+        "views/ir_views.xml",
+        "views/ir_module_module_views.xml",
+        "views/ir_translation_views.xml",
+        "views/ir_ui_menu_views.xml",
+        "views/ir_ui_view_views.xml",
+        "views/ir_model_fields_views.xml",
+        "views/ir_model_data_views.xml",
         # data
-        'data/ir_config_parameter_data.xml',
-        'data/ir_module_module_data.xml',
+        "data/ir_config_parameter_data.xml",
+        "data/ir_module_module_data.xml",
         # 'data/digest_template_data.xml',
-        'data/res_company_data.xml',
+        "data/res_company_data.xml",
     ],
-    'qweb': [
-        'static/src/xml/*.xml',
+    "qweb": [
+        "static/src/xml/*.xml",
     ],
-    'demo': [],
-    'test': [],
-    'css': [],
-    'js': [],
+    "demo": [],
+    "test": [],
+    "css": [],
+    "js": [],
     # 'pre_init_hook': 'pre_init_hook',
     # 'post_init_hook': 'post_init_hook',
-    'installable': True,
-    'application': True,
-    'auto_install': True,
+    "installable": True,
+    "application": True,
+    "auto_install": True,
 }

@@ -22,17 +22,25 @@ class AuthOauthProvider(models.Model):
     _inherit = "auth.oauth.provider"
 
     flow = fields.Selection(
-        [(AuthOauthFlow.OAuth2.value, "OAuth2"),
-         (AuthOauthFlow.OpenIdConnectCode.value, "OpenID Connect (authorization code flow)"),
-         (AuthOauthFlow.OpenIdConnectImplicit.value, "OpenID Connect (implicit flow, not recommended)")],
+        [
+            (AuthOauthFlow.OAuth2.value, "OAuth2"),
+            (
+                AuthOauthFlow.OpenIdConnectCode.value,
+                "OpenID Connect (authorization code flow)",
+            ),
+            (
+                AuthOauthFlow.OpenIdConnectImplicit.value,
+                "OpenID Connect (implicit flow, not recommended)",
+            ),
+        ],
         string="Auth Flow",
         default=AuthOauthFlow.OAuth2.value,
     )
     token_map = fields.Char(
         help="Some Oauth providers don't map keys in their responses "
-             "exactly as required.  It is important to ensure user_id and "
-             "email at least are mapped. For OpenID Connect user_id is "
-             "the sub key in the standard."
+        "exactly as required.  It is important to ensure user_id and "
+        "email at least are mapped. For OpenID Connect user_id is "
+        "the sub key in the standard."
     )
     client_secret = fields.Char(
         help="Used in OpenID Connect authorization code flow for confidential clients.",

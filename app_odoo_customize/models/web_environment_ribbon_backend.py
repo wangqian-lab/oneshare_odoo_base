@@ -4,6 +4,7 @@
 from odoo import api, models
 from distutils.util import strtobool
 
+
 class WebEnvironmentRibbonBackend(models.AbstractModel):
     _name = "web.environment.ribbon.backend"
     _description = "Web Environment Ribbon Backend"
@@ -14,7 +15,9 @@ class WebEnvironmentRibbonBackend(models.AbstractModel):
 
     @api.model
     def _prepare_ribbon_name(self):
-        name_tmpl = self.env["ir.config_parameter"].sudo().get_param("app_ribbon_name") or False
+        name_tmpl = (
+            self.env["ir.config_parameter"].sudo().get_param("app_ribbon_name") or False
+        )
         vals = self._prepare_ribbon_format_vals()
         return name_tmpl and name_tmpl.format(**vals) or name_tmpl
 
@@ -25,7 +28,10 @@ class WebEnvironmentRibbonBackend(models.AbstractModel):
         :return: dictionary
         """
         ir_config_model = self.env["ir.config_parameter"]
-        app_ribbon_show = strtobool(ir_config_model.sudo().get_param("app_ribbon_show", "False")) or False
+        app_ribbon_show = (
+            strtobool(ir_config_model.sudo().get_param("app_ribbon_show", "False"))
+            or False
+        )
         if not app_ribbon_show:
             return {"name": False}  # 不显示ribbon
         name = self._prepare_ribbon_name()

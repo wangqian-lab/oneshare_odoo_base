@@ -17,7 +17,7 @@ from odoo.addons.oneshare_utils.http import oneshare_json_fail_response
 from odoo import http
 from odoo.tools import ustr
 
-SESSION_TIMEOUT = int(os.getenv('SESSION_TIMEOUT', '604800'))  # 1 weeks in seconds
+SESSION_TIMEOUT = int(os.getenv("SESSION_TIMEOUT", "604800"))  # 1 weeks in seconds
 
 import odoo
 from odoo.http import (
@@ -49,7 +49,9 @@ class ApiJsonRequest(WebRequest):
         super(ApiJsonRequest, self).__init__(*args)
 
         self.jsonp_handler = None
-        self.params = collections.OrderedDict(self.httprequest.values or self.httprequest.args)
+        self.params = collections.OrderedDict(
+            self.httprequest.values or self.httprequest.args
+        )
 
         args = self.httprequest.args
         jsonp = args.get("jsonp")
@@ -83,7 +85,9 @@ class ApiJsonRequest(WebRequest):
         # Read POST content or POST Form Data named "request"
         try:
             if request:
-                self.ApiJsonRequest = json.loads(request, object_pairs_hook=collections.OrderedDict)
+                self.ApiJsonRequest = json.loads(
+                    request, object_pairs_hook=collections.OrderedDict
+                )
             else:
                 self.ApiJsonRequest = None
         except ValueError:
@@ -94,7 +98,6 @@ class ApiJsonRequest(WebRequest):
         self.context = self.params.pop("context", dict(self.session.context))
 
     def _json_response(self, result=None, error=None):
-
         response = {}
         if error:
             response["error"] = error
@@ -103,9 +106,9 @@ class ApiJsonRequest(WebRequest):
         mime = "application/json"
         status = error and error.pop("code") or result.status_code
         body = (
-                response
-                and json.dumps(response, default=date_utils.json_default)
-                or result.data
+            response
+            and json.dumps(response, default=date_utils.json_default)
+            or result.data
         )
 
         return Response(
@@ -122,13 +125,13 @@ class ApiJsonRequest(WebRequest):
             return super(ApiJsonRequest, self)._handle_exception(exception)
         except Exception:
             if not isinstance(
-                    exception,
-                    (
-                            odoo.exceptions.Warning,
-                            SessionExpiredException,
-                            odoo.exceptions.except_orm,
-                            werkzeug.exceptions.NotFound,
-                    ),
+                exception,
+                (
+                    odoo.exceptions.Warning,
+                    SessionExpiredException,
+                    odoo.exceptions.except_orm,
+                    werkzeug.exceptions.NotFound,
+                ),
             ):
                 _logger.exception("Exception during JSON request handling.")
             error = {
@@ -211,9 +214,9 @@ def api_route(route=None, **kw):
 
         @functools.wraps(f)
         def response_wrap(*args, **kw):
-            if routing.get('schema') and getattr(request, 'ApiJsonRequest', None):
+            if routing.get("schema") and getattr(request, "ApiJsonRequest", None):
                 try:
-                    validate(request.ApiJsonRequest, routing.get('schema'))
+                    validate(request.ApiJsonRequest, routing.get("schema"))
                 except ValidationError as e:
                     msg = ustr(e)
                     return oneshare_json_fail_response(msg=msg)
@@ -257,13 +260,16 @@ def api_get_request(self, httprequest):
     if not isinstance(org_name, str):
         return get_request_original(self, httprequest)
 
-    if org_name.upper() == 'ONESHARE' and httprequest.headers.get("content-type", "") == "application/json":
+    if (
+        org_name.upper() == "ONESHARE"
+        and httprequest.headers.get("content-type", "") == "application/json"
+    ):
         return ApiJsonRequest(httprequest)
 
     return get_request_original(self, httprequest)
 
 
-ENV_DEFAULT_LANGUAGE = os.getenv('ENV_DEFAULT_LANGUAGE', 'zh_CN')
+ENV_DEFAULT_LANGUAGE = os.getenv("ENV_DEFAULT_LANGUAGE", "zh_CN")
 
 
 def api_setup_lang(self, httprequest):

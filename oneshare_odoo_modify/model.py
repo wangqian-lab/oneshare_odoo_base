@@ -14,7 +14,7 @@ from odoo.tools.sql import _schema
 
 _logger = logging.getLogger(__name__)
 
-ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
+ENV_TIMESCALE_ENABLE = strtobool(os.getenv("ENV_TIMESCALE_ENABLE", "false"))
 
 
 # def add_constraint(cr, tablename, constraintname, definition):
@@ -49,7 +49,7 @@ ENV_TIMESCALE_ENABLE = strtobool(os.getenv('ENV_TIMESCALE_ENABLE', 'false'))
 
 class OneshareHyperModel(models.AbstractModel):
     _log_access = False
-    _hyper_field = 'time'
+    _hyper_field = "time"
     _retention_policy = False
     _compression_policy = False
     _dimensions = []
@@ -57,7 +57,7 @@ class OneshareHyperModel(models.AbstractModel):
     _register = False  # not visible in ORM registry, meant to be python-inherited only
     _abstract = False  # not abstract
     _transient = False  # not transient
-    _description = 'Hyper Model'
+    _description = "Hyper Model"
 
     @api.model
     def raw_bulk_create(self, val_list, fetch=True):
@@ -65,20 +65,27 @@ class OneshareHyperModel(models.AbstractModel):
             return
         cr = self.env.cr
         fields = val_list[0].keys()
-        fields_str = ','.join(fields)
-        query = f'''
+        fields_str = ",".join(fields)
+        query = f"""
                 INSERT INTO public.{self._table} ({fields_str}) VALUES %s {'RETURNING id' if fetch else ''};
-                '''
-        tmpls = [f'%({f})s' for f in fields]
-        tmpls_str = '({})'.format(','.join(tmpls))
+                """
+        tmpls = [f"%({f})s" for f in fields]
+        tmpls_str = "({})".format(",".join(tmpls))
         if sys.version_info < (3, 8):  # psycopg2 版本小于2.8
-            result = execute_values(cr, query, argslist=val_list, page_size=100,
-                                    template=tmpls_str)
+            result = execute_values(
+                cr, query, argslist=val_list, page_size=100, template=tmpls_str
+            )
             if fetch:
                 result = cr.fetchall()
         else:
-            result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
-                                    template=tmpls_str)
+            result = execute_values(
+                cr,
+                query,
+                argslist=val_list,
+                page_size=100,
+                fetch=fetch,
+                template=tmpls_str,
+            )
         return result
 
     @api.model
@@ -87,42 +94,46 @@ class OneshareHyperModel(models.AbstractModel):
             return
         cr = self.env.cr
         fields = val_list[0].keys()
-        fields_str = ','.join(fields)
-        sets = [f'{f} = e.{f}' for f in fields]
-        sets_str = '{}'.format(','.join(sets))
-        query = f'''
+        fields_str = ",".join(fields)
+        sets = [f"{f} = e.{f}" for f in fields]
+        sets_str = "{}".format(",".join(sets))
+        query = f"""
                     UPDATE public.{self._table} AS t
                     SET {sets_str}
                     FROM (VALUES %s) AS e({fields_str})
                     WHERE e.id = t.id;
-                    '''
-        tmpls = [f'%({f})s' for f in fields]
-        tmpls_str = '({})'.format(','.join(tmpls))
-        result = execute_values(cr, query, argslist=val_list, page_size=100, fetch=fetch,
-                                template=tmpls_str)
+                    """
+        tmpls = [f"%({f})s" for f in fields]
+        tmpls_str = "({})".format(",".join(tmpls))
+        result = execute_values(
+            cr, query, argslist=val_list, page_size=100, fetch=fetch, template=tmpls_str
+        )
         return result
 
     @classmethod
     def _build_model_attributes(cls, pool):
-        cls._hyper_interval = getattr(cls, '_hyper_interval', '1 month')
-        cls._hyper_field = getattr(cls, '_hyper_field', 'time')
+        cls._hyper_interval = getattr(cls, "_hyper_interval", "1 month")
+        cls._hyper_field = getattr(cls, "_hyper_field", "time")
         super(OneshareHyperModel, cls)._build_model_attributes(pool)
 
     @api.model
     def _add_magic_fields(self):
         # cyclic import
         from odoo import fields
+
         # this field 'id' must override any other column or field
-        self._add_field('id', fields.Id(automatic=True))
+        self._add_field("id", fields.Id(automatic=True))
 
         if self._hyper_field not in self._fields:
-            self._add_field(self._hyper_field, fields.Date(default=fields.Date.today, required=True))
+            self._add_field(
+                self._hyper_field, fields.Date(default=fields.Date.today, required=True)
+            )
 
     def create_index(cr, indexname, tablename, expressions):
-        """ Create the given index unless it exists. """
+        """Create the given index unless it exists."""
         if index_exists(cr, indexname):
             return
-        args = ', '.join(expressions)
+        args = ", ".join(expressions)
         sql = 'CREATE INDEX "{}" ON "{}" ({})'
         if ENV_TIMESCALE_ENABLE:
             sql = 'CREATE INDEX "{}" ON "{}" ({}) WITH (timescaledb.transaction_per_chunk)'
@@ -136,12 +147,21 @@ class OneshareHyperModel(models.AbstractModel):
 
     def _execute_hyper_sql(self):
         self._cr.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE")
-        self._cr.execute('''CREATE EXTENSION IF NOT EXISTS "uuid-ossp" CASCADE''')
-        cmd = '''ALTER TABLE %s DROP CONSTRAINT IF EXISTS %s_pkey''' % (self._table, self._table)
+        self._cr.execute("""CREATE EXTENSION IF NOT EXISTS "uuid-ossp" CASCADE""")
+        cmd = """ALTER TABLE %s DROP CONSTRAINT IF EXISTS %s_pkey""" % (
+            self._table,
+            self._table,
+        )
         self._cr.execute(cmd)
         self._cr.commit()
-        cmd = '''SELECT create_hypertable('%s', '%s',if_not_exists => TRUE,chunk_time_interval => interval '%s')''' % (
-            self._table, self._hyper_field, self._hyper_interval,)
+        cmd = (
+            """SELECT create_hypertable('%s', '%s',if_not_exists => TRUE,chunk_time_interval => interval '%s')"""
+            % (
+                self._table,
+                self._hyper_field,
+                self._hyper_interval,
+            )
+        )
         self._cr.execute(cmd)
         self._cr.commit()
         _logger.info("HyperTable '%s': created", self._table)
@@ -156,18 +176,25 @@ class OneshareHyperModel(models.AbstractModel):
         cr = self._cr
 
         def add(par_num, definition):
-            query = '''SELECT add_dimension('%s', '%s', number_partitions => %d, if_not_exists => true)''' % (
-                self._table, definition, par_num)
+            query = (
+                """SELECT add_dimension('%s', '%s', number_partitions => %d, if_not_exists => true)"""
+                % (self._table, definition, par_num)
+            )
             try:
                 cr.execute(query)
                 cr.commit()
-                _logger.info("Table '%s': added dimension '%s' ",
-                             self._table, definition)
+                _logger.info(
+                    "Table '%s': added dimension '%s' ", self._table, definition
+                )
             except Exception as e:
                 _logger.error(ustr(e))
-                _logger.warning("Table '%s': unable to add constraint '%s'!\n"
-                                "If you want to have it, you should update the records and execute manually:\n%s",
-                                self._table, definition, query)
+                _logger.warning(
+                    "Table '%s': unable to add constraint '%s'!\n"
+                    "If you want to have it, you should update the records and execute manually:\n%s",
+                    self._table,
+                    definition,
+                    query,
+                )
                 cr.rollback()
 
         par_num = 2 ** (len(self._dimensions) + 1)
@@ -177,33 +204,51 @@ class OneshareHyperModel(models.AbstractModel):
     def _add_retention_policy(self):
         if not ENV_TIMESCALE_ENABLE or not self._retention_policy:
             return
-        remove_cmd = '''SELECT remove_retention_policy('%s', if_exists => true);''' % (
-            self._table,)
+        remove_cmd = """SELECT remove_retention_policy('%s', if_exists => true);""" % (
+            self._table,
+        )
         self._cr.execute(remove_cmd)
         self._cr.commit()
-        cmd = '''SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
-            self._table, self._retention_policy,)
+        cmd = (
+            """SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);"""
+            % (
+                self._table,
+                self._retention_policy,
+            )
+        )
         self._cr.execute(cmd)
         self._cr.commit()
-        _logger.info("Add Retention Policy For Table '%s':, Interval: %s created", self._table, self._retention_policy)
+        _logger.info(
+            "Add Retention Policy For Table '%s':, Interval: %s created",
+            self._table,
+            self._retention_policy,
+        )
 
     def _add_compression_policy(self):
         # FIXME: 一旦设定可压缩后，就不能解除
         if not ENV_TIMESCALE_ENABLE or not self._compression_policy:
             return
-        cmd = '''ALTER TABLE %s SET (timescaledb.compress);''' % (self._table,)
+        cmd = """ALTER TABLE %s SET (timescaledb.compress);""" % (self._table,)
         self._cr.execute(cmd)
         self._cr.commit()
         # 移除已有的策略
         # remove_cmd = '''SELECT remove_compression_policy('%s', if_exists => true);''' % (
         #     self._table,)
         # self._cr.execute(remove_cmd)
-        cmd = '''SELECT add_compression_policy('%s', INTERVAL '%s', if_not_exists => true);''' % (
-            self._table, self._compression_policy,)
+        cmd = (
+            """SELECT add_compression_policy('%s', INTERVAL '%s', if_not_exists => true);"""
+            % (
+                self._table,
+                self._compression_policy,
+            )
+        )
         self._cr.execute(cmd)
         self._cr.commit()
-        _logger.info("Add Compression Policy For Table '%s':, Interval: %s created", self._table,
-                     self._compression_policy)
+        _logger.info(
+            "Add Compression Policy For Table '%s':, Interval: %s created",
+            self._table,
+            self._compression_policy,
+        )
 
     def _add_sql_constraints(self):
         # must_create_table = not table_exists(self._cr, self._table)

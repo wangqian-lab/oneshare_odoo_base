@@ -21,7 +21,6 @@ _logger = logging.getLogger(__name__)
 
 
 class OpenIDLogin(OAuthLogin, Session):
-
     def list_providers(self):
         providers = super(OpenIDLogin, self).list_providers()
         for provider in providers:
@@ -29,7 +28,10 @@ class OpenIDLogin(OAuthLogin, Session):
             if not _flow:
                 continue
             flow = AuthOauthFlow(_flow)
-            if flow in (AuthOauthFlow.OpenIdConnectCode, AuthOauthFlow.OpenIdConnectImplicit):
+            if flow in (
+                AuthOauthFlow.OpenIdConnectCode,
+                AuthOauthFlow.OpenIdConnectImplicit,
+            ):
                 params = url_decode(provider["auth_link"].split("?")[-1])
                 # nonce
                 params["nonce"] = secrets.token_urlsafe()
@@ -52,17 +54,24 @@ class OpenIDLogin(OAuthLogin, Session):
                         _logger.error("openid connect scope must contain 'openid'")
                     params["scope"] = provider["scope"]
                 # auth link that the user will click
-                provider["auth_link"] = f"{provider.get('auth_endpoint')}?{url_encode(params)}"
+                provider[
+                    "auth_link"
+                ] = f"{provider.get('auth_endpoint')}?{url_encode(params)}"
         return providers
 
     def get_sso_provider(self):
         providers = self.list_providers()
-        icp = request.env['ir.config_parameter'].sudo()
+        icp = request.env["ir.config_parameter"].sudo()
         sso_provider = icp.get_param("sso.provider")
-        sso_enabled = icp.get_param('sso.enabled')
+        sso_enabled = icp.get_param("sso.enabled")
         if not sso_enabled:
             return False, None
-        elif isinstance(sso_enabled, str) and sso_enabled.lower() in ("false", "f", "no", "0"):
+        elif isinstance(sso_enabled, str) and sso_enabled.lower() in (
+            "false",
+            "f",
+            "no",
+            "0",
+        ):
             return False, None
         for provider in providers:
             if provider.get("name") == sso_provider and provider.get("auth_link"):
@@ -75,15 +84,17 @@ class OpenIDLogin(OAuthLogin, Session):
         sso_enable, provider = self.get_sso_provider()
         if not sso_enable or not provider:
             return ret
-        auth_link = provider.get("auth_link") if provider.get("auth_link") else "/web/login"
+        auth_link = (
+            provider.get("auth_link") if provider.get("auth_link") else "/web/login"
+        )
         if not request.session.uid:
             return werkzeug.utils.redirect(auth_link, HTTPStatus.SEE_OTHER)
         return ret
 
     @http.route()
-    def logout(self, redirect='/web'):
+    def logout(self, redirect="/web"):
         # 先退出oauth登录 否则导致session删除拿不到token无法退出三方登录系统
         sso_enabled, provider = self.get_sso_provider()
         if sso_enabled and provider:
-            request.env['res.users'].sudo().logout(provider)
+            request.env["res.users"].sudo().logout(provider)
         return super(OpenIDLogin, self).logout(redirect)

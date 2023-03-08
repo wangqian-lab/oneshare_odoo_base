@@ -12,4 +12,4 @@ class OneshareCategoryMixin(models.AbstractModel):
         return randint(1, 11)
 
     name = fields.Char(string="Tag Name", required=True)
-    color = fields.Integer(string='Color Index', default=_get_default_color)
+    color = fields.Integer(string="Color Index", default=_get_default_color)

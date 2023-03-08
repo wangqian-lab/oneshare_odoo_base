@@ -21,25 +21,25 @@
 #############################################################################
 
 {
-    'name': "One2many Search Widget Odoo15",
+    "name": "One2many Search Widget Odoo15",
     "version": "14.0.1.0.0",
-    'description': "Quick Search Feature For One2many Fields In Odoo",
-    'summary': 'Quick Search Feature For One2many Fields In Odoo',
+    "description": "Quick Search Feature For One2many Fields In Odoo",
+    "summary": "Quick Search Feature For One2many Fields In Odoo",
     "website": "https://www.cybrosys.com",
-    'company': 'Cybrosys Techno Solutions',
-    'maintainer': 'Cybrosys Techno Solutions',
-    'category': 'Tools',
+    "company": "Cybrosys Techno Solutions",
+    "maintainer": "Cybrosys Techno Solutions",
+    "category": "Tools",
     "author": "Cybrosys Techno Solutions",
     "license": "LGPL-3",
-    'depends': ['web'],
-    'qweb': [
+    "depends": ["web"],
+    "qweb": [
         "static/src/xml/one2manysearch.xml",
     ],
-    'data': {
+    "data": {
         "templates/assets.xml",
     },
     "installable": True,
     "application": False,
-    'images': ['static/description/banner.png'],
-    'auto_install': False,
+    "images": ["static/description/banner.png"],
+    "auto_install": False,
 }

@@ -12,16 +12,16 @@ class TestGithubProvider(TestCase):
         self._app.open()
 
     def test_trigger_repo_dispatch_evt(self):
-        ret = self._app.invoke_api('repo_dispatch', owner='masami10', repo='onesphere')
+        ret = self._app.invoke_api("repo_dispatch", owner="masami10", repo="onesphere")
         print(ret)
         self.assertTrue(ret)
 
     def test_get_all_repos(self):
-        ret = self._app.invoke_api('list_repos')
+        ret = self._app.invoke_api("list_repos")
         print(ret)
         self.assertTrue(ret)
 
     def test_get_all_repo_tags(self):
-        ret = self._app.invoke_api('list_tags', owner='masami10', repo='rush')
+        ret = self._app.invoke_api("list_tags", owner="masami10", repo="rush")
         print(ret)
         self.assertTrue(ret)

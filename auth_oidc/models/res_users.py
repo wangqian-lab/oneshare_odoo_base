@@ -12,8 +12,10 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-ENV_ONESHARE_SIGNUP_PUBLIC_USER = strtobool(os.getenv('ENV_ONESHARE_SIGNUP_PUBLIC_USER', 'False'))
-ENV_ONESHARE_REALM_ROLE_KEY = os.getenv('ENV_ONESHARE_REALM_ROLE_KEY', "role")
+ENV_ONESHARE_SIGNUP_PUBLIC_USER = strtobool(
+    os.getenv("ENV_ONESHARE_SIGNUP_PUBLIC_USER", "False")
+)
+ENV_ONESHARE_REALM_ROLE_KEY = os.getenv("ENV_ONESHARE_REALM_ROLE_KEY", "role")
 
 
 class ResUsers(models.Model):
@@ -21,27 +23,30 @@ class ResUsers(models.Model):
 
     @api.model
     def _signup_create_user(self, values):
-        if hasattr(self, 'context'):
+        if hasattr(self, "context"):
             context = self.context
-            force_portal_user = context.get('force_portal_user', False)
+            force_portal_user = context.get("force_portal_user", False)
             if ENV_ONESHARE_SIGNUP_PUBLIC_USER and not force_portal_user:
                 return self._create_user_from_public_user(values)
         return super(ResUsers, self)._signup_create_user(values)
 
     def _create_user_from_public_user(self, values):
         template_user_id = literal_eval(
-            self.env['ir.config_parameter'].sudo().get_param('base.template_public_user_id', 'False'))
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("base.template_public_user_id", "False")
+        )
         template_user = self.browse(template_user_id)
         if not template_user.exists():
-            raise ValueError(_('Signup: invalid public user'))
+            raise ValueError(_("Signup: invalid public user"))
 
-        if not values.get('login'):
-            raise ValueError(_('Signup: no login given for new user'))
-        if not values.get('partner_id') and not values.get('name'):
-            raise ValueError(_('Signup: no name or partner given for new user'))
+        if not values.get("login"):
+            raise ValueError(_("Signup: no login given for new user"))
+        if not values.get("partner_id") and not values.get("name"):
+            raise ValueError(_("Signup: no name or partner given for new user"))
 
         # create a copy of the template user (attached to a specific partner_id if given)
-        values['active'] = True
+        values["active"] = True
         try:
             with self.env.cr.savepoint():
                 return template_user.with_context(no_reset_password=True).copy(values)
@@ -67,7 +72,7 @@ class ResUsers(models.Model):
                 grant_type="authorization_code",
                 code=code,
                 code_verifier=oauth_provider.code_verifier,
-                redirect_uri=redirect_uri
+                redirect_uri=redirect_uri,
             ),
             auth=auth,
         )
@@ -75,7 +80,9 @@ class ResUsers(models.Model):
         response_json = response.json()
         # 将refresh_token存在odoo session
         if response_json.get("refresh_token"):
-            request.httprequest.session["refresh_token"] = response_json.get("refresh_token")
+            request.httprequest.session["refresh_token"] = response_json.get(
+                "refresh_token"
+            )
         return response_json.get("access_token"), response_json.get("id_token")
 
     @api.model
@@ -143,29 +150,43 @@ class ResUsers(models.Model):
             return
         if roles and isinstance(roles, list):
             try:
-                oauth_uid = validation['user_id']
-                oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
+                oauth_uid = validation["user_id"]
+                oauth_user = self.search(
+                    [
+                        ("oauth_uid", "=", oauth_uid),
+                        ("oauth_provider_id", "=", provider),
+                    ]
+                )
                 if not oauth_user:
                     raise AccessDenied()
                 assert len(oauth_user) == 1
-                role_line_ids = self.env['res.users.role']
-                role_line_obj = self.env['res.users.role.line']
+                role_line_ids = self.env["res.users.role"]
+                role_line_obj = self.env["res.users.role.line"]
                 # roles: ["admin", "demo", ...]
                 for role in roles:
-                    res_role = self.env['res.users.role'].sudo().search([("name", "=", role)])
+                    res_role = (
+                        self.env["res.users.role"].sudo().search([("name", "=", role)])
+                    )
                     if not res_role:
                         continue
                     domain = [
-                        ("role_id", "=", res_role.id), ("user_id", "=", oauth_user.id), ("is_enabled", "=", True)]
+                        ("role_id", "=", res_role.id),
+                        ("user_id", "=", oauth_user.id),
+                        ("is_enabled", "=", True),
+                    ]
                     role_line = role_line_obj.sudo().search(domain)
                     if not role_line:
-                        role_line = role_line_obj.sudo().create({
-                            "role_id": res_role.id,
-                            "user_id": oauth_user.id,
-                            "is_enabled": True,
-                        })
+                        role_line = role_line_obj.sudo().create(
+                            {
+                                "role_id": res_role.id,
+                                "user_id": oauth_user.id,
+                                "is_enabled": True,
+                            }
+                        )
                     role_line_ids += role_line
-                oauth_user.write({"role_line_ids": [(6, 0, role_line_ids.ids)]})  # 强制替换角色组
+                oauth_user.write(
+                    {"role_line_ids": [(6, 0, role_line_ids.ids)]}
+                )  # 强制替换角色组
             except Exception as e:
-                _logger.error(f'_ensure_and_solve_role error: {ustr(e)}')
+                _logger.error(f"_ensure_and_solve_role error: {ustr(e)}")
                 pass

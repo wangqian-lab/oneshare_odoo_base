@@ -1,4 +1,5 @@
 import logging
+
 _logger = logging.getLogger(__name__)
 
 
@@ -9,8 +10,7 @@ except ImportError as error:
 
 
 def html2text(html):
-    """ covert html to text, ignoring images and tables
-    """
+    """covert html to text, ignoring images and tables"""
     if not html:
         return ""
 
@@ -25,10 +25,9 @@ def html2text(html):
 def _get_preview_from_html(html):
     text_list = html2text(html).splitlines()
     result = []
-    while len(
-            result) <= 3 and text_list:
+    while len(result) <= 3 and text_list:
         line = text_list.pop(0)
-        line = line.lstrip('#').strip()
+        line = line.lstrip("#").strip()
         if not line:
             continue
         result.append(line)

@@ -6,23 +6,30 @@ from typing import Union
 import pytz
 from dateutil.parser import parse
 
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATE_LENGTH, \
-    DEFAULT_SERVER_TIME_FORMAT
+from odoo.tools import (
+    DEFAULT_SERVER_DATE_FORMAT,
+    DEFAULT_SERVER_DATETIME_FORMAT,
+    DATE_LENGTH,
+    DEFAULT_SERVER_TIME_FORMAT,
+)
 
 RFC3339_SERVER_DATETIME_FORMAT = "%sT%s" % (
     DEFAULT_SERVER_DATE_FORMAT,
-    DEFAULT_SERVER_TIME_FORMAT)
-DEFAULT_SERVER_DATETIME_FORMAT_TZ = f'{DEFAULT_SERVER_DATETIME_FORMAT}%z'
-RFC3339_SERVER_DATETIME_FORMAT_TZ = f'{RFC3339_SERVER_DATETIME_FORMAT}%z'
-ENV_DEFAULT_TIMEZONE = os.getenv('ENV_DEFAULT_TIMEZONE', 'Asia/Shanghai')
+    DEFAULT_SERVER_TIME_FORMAT,
+)
+DEFAULT_SERVER_DATETIME_FORMAT_TZ = f"{DEFAULT_SERVER_DATETIME_FORMAT}%z"
+RFC3339_SERVER_DATETIME_FORMAT_TZ = f"{RFC3339_SERVER_DATETIME_FORMAT}%z"
+ENV_DEFAULT_TIMEZONE = os.getenv("ENV_DEFAULT_TIMEZONE", "Asia/Shanghai")
 
 DEFAULT_TZ = pytz.timezone(ENV_DEFAULT_TIMEZONE)
 
 DATETIME_LENGTH = len(datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT))
-RFC3339_DATETIME_LENGTH = len(datetime.now().strftime(RFC3339_SERVER_DATETIME_FORMAT_TZ))
+RFC3339_DATETIME_LENGTH = len(
+    datetime.now().strftime(RFC3339_SERVER_DATETIME_FORMAT_TZ)
+)
 
 
-def utc_datetime_from_str(ss='') -> datetime:
+def utc_datetime_from_str(ss="") -> datetime:
     ll = len(ss)
     if ll < RFC3339_DATETIME_LENGTH:
         d = datetime.now()
@@ -34,7 +41,7 @@ def utc_datetime_from_str(ss='') -> datetime:
     return d.astimezone(pytz.utc)
 
 
-def local_datetime_from_str(ss='', tz_local=DEFAULT_TZ) -> datetime:
+def local_datetime_from_str(ss="", tz_local=DEFAULT_TZ) -> datetime:
     ll = len(ss)
     if ll < DATE_LENGTH:
         d = datetime.now()
@@ -66,7 +73,7 @@ def utc_to_local_datetime(dd: Union[datetime, str], tz_local=DEFAULT_TZ) -> date
     return dd.astimezone(tz_local)
 
 
-def local_date_from_str(ss: str = '', tz_local=DEFAULT_TZ) -> datetime:
+def local_date_from_str(ss: str = "", tz_local=DEFAULT_TZ) -> datetime:
     if len(ss) < DATE_LENGTH:
         d = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     else:
