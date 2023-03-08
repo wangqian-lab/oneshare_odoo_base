@@ -58,7 +58,7 @@ def read_counts_for(
             mapped_data[key] = m["%s_count" % search_field]
     else:
         # For case, if record is not written in db
-        mapped_data = dict()
+        mapped_data = {}
     return mapped_data
 
 
