@@ -231,7 +231,7 @@ class ResConfigSettings(models.TransientModel):
                 if not field.related or field.store:
                     sql = "%s where company_id=%d" % (sql, self.env.company.id)
                     _logger.warning(
-                        "remove_app_data where add company_id: %s" % obj_name
+                        "remove_app_data where add company_id: %s", obj_name
                     )
             try:
                 self._cr.execute(sql)

@@ -107,8 +107,9 @@ class IrAttachment(models.Model):
         attachment_ids = self._search(domain)
 
         _logger.info(
-            "Approximately %s attachments to store to %s"
-            % (len(attachment_ids), repr(bucket))
+            "Approximately %s attachments to store to %s",
+            len(attachment_ids),
+            repr(bucket),
         )
         for attach in map(self.browse, attachment_ids):
             is_protected = not bool(attach._filter_protected_attachments())
