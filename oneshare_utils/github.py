@@ -86,7 +86,9 @@ class GithubProvider(object):
         data = {}
         return data
 
-    def trigger_repo_dispatch_evt(self, owner="", repo="", client_payload: dict = {}):
+    def trigger_repo_dispatch_evt(self, owner="", repo="", client_payload: dict = None):
+        if client_payload is None:
+            client_payload = {}
         if not repo or not owner:
             return
         url = self._repo_event_url_tmpl % (

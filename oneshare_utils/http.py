@@ -84,10 +84,12 @@ def _do_http_request(
     url,
     method: HTTP_METHOD_MODE = DEFAULT_METHOD,
     data=None,
-    headers=DEFAULT_HEADERS,
+    headers=None,
     params=None,
     auth=None,
 ) -> httpResponse:
+    if headers is None:
+        headers = DEFAULT_HEADERS
     try:
         _logger.debug(
             "Do Request: {}, Data: {}".format(url, pprint.pformat(data, indent=4))

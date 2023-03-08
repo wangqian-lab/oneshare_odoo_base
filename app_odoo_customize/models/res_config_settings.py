@@ -207,7 +207,9 @@ class ResConfigSettings(models.TransientModel):
             pass
 
     # 清数据，o=对象, s=序列
-    def remove_app_data(self, o, s=[]):
+    def remove_app_data(self, o, s=None):
+        if s is None:
+            s = []
         for line in o:
             # 检查是否存在
             try:
