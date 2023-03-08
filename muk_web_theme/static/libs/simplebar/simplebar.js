@@ -862,7 +862,7 @@
   // fallback for non-array-like ES3 and non-enumerable old V8 strings
 
   // eslint-disable-next-line no-prototype-builtins
-  var _iobject = Object("z").propertyIsEnumerable(0)
+  var _iobject = Object.propertyIsEnumerable.call(Object("z"), "0")
     ? Object
     : function (it) {
         return _cof(it) == "String" ? it.split("") : Object(it);
