@@ -72,4 +72,3 @@ class ResUsers(models.Model):
         writeable_fields.extend(theme_fields)
         type(self).SELF_READABLE_FIELDS = readable_fields
         type(self).SELF_WRITEABLE_FIELDS = writeable_fields
-        return init_res
