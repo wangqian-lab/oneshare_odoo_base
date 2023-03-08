@@ -16,7 +16,7 @@ odoo.define("one2many_search.search", function (require) {
 
     _updateControlPanel: function (pagingState) {
       var ret = this._super.apply(this, arguments);
-      if (!!this.filter_value) {
+      if (this.filter_value) {
         this._onKeyUp(undefined);
       }
       return ret;
@@ -26,12 +26,12 @@ odoo.define("one2many_search.search", function (require) {
       var self = this;
       self.$el.find("table").addClass("oe_one2many");
       var value = this.filter_value;
-      if (!!event) {
+      if (event) {
         value = $(event.currentTarget).val().toLowerCase();
         this.filter_value = value;
       }
       var $el = $(this.$el);
-      if (!!value) {
+      if (value) {
         $(".oe_one2many tr:not(:lt(1))").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
