@@ -19,7 +19,6 @@ import copy
 from tenacity import retry, wait_random_exponential, RetryError
 from json import JSONEncoder
 import datetime
-from http import HTTPStatus
 
 _logger = logging.getLogger(__name__)
 

@@ -15,8 +15,6 @@ from odoo.addons.web.controllers.main import Session
 from odoo.addons.auth_oauth.controllers.main import OAuthLogin, ensure_db, request
 from odoo.addons.auth_oidc.models.auth_oauth_provider import AuthOauthFlow
 
-from odoo.addons.auth_oauth.controllers.main import OAuthLogin
-
 _logger = logging.getLogger(__name__)
 
 
