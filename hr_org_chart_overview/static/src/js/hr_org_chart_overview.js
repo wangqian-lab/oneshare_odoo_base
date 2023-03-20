@@ -18,7 +18,6 @@ odoo.define("hr_org_chart_overview", function (require) {
     init: function (parent) {
       this.orgChartData = {};
       this.actionManager = parent;
-      console.log(this.actionManager);
       this._super.apply(this, arguments);
     },
 
@@ -190,7 +189,7 @@ odoo.define("hr_org_chart_overview", function (require) {
 
     _onClickNode: function (ev) {
       ev.preventDefault();
-      this._openEmployeeFormView(parseInt(ev.currentTarget.id), 10);
+      this._openEmployeeFormView(parseInt(ev.currentTarget.id, 10));
     },
 
     _onPrintPDF: function (ev) {

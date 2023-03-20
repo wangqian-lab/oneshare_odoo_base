@@ -482,16 +482,12 @@ class ResConfigSettings(models.TransientModel):
                 .id
             )
 
-            sql = (
-                "delete from ir_default where (field_id = %s or field_id = %s) and company_id=%d"
-                % (field1, field2, company_id)
-            )
+            sql = "delete from ir_default where (field_id = %s or field_id = %s) and company_id=%d"
             sql2 = (
                 "update account_journal set bank_account_id=NULL where company_id=%d;"
-                % company_id
             )
-            self._cr.execute(sql)
-            self._cr.execute(sql2)
+            self._cr.execute(sql, (field1, field2, company_id))
+            self._cr.execute(sql2, (company_id,))
 
             self._cr.commit()
         except Exception as e:
