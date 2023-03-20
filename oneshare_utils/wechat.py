@@ -27,9 +27,9 @@ class WechatProvider(object):
         ret = {}
         try:
             if not self._client:
-                raise ValidationError('微信认证,请先创建客户端')
+                raise ValidationError("微信认证,请先创建客户端")
             if not code:
-                raise ValidationError('微信认证,认证代码未获取')
+                raise ValidationError("微信认证,认证代码未获取")
             c = WeChatWxa(self._client)
             ret = c.code_to_session(code)
         except Exception as e:
