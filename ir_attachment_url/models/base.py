@@ -70,7 +70,8 @@ def my_write(self, records, value):
 
 
 def my_read(self, records):
-    assert self.attachment
+    if not self.attachment:
+        raise AssertionError
     domain = [
         ("res_model", "=", records._name),
         ("res_field", "=", self.name),

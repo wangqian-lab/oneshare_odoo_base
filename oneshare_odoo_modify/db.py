@@ -93,7 +93,8 @@ def _add_timescale_extension(name):
 
 @check_db_management_enabled
 def restore_db(db, dump_file, copy=False):
-    assert isinstance(db, str)
+    if not isinstance(db, str):
+        raise AssertionError
     if exp_db_exist(db):
         _logger.info("RESTORE DB: %s already exists", db)
         raise Exception("Database already exists")

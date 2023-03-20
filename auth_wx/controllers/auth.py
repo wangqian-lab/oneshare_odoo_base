@@ -37,7 +37,8 @@ class AuthWx(http.Controller):
             wx_user = res_user_obj.search([("oauth_uid", "=", open_id)])
             if not wx_user:
                 raise AccessDenied()
-            assert len(wx_user) == 1
+            if len(wx_user) != 1:
+                raise AssertionError
             wx_user.write({"oauth_access_token": session_key})
             return wx_user.login, need_user_additional_info
         except AccessDenied as access_denied_exception:

@@ -203,7 +203,8 @@ class ApiJsonRequest(WebRequest):
 # Copy of http.route adding routing 'type':'api'
 def api_route(route=None, **kw):
     routing = kw.copy()
-    assert "type" not in routing or routing["type"] in ("http", "json", "apijson")
+    if not ("type" not in routing or routing["type"] in ("http", "json", "apijson")):
+        raise AssertionError
 
     def decorator(f):
         if route:

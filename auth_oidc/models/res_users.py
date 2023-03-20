@@ -159,7 +159,8 @@ class ResUsers(models.Model):
                 )
                 if not oauth_user:
                     raise AccessDenied()
-                assert len(oauth_user) == 1
+                if len(oauth_user) != 1:
+                    raise AssertionError
                 role_line_ids = self.env["res.users.role"]
                 role_line_obj = self.env["res.users.role.line"]
                 # roles: ["admin", "demo", ...]
