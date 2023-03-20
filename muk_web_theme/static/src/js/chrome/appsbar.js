@@ -33,7 +33,7 @@ odoo.define("muk_web_theme.AppsBar", function (require) {
     init(parent, menu) {
       this._super(...arguments);
       this._apps = _.map(menu.children, (app) => ({
-        actionID: parseInt(app.action.split(",")[1]),
+        actionID: parseInt(app.action.split(",")[1], 10),
         web_icon_data: app.web_icon_data,
         menuID: app.id,
         name: app.name,

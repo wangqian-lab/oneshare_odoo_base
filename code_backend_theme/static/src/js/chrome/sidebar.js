@@ -12,7 +12,7 @@ odoo.define("code_backend_theme.SideBar", function (require) {
       this._super.apply(this, arguments);
       this._apps = _.map(menuData.children, function (appMenuData) {
         return {
-          actionID: parseInt(appMenuData.action.split(",")[1]),
+          actionID: parseInt(appMenuData.action.split(",")[1], 10),
           menuID: appMenuData.id,
           name: appMenuData.name,
           xmlID: appMenuData.xmlid,
