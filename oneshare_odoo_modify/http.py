@@ -235,7 +235,7 @@ def api_route(route=None, **kw):
                 response.set_default()
                 return response
 
-            _logger.warn(
+            _logger.warning(
                 "<function %s.%s> returns an invalid response type for an http request",
                 f.__module__,
                 f.__name__,
