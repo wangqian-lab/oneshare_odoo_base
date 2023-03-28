@@ -2,6 +2,7 @@
 
 import logging
 from distutils.util import strtobool
+
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 
@@ -196,12 +197,9 @@ class ResConfigSettings(models.TransientModel):
         )
 
     def set_module_url(self):
-        sql = (
-            "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''"
-            % (self.app_enterprise_url, "OEEL%")
-        )
+        sql = "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''"
         try:
-            self._cr.execute(sql)
+            self._cr.execute(sql, (self.app_enterprise_url, "OEEL%",))
             self._cr.commit()
         except Exception as e:
             pass
@@ -226,17 +224,19 @@ class ResConfigSettings(models.TransientModel):
             else:
                 t_name = obj._table
 
-            sql = "delete from %s" % t_name
+            sql = "DELETE FROM %s"
+            params = (t_name,)
             # 增加多公司处理
             if hasattr(self.env[obj_name], "company_id"):
                 field = self.env[obj_name]._fields["company_id"]
                 if not field.related or field.store:
-                    sql = "%s where company_id=%d" % (sql, self.env.company.id)
+                    sql += " where company_id=%d"
+                    params = (*params, self.env.company.id,)
                     _logger.warning(
                         "remove_app_data where add company_id: %s", obj_name
                     )
             try:
-                self._cr.execute(sql)
+                self._cr.execute(sql, params)
                 self._cr.commit()
             except Exception as e:
                 _logger.warning("remove data error: %s,%s", line, e)
@@ -478,8 +478,8 @@ class ResConfigSettings(models.TransientModel):
             field1 = self.env["ir.model.fields"]._get("product.template", "taxes_id").id
             field2 = (
                 self.env["ir.model.fields"]
-                ._get("product.template", "supplier_taxes_id")
-                .id
+                    ._get("product.template", "supplier_taxes_id")
+                    .id
             )
 
             sql = "delete from ir_default where (field_id = %s or field_id = %s) and company_id=%d"
