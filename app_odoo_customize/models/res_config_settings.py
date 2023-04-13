@@ -199,7 +199,13 @@ class ResConfigSettings(models.TransientModel):
     def set_module_url(self):
         sql = "UPDATE ir_module_module SET website = '%s' WHERE license like '%s' and website <> ''"
         try:
-            self._cr.execute(sql, (self.app_enterprise_url, "OEEL%",))
+            self._cr.execute(
+                sql,
+                (
+                    self.app_enterprise_url,
+                    "OEEL%",
+                ),
+            )
             self._cr.commit()
         except Exception as e:
             pass
@@ -231,7 +237,10 @@ class ResConfigSettings(models.TransientModel):
                 field = self.env[obj_name]._fields["company_id"]
                 if not field.related or field.store:
                     sql += " where company_id=%d"
-                    params = (*params, self.env.company.id,)
+                    params = (
+                        *params,
+                        self.env.company.id,
+                    )
                     _logger.warning(
                         "remove_app_data where add company_id: %s", obj_name
                     )
@@ -478,8 +487,8 @@ class ResConfigSettings(models.TransientModel):
             field1 = self.env["ir.model.fields"]._get("product.template", "taxes_id").id
             field2 = (
                 self.env["ir.model.fields"]
-                    ._get("product.template", "supplier_taxes_id")
-                    .id
+                ._get("product.template", "supplier_taxes_id")
+                .id
             )
 
             sql = "delete from ir_default where (field_id = %s or field_id = %s) and company_id=%d"
