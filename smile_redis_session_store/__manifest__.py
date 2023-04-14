@@ -19,6 +19,6 @@
     "installable": True,
     "application": False,
     "external_dependencies": {
-        "python": ["redis", "redis-py-cluster"],
+        "python": ["redis"],
     },
 }

@@ -21,31 +21,37 @@ else:
     import cPickle
 
 try:
-    import redis, rediscluster
+    import redis
 except ImportError:
     if is_redis_session_store_activated():
         raise ImportError(
             "Please install package python3-redis: " "apt install python3-redis"
         )
 
+from redis.backoff import ExponentialBackoff
+from redis.retry import Retry
 
 class RedisSessionStore(SessionStore):
     def __init__(self, *args, **kwargs):
         super(RedisSessionStore, self).__init__(*args, **kwargs)
         self.expire = kwargs.get("expire", SESSION_TIMEOUT)
         self.key_prefix = kwargs.get("key_prefix", "")
+        retry = Retry(ExponentialBackoff(), 3)
+        host = startup_nodes[0]
         if len(startup_nodes) == 1:
-            host = startup_nodes[0]
             self.redis = redis.Redis(
                 health_check_interval=30,
                 host=host,
                 port=redis_ports,
                 db=redis_db,
                 password=redis_password,
+                retry=retry,
             )
         else:
-            self.redis = rediscluster.RedisCluster(
-                startup_nodes=startup_nodes,
+            self.redis = redis.cluster.RedisCluster(
+                host=host,
+                port=redis_ports,
+                retry=retry,
                 health_check_interval=30,
                 password=redis_password,
             )
