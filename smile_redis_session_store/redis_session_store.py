@@ -31,6 +31,7 @@ except ImportError:
 from redis.backoff import ExponentialBackoff
 from redis.retry import Retry
 
+
 class RedisSessionStore(SessionStore):
     def __init__(self, *args, **kwargs):
         super(RedisSessionStore, self).__init__(*args, **kwargs)
