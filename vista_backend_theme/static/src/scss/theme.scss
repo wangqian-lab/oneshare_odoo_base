@@ -976,26 +976,6 @@ table-sm th,
   }
 }
 
-.o_menu_sections li {
-  width: 80px;
-
-  > a {
-    //有span和无span的a布局不一样 这里强制flex一下
-    display: flex !important;
-    justify-content: center;
-    white-space: normal;
-    line-height: 25px !important;
-    word-break: break-all !important;
-    text-align: center;
-
-    span {
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-    }
-  }
-}
-
 .o_menu_sections > li:hover > .dropdown-menu {
   display: block;
   opacity: 1;
