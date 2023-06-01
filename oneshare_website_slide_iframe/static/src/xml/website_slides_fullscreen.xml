@@ -1,0 +1,8 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="website.slides.fullscreen.content.iframe">
+        <div class="player embed-responsive embed-responsive-16by9 embed-responsive-item h-100 fullscreen_iframe">
+            <t t-raw="widget.get('slide').embedCode"/>
+        </div>
+    </t>
+</templates>

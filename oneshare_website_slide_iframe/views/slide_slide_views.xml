@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="oneshare_view_slide_slide_form" model="ir.ui.view">
+            <field name="name">oneshare_view_slide_slide_form</field>
+            <field name="model">slide.slide</field>
+            <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="url" position="attributes">
+                    <attribute name="attrs">{
+                        'required': [('slide_type', 'in', ('video', 'iframe'))],
+                        'invisible': [('slide_type', 'not in', ('video', 'iframe'))]}
+                    </attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

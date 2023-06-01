@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="slide_fullscreen_sidebar_iframe" inherit_id="website_slides.slide_fullscreen_sidebar_category">
+            <xpath expr="//li[@t-att-data-id='slide.id']" position="attributes">
+                <attribute name="t-att-data-embed-code">slide.embed_code if slide.slide_type in ['video', 'document',
+                    'presentation', 'infographic', 'iframe'] else False
+                </attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
