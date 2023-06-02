@@ -47,6 +47,31 @@ ENV_TIMESCALE_ENABLE = strtobool(os.getenv("ENV_TIMESCALE_ENABLE", "false"))
 # odoo.tools.sql.set_not_null = set_not_null
 
 
+def do_add_retention_policy(cr, table_name, retention_policy):
+    # FIXME: 目前timescale版本更新策略方法不稳定，所以我们更新方式为先删除再重建
+    if not ENV_TIMESCALE_ENABLE:
+        return
+    remove_cmd = """SELECT remove_retention_policy('%s', if_exists => true);""" % (
+        table_name,
+    )
+    cr.execute(remove_cmd)
+    cr.commit()
+    cmd = (
+        """SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);"""
+        % (
+            table_name,
+            retention_policy,
+        )
+    )
+    cr.execute(cmd)
+    cr.commit()
+    _logger.info(
+        "Add Retention Policy For Table '%s':, Interval: %s created",
+        table_name,
+        retention_policy,
+    )
+
+
 class OneshareHyperModel(models.AbstractModel):
     _log_access = False
     _hyper_field = "time"
@@ -202,27 +227,9 @@ class OneshareHyperModel(models.AbstractModel):
             add(par_num, definition)
 
     def _add_retention_policy(self):
-        if not ENV_TIMESCALE_ENABLE or not self._retention_policy:
+        if not self._retention_policy:
             return
-        remove_cmd = """SELECT remove_retention_policy('%s', if_exists => true);""" % (
-            self._table,
-        )
-        self._cr.execute(remove_cmd)
-        self._cr.commit()
-        cmd = (
-            """SELECT add_retention_policy('%s', INTERVAL '%s', if_not_exists => true);"""
-            % (
-                self._table,
-                self._retention_policy,
-            )
-        )
-        self._cr.execute(cmd)
-        self._cr.commit()
-        _logger.info(
-            "Add Retention Policy For Table '%s':, Interval: %s created",
-            self._table,
-            self._retention_policy,
-        )
+        do_add_retention_policy(self._cr, self._table, self._retention_policy)
 
     def _add_compression_policy(self):
         # FIXME: 一旦设定可压缩后，就不能解除
