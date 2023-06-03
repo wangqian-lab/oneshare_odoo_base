@@ -40,6 +40,10 @@ class ResUsers(models.Model):
         title = title or _("Danger")
         self._notify_channel(DANGER, message, title, sticky)
 
+    def notify_error(self, message="Default message", title=None, sticky=False):
+        title = title or _("Danger")
+        self._notify_channel(DANGER, message, title, sticky)
+
     def notify_warning(self, message="Default message", title=None, sticky=False):
         title = title or _("Warning")
         self._notify_channel(WARNING, message, title, sticky)
