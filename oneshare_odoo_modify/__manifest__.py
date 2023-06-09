@@ -16,7 +16,7 @@
     "depends": ["web", "base", "resource"],
     "data": [
         "templates/assets.xml",
-        'data/res_company_data.xml',
+        "data/res_company_data.xml",
     ],
     "qweb": [
         "templates/search_panel.xml",

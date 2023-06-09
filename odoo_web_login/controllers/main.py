@@ -62,7 +62,7 @@ class LoginHome(Home):
             param_obj.get_param("login_form_disable_database_manager") or False
         )
         request.params["background_src"] = (
-                param_obj.get_param("login_form_background_default") or ""
+            param_obj.get_param("login_form_background_default") or ""
         )
 
         return super(LoginHome, self).web_login(redirect, **kw)
