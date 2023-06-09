@@ -61,39 +61,8 @@ class LoginHome(Home):
         request.params["disable_database_manager"] = (
             param_obj.get_param("login_form_disable_database_manager") or False
         )
-
-        change_background = (
-            param_obj.get_param("login_form_change_background_by_hour") or False
-        )
-        if change_background:
-            config_login_timezone = param_obj.get_param(
-                "login_form_change_background_timezone"
-            )
-            tz = (
-                config_login_timezone
-                and pytz.timezone(config_login_timezone)
-                or pytz.utc
-            )
-            current_hour = datetime.datetime.now(tz=tz).hour or 10
-
-            if (0 <= current_hour < 3) or (18 <= current_hour < 24):  # Night
-                request.params["background_src"] = (
-                    param_obj.get_param("login_form_background_night") or ""
-                )
-            elif 3 <= current_hour < 7:  # Dawn
-                request.params["background_src"] = (
-                    param_obj.get_param("login_form_background_dawn") or ""
-                )
-            elif 7 <= current_hour < 16:  # Day
-                request.params["background_src"] = (
-                    param_obj.get_param("login_form_background_day") or ""
-                )
-            else:  # Dusk
-                request.params["background_src"] = (
-                    param_obj.get_param("login_form_background_dusk") or ""
-                )
-        else:
-            request.params["background_src"] = (
+        request.params["background_src"] = (
                 param_obj.get_param("login_form_background_default") or ""
-            )
+        )
+
         return super(LoginHome, self).web_login(redirect, **kw)

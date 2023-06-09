@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="base.main_partner" model="res.partner">
+            <field name="name">上海文享数据科技有限公司</field>
+            <field name="company_name">上海文享数据科技有限公司</field>
+            <field name="street"></field>
+            <field name="city">上海</field>
+            <field name="zip">201600</field>
+            <field name='country_id' ref='base.cn'/>
+            <field name='state_id' ref='base.state_cn_SH'/>
+            <field name="phone">(+86)136-11936329</field>
+            <field name="email">info@oneshare.com.cn</field>
+            <field name="website">https://www.oneshare.com.cn</field>
+            <field name="image_1920" type="base64" file="oneshare_odoo_modify/static/src/img/logo.png"/>
+        </record>
+
+        <record id="base.main_company" model="res.company">
+            <field name="name">上海文享数据科技有限公司</field>
+            <field name="favicon" type="base64" file="oneshare_odoo_modify/static/src/img/favicon.ico"/>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="currency_id" ref="base.CNY"/>
+        </record>
+    </data>
+</odoo>

@@ -13,12 +13,12 @@
         
         <record id="login_form_change_background_by_hour" model="ir.config_parameter">
             <field name="key">login_form_change_background_by_hour</field>
-            <field name="value">True</field>
+            <field name="value">False</field>
         </record>
         
         <record id="login_form_change_background_timezone" model="ir.config_parameter">
             <field name="key">login_form_change_background_timezone</field>
-            <field name="value">Etc/GMT-7</field>
+            <field name="value">Etc/GMT-8</field>
         </record>
         
         <record id="login_form_background_default" model="ir.config_parameter">
